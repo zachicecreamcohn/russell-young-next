@@ -11,8 +11,12 @@ function Preview({ metaTags, seriesData }) {
   const router = useRouter();
   const { id } = router.query;
 
+  console.log(id);
+
   useEffect(() => {
     setLocalSeriesData(seriesData);
+    console.log("series data has changed");
+    console.log(seriesData);
   }, [seriesData]);
 
   return (
