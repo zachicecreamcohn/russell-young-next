@@ -27,7 +27,7 @@ function Parent(props) {
 
           <div className={styles["parent-children"]}>
             {parentWork.children && parentWork.children.length > 0 && parentWork.children.map((child) => (
-              <LazyLoad style={{ width: "100%" }}>
+              <LazyLoad key={child.childID}style={{ width: "100%" }}>
                 <Child childWork={child} seriesID={seriesID} key={child.childID} hideSoldOut={props.hideSoldOut} />
               </LazyLoad>
             ))}
