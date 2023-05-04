@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import { useRouter } from "next/router";
 import fetch from "node-fetch";
 import CONFIG_VARS from "@/CONFIG_VARS";
 import Body from "@/components/Body/Body";
 import styles from "./preview.module.css";
+import Head from 'next/head';
 
 function Preview({ metaTags, seriesData }) {
   const [localSeriesData, setLocalSeriesData] = useState(seriesData);
@@ -23,7 +23,9 @@ function Preview({ metaTags, seriesData }) {
     <Body center>
       {id && !isNaN(id) ? (
         <>
-          <Helmet>{metaTags.map((tag, index) => <meta key={index} property={tag.property} content={tag.content} />)}</Helmet>
+          <Head>
+            {metaTags.map((tag, index) => <meta key={index} property={tag.property} content={tag.content} />)}
+          </Head>
           <div className={styles.preview}>
             <div className={styles.left}>
               <div className={styles["img-container"]}>
@@ -91,14 +93,15 @@ export async function getServerSideProps(context) {
     { property: "og:description", content: series },
     { property: "og:image", content: imageURL },
     { property: "og:url", content: url },
+ 
   ];
 
   return {
-    props: {
-      metaTags,
-      seriesData: seriesData[0],
-    },
+  props: {
+  metaTags,
+  seriesData: seriesData[0],
+  },
   };
-}
-
-export default Preview;
+  }
+  
+  export default Preview;
