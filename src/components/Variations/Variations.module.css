@@ -1,0 +1,28 @@
+.save-changes-button {
+    width: fit-content !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+
+
+}
+
+
+.changes {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+
+.changes .reset-changes-button {
+    cursor: pointer;
+    opacity: .25;
+    stroke-width: 2.5;
+    transition: all 0.3s;
+
+}
+
+.changes .reset-changes-button:hover {
+    opacity: 1;
+    stroke-width: 1.75;
+}

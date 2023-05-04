@@ -1,0 +1,30 @@
+.series {
+    margin-bottom: 3rem;
+}
+
+.series .series-header {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    position: sticky;
+    top: 165px;
+    background-color: white;
+    z-index: 10;
+}
+
+.series .series-body {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+}
+
+.series .series-header .series-name h3 {
+    font-size: 16pt !important;
+}
+
+.collapsed {
+    display: none !important;
+}

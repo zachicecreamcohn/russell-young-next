@@ -1,0 +1,90 @@
+.child-work-popup .child-img {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.child-work-popup .child-img img {
+    width: 100%;
+    /* height: 100%; */
+}
+
+.child-work-popup .child-img .overlay {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: black;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.child-work-popup .child-img:hover .overlay {
+    opacity: 0.5;
+}
+
+.child-work-popup .child-img.skeleton {
+    height: 300px;
+}
+
+.child-work-popup p.skeleton {
+    height: 1.5rem;
+}
+
+.child-work-popup {
+    display: flex;
+    justify-content: row;
+    justify-content: space-between;
+}
+
+.child-work-popup .left, .child-work-popup .right {
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    overflow-y: auto;
+
+}
+
+
+.child-work-popup div:has(.skeleton) {
+    width: 100%;
+    height: 100%;
+}
+
+.child-work-popup .left {
+    width: 25%;
+    margin-right: 1rem;
+}
+
+.child-work-popup .right {
+    width: 70%;
+}
+
+
+
+
+
+.field-name {
+    font-family: 'Din Mittelschrift', Helvetica, Arial, sans-serif;
+    width: 50px;
+    padding-right: 1rem;
+}
+
+
+.summary table td {
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+    border-bottom: 1px solid black;
+    overflow-wrap: break-word;
+    max-width: 250px;
+}
+
+.summary table {
+    border-collapse: collapse;
+  cellspacing: 0;
+  cellpadding: 0;
+}

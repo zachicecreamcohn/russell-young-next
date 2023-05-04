@@ -1,0 +1,120 @@
+.preview {
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 3rem);
+    padding: 1.5rem;
+}
+
+.preview .left {
+    width: calc(50% - 1.5rem);
+    
+}
+
+.preview .left .img-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.preview .left .img-container img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.preview .right {
+    width: calc(50% - 1.5rem);
+    margin-left: 3rem;
+}
+
+.preview .right .info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+
+.preview .right .info-container .details {
+    margin-bottom: 2rem;
+    
+}
+
+.preview .right .info-container .details .title {
+    font-family: 'Din Mittelschrift';
+    font-size: 14pt;
+    margin-bottom: .5rem;
+}
+
+.preview .right .info-container .details p {
+    margin-bottom: .25rem;
+}
+
+.preview .right .info-container .details .series-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+
+
+.preview .right .info-container .availability {
+    font-weight: bold;
+
+}
+
+
+
+.preview .right .info-container .availability a {
+    text-decoration: underline;
+
+}
+
+
+.preview .right .info-container .availability.available {
+    color: green;
+}
+
+.preview .right .info-container .availability.semi-available {
+    color: orange;
+}
+
+.preview .right .info-container .availability.unavailable {
+    color: red;
+}
+
+.preview .right .info-container .buttons {
+    margin-top: 2rem;
+}
+
+.preview .right .info-container .buttons button {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* on mobile, the left and right be stacked on top of each other */
+@media (max-width: 750px) {
+    .preview {
+        flex-direction: column;
+    }
+
+    .preview .left {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .preview .right {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 3rem;
+
+    }
+
+    .preview .right .info-container .buttons button {
+        max-width: 100%;
+    }
+}

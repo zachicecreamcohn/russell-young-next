@@ -1,0 +1,23 @@
+.series-list {
+    width: 100%;
+}
+
+
+.series-list.adjusted-width {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+}
+
+
+
+.series-list.adjusted-width .series-body {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+}
+
+
+
+.collapse-all-toggle-container {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+}

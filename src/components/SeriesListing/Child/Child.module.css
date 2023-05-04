@@ -1,0 +1,96 @@
+.child .child-img {
+    width: auto;
+    height: 60px;
+    object-fit: contain;
+    /* border-radius: 0.25rem; */
+    max-width: 300px;
+    cursor: pointer;
+    margin-right: 2rem;
+    }
+    
+    .child .child-img img {
+    width: 100%;
+    height: 100%;
+    }
+
+.child {
+    width:calc(100% - 2rem);
+    max-width: 60%;
+    margin-left: auto;
+    min-width: 300px;
+    display: flex;
+    justify-content: start;
+    margin-bottom: .1rem;
+    /* background-color: #f6f6f6; */
+    padding: 1rem;
+}
+
+
+.child.sold-out {
+    opacity: 0.4;
+}
+/* on mobile, child is 100% wide */
+@media only screen and (max-width: 768px) {
+    .child {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+}
+
+.child .child-header {
+    width: 250px;
+}
+
+.child .child-info {
+    width: 40%;
+}
+
+.child .child-title {
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.child .share {
+    width: 10%;
+    
+}
+
+.child .child-title:hover {
+    text-decoration: underline;
+}
+
+.circle {
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    
+
+}
+
+.circle.green:hover {
+    background-color: #ff0000;
+}
+
+.circle.red:hover {
+    background-color: #159a15;
+}
+
+.circle.red {
+    background-color: #ff0000;
+}
+
+.circle.green {
+    background-color: #159a15;
+}
+
+.parent-detail-right {
+    padding-right: 5rem;
+}
+
+.parent-detail.sold-out {
+    color: #ff0000;
+
+}

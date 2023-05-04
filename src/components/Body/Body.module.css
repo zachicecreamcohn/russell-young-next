@@ -1,0 +1,39 @@
+.body {
+    padding: 1.75rem 0rem;
+    margin: 0 auto;
+    
+
+}
+
+.body .adjusted-width {
+    /* makes the div full width, while adding padding to compensate. */
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    width: calc(100% - 3.5rem);
+}
+
+
+.body.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* height: 80%; */
+}
+
+.body.flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* margin-top: 5rem; */
+}
+
+.body.flex-row {
+    display: flex;
+    flex-direction: row !important;
+    align-items: flex-start;
+    /* margin-top: 5rem; */
+}
+
+
+

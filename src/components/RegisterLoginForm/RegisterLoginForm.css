@@ -1,0 +1,51 @@
+.registerLoginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.registerLoginForm .form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: fit-content;
+    height: 100%;
+    width: 274px;
+}
+
+.registerLoginForm .form input {
+    margin-bottom: 10px;
+}
+
+.registerLoginForm h1 {
+    text-align: left;
+    width: 100%;
+    font-size: 18pt;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+.registerLoginForm button {
+    margin-top: .5rem;
+}
+
+
+.registerLoginForm a {
+    color: black;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+.registerLoginForm .secondaryActionMessage {
+    margin-top: 1rem;
+    width: 100%;
+    font-size: 10pt;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+}
+

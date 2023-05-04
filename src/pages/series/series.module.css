@@ -1,0 +1,12 @@
+
+
+.collapse-all-toggle {
+    cursor: pointer;
+    margin-top: -2rem;
+}
+
+.collapse-all-toggle:hover {
+    text-decoration: underline;
+}
+
+

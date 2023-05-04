@@ -1,0 +1,59 @@
+.full-screen-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-screen-popup .popup {
+    background-color: #fff;
+    width: 100%; 
+    /* width: 90%; */
+    height: 100%;
+    /* height: 80%; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: .25rem;
+    box-shadow: 0 0px 20px 5px rgb(0 0 0 / 20%);
+}
+
+.full-screen-popup .popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.full-screen-popup .popup .popup-header, .popup-content {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Style the Material Ui close button */
+.full-screen-popup .popup .popup-header-close {
+    cursor: pointer;
+    width: fit-content;
+}
+
+.full-screen-popup .popup .popup-header-close:hover {
+    color: #ff0000;
+}
+
+
+
+
+/* using the new "has", if the body contains an element with class "full-screen-popup", prevent scrolling */
+body:has(.full-screen-popup) {
+    overflow: hidden;
+}
