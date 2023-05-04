@@ -1,0 +1,10 @@
+{
+    "build": {
+      "command": "npm run build -- --legacy-peer-deps",
+      "env": {
+        "CI": "1"
+      },
+      "sourcemap": false
+    }
+  }
+  
