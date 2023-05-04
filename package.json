@@ -28,7 +28,7 @@
     "mysql": "^2.18.1",
     "next": "13.3.4",
     "node-fetch": "^3.3.1",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-data-table-component": "^7.5.3",
     "react-datepicker": "^4.11.0",
     "react-dom": "18.2.0",
@@ -56,7 +56,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build --legacy-peer-deps",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next"
