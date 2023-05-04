@@ -1,6 +1,6 @@
 // this is a wrapper component for the MUI-datatable component
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import MUIDataTable from 'mui-datatables';
 // allow it to have a state
 import { useState } from 'react';
@@ -21,48 +21,38 @@ function CollapsableSeriesSubTable(props) {
     const [collapsed, setCollapsed] = useState(props.collapsed);
 
     // this function will toggle the state of the table
-    const toggleState = () => {
-
-
+    const toggleState = useCallback(() => {
         setCollapsed(!collapsed);
         updateCollapsed();
-
-
-        // if the data state var is empty, get the data from the api
+      
         if (parentsData.length === 0 && collapsed) {
-            fetch("https://api.russellyoung.zachcohndev.com/demo/parents-from-series?seriesID=" + props.seriesID)
+          fetch("https://api.russellyoung.zachcohndev.com/demo/parents-from-series?seriesID=" + props.seriesID)
             .then(response => response.json())
             .then(data => {
-                
+              data = data.series_names;
       
-        
-                data = data.series_names;
- 
-
-                // reformat the data
-                let dataForTable = [];
-                for (let i = 0; i < data.length; i++) {
-                    let row = [];
-                    row.push(data[i].title);
-                    row.push(data[i].year);
-                    row.push(data[i].medium);
-                    row.push(data[i].size);
-                    dataForTable.push(row);
-                }
-
-                // set the data state var
-                setParentsData(dataForTable);
-                }
-                )
-                .catch((error) => {
-                    console.error('Error:', error);
-                }
-                );
+              let dataForTable = [];
+              for (let i = 0; i < data.length; i++) {
+                let row = [];
+                row.push(data[i].title);
+                row.push(data[i].year);
+                row.push(data[i].medium);
+                row.push(data[i].size);
+                dataForTable.push(row);
+              }
+      
+              setParentsData(dataForTable);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
         }
-    }
+      }, [collapsed, parentsData.length, props.seriesID, setCollapsed, setParentsData, updateCollapsed]);
+      
+
 
     // this function adds or removes the class .collapsed from the table
-    const updateCollapsed = () => {
+    const updateCollapsed = useCallback(() => {
         // get this element
         const element = document.getElementById(id);
         // if the state is collapsed, add the class .collapsed
@@ -73,7 +63,8 @@ function CollapsableSeriesSubTable(props) {
             element.classList.remove('collapsed');
         }
 
-    }
+    }, [collapsed, id]);
+
 
     // check for changes in the collapsed prop
 
@@ -81,7 +72,7 @@ function CollapsableSeriesSubTable(props) {
         toggleState();
 
         
-    }, [props.collapsed]);
+    }, [props.collapsed, toggleState]);
 
 
 

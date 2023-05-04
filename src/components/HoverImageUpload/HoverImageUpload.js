@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Image from "../../../../russell-young/src/common/util/Cloudflare/Image";
+import Image from "@/common/util/Cloudflare/Image";
 import { Upload as UploadIcon } from "tabler-icons-react";
 import { useRef } from "react";
 import styles from "./HoverImageUpload.module.css";
-import Upload from "../../../../russell-young/src/common/util/Cloudflare/Upload";
+import Upload from "@/common/util/Cloudflare/Upload";
 import DropFileInput from "../DropFileInput/DropFileInput";
 import { CircularProgress } from "@mui/material";
 

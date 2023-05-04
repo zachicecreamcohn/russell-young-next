@@ -1,5 +1,5 @@
 import React from "react";
-import Body from "../../../../russell-young/src/components/Body/Body";
+import Body from "@/components/Body/Body";
 
 
 function NewSeries() {

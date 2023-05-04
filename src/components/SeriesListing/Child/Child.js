@@ -4,7 +4,7 @@ import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
 import { useState, useEffect } from "react";
 import { Share, Link } from "tabler-icons-react";
 import toast, { Toaster } from "react-hot-toast";
-import shareContent from "../../../../../russell-young/src/common/util/Share";
+import shareContent from "@/common/util/Share";
 import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
 function Child(props) {

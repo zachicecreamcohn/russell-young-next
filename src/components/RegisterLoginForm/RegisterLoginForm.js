@@ -1,17 +1,17 @@
 import React from 'react';
-
+import Link from 'next/link';
 // import styles
-import "./RegisterLoginForm.css";
+import styles from './RegisterLoginForm.module.css';
 // this is a component that will be used on the login and register pages
 // it takes in a prop called "formType" which will be either "login" or "register"
 
 
 function RegisterLoginForm(props) {
     return (
-        <div className="registerLoginForm">
+        <div className={styles.registerLoginForm}>
             {/* show the form title */}
             {/* show the form */}
-            <div className="form">
+            <div className={styles.form}>
                 {/* if the form is register, show "REQUEST ACCESS". Otherwise, show "ENTER CREDS" */}
 
                 {props.formType === "register" ? <h1>REQUEST ACCESS</h1> : <h1>ENTER <br/>CREDENTIALS</h1>}
@@ -30,11 +30,14 @@ function RegisterLoginForm(props) {
                
                 <button className="theme-design" value={props.formType.toUpperCase()}>SUBMIT</button>
                  
-                 <div className='secondaryActionMessage'>
+                 <div className={styles.secondaryActionMessage}>
                     {/* If the form is register, show the option to login. Otherwise, show a request access option */}
                     {props.formType === "register" ? <p>Already have an account? <a href="/login">Login</a></p> : 
                     
-                    <><p><a href="/register">Request Access</a></p></>}
+                    <><p><Link href="/register">
+                    <a>Request Access</a>
+                  </Link>
+                  </p></>}
                  </div>
                 
                

@@ -6,7 +6,7 @@ import Variations from "../../Variations/Variations";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useState, useEffect } from "react";
-import Image from "../../../../../russell-young/src/common/util/Cloudflare/Image";
+import Image from "@/common/util/Cloudflare/Image";
 import HoverImageUpload from "../../HoverImageUpload/HoverImageUpload";
 
 function ChildWorkPopup(props) {

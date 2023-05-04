@@ -2,8 +2,8 @@
 import React from 'react';
 
 // import components
-import Body from '../../../../russell-young/src/components/Body/Body';
-import RegisterLoginForm from '../../../../russell-young/src/components/RegisterLoginForm/RegisterLoginForm';
+import Body from '@/components/Body/Body';
+import RegisterLoginForm from '@/components/RegisterLoginForm/RegisterLoginForm';
 
 
 function Register() {
