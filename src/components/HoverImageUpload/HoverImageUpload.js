@@ -31,8 +31,8 @@ function HoverImageUpload(props) {
     if (uploadSuccess) {
       console.log("upload success");
       // set the image URL in the parent component
-      let imageObj = new Image(uploadObj.imageID);
-      let imageURL = imageObj.getStandardSized();
+      // let imageObj = new Image(uploadObj.imageID);
+      // let imageURL = imageObj.getStandardSized();
       // refresh the page
       window.location.reload();
     }

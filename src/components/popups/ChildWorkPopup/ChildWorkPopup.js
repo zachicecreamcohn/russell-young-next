@@ -1,6 +1,6 @@
 import React from "react";
 import FullScreenPopup from "../FullScreenPopup/FullScreenPopup";
-// import "./ChildWorkPopup.css"; //TODO: fix this
+import styles from "./ChildWorkPopup.module.css";
 import { AgGridReact } from "ag-grid-react";
 import Variations from "../../Variations/Variations";
 import "ag-grid-community/styles/ag-grid.css";
@@ -61,56 +61,56 @@ function ChildWorkPopup(props) {
       popupContent={
         // if not loaded, show skeleton
         !loaded ? (
-          <div className="child-work-popup">
-            <div className="left">
-              <div className="child-img">
+          <div className={styles["child-work-popup"]}>
+            <div className={styles.left}>
+              <div className={styles["child-img"]}>
                 <img src={placeholderURL} alt="child work" />
               </div>
-              <div className="summary">
+              <div className={styles.summary}>
                 <table>
                   <tbody>
                     <tr>
-                      <td className="field-name">Series</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Series</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Title</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Title</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Subtitle</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Subtitle</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Color</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Color</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Year</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Year</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Medium</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Medium</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Size</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Size</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Type</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Type</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Notes</td>
-                      <td className="skeleton">AAAAAAAAAAAAAAAAAAAAAAAAA</td>
+                      <td className={styles["field-name"]}>Notes</td>
+                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div className="right">
-              <div className="summary">
+            <div className={styles.right}>
+              <div className={styles.summary}>
                 {/* <Variations
                 skeleton={true}
               /> */}
@@ -118,9 +118,9 @@ function ChildWorkPopup(props) {
             </div>
           </div>
         ) : (
-          <div className="child-work-popup">
-            <div className="left">
-              <div className="child-img">
+          <div className={styles["child-work-popup"]}>
+            <div className={styles.left}>
+              <div className={styles["child-img"]}>
                 <img src={imageURL} alt="child work" />
                 <HoverImageUpload
                   childID={id}
@@ -130,51 +130,51 @@ function ChildWorkPopup(props) {
                 />
                 {/* <div className="overlay"></div> */}
               </div>
-              <div className="summary">
+              <div className={styles.summary}>
                 <table>
                   <tbody>
                     <tr>
-                      <td className="field-name">Series</td>
+                      <td className={styles["field-name"]}>Series</td>
                       <td>{childWorkData.summary.series}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Title</td>
+                      <td className={styles["field-name"]}>Title</td>
                       <td>{childWorkData.summary.title}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Subtitle</td>
+                      <td className={styles["field-name"]}>Subtitle</td>
                       <td>{childWorkData.summary.subtitle}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Color</td>
+                      <td className={styles["field-name"]}>Color</td>
                       <td>{childWorkData.summary.color}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Year</td>
+                      <td className={styles["field-name"]}>Year</td>
                       <td>{childWorkData.summary.year}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Medium</td>
+                      <td className={styles["field-name"]}>Medium</td>
                       <td>{childWorkData.summary.medium}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Size</td>
+                      <td className={styles["field-name"]}>Size</td>
                       <td>{childWorkData.summary.size}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Type</td>
+                      <td className={styles["field-name"]}>Type</td>
                       <td>{childWorkData.summary.type}</td>
                     </tr>
                     <tr>
-                      <td className="field-name">Notes</td>
+                      <td className={styles["field-name"]}>Notes</td>
                       <td>{childWorkData.summary.notes}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div className="right">
-              <div className="summary">
+            <div className={styles.right}>
+              <div className={styles.summary}>
                 <Variations childID={id} />
               </div>
             </div>

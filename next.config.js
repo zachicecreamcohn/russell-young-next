@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 
 module.exports = {
@@ -16,6 +15,11 @@ module.exports = {
         },
       });
     }
+
+    // Add fallback for node-fetch
+    config.resolve.fallback = {
+      "node:": require.resolve("node-fetch"),
+    };
 
     return config;
   },
