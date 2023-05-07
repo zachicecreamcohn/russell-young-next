@@ -68,10 +68,11 @@ function HoverImageUpload(props) {
             // if it was, don't close the popup
 
             // check if the clicked div has a parent or is the popup itself
-            if (event.target.closest(`.${styles["upload-popup-container"]}`)) {
+            if (event.target.closest(`.${styles["upload-popup"]}`)) {
               // if it is, don't close the popup
               return;
             }
+            console.log("closing popup");
             // otherwise, close the popup
             setUploadPopupOpen(false);
           }}

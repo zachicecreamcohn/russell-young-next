@@ -8,8 +8,17 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useState, useEffect } from "react";
 import Image from "@/common/util/Cloudflare/Image";
 import HoverImageUpload from "../../HoverImageUpload/HoverImageUpload";
+import { CircularProgress } from "@mui/material";
+import EditableInput from "@/components/EditableInput/EditableInput";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function ChildWorkPopup(props) {
+
+
+
+
+
   // modify the URL to add the child ID
   // This will be used in case the user refreshes the page
   let thisURL = window.location.href;
@@ -37,12 +46,24 @@ function ChildWorkPopup(props) {
 
   // get the data for the child work from the server
   useEffect(() => {
-    fetch(
-      "https://api.russellyoung.zachcohndev.com/demo/child-details?childid=" +
-        id
-    )
-      .then((response) => response.json())
-      .then((data) => {
+   
+
+
+    fetch('/api/childDetails/getSpecificChild',
+    {
+        
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          childID: id,
+        }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        data = data.data;
         setChildWorkData(data);
         setLoaded(true);
         console.log(data);
@@ -50,73 +71,42 @@ function ChildWorkPopup(props) {
         const imageURL = imageObj.getStandardSized();
         // set the image url
         setImageURL(imageURL);
-      });
+      } else {
+        throw new Error(data.message);
+      }
+    }
+    );
+          
   }, []);
 
+
+
+
+  function saveChanges() {
+    //TODO: fill this out
+    toast.success("Changes saved", {
+      style: {
+        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+      },
+      position: "top-center",
+    });
+  }
   const placeholderImageObj = new Image();
   const placeholderURL = placeholderImageObj.getStandardSized();
 
   return (
     <FullScreenPopup
       popupContent={
-        // if not loaded, show skeleton
+        // if not loaded, show loader
         !loaded ? (
-          <div className={styles["child-work-popup"]}>
-            <div className={styles.left}>
-              <div className={styles["child-img"]}>
-                <img src={placeholderURL} alt="child work" />
-              </div>
-              <div className={styles.summary}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td className={styles["field-name"]}>Series</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Title</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Subtitle</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Color</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Year</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Medium</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Size</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Type</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                    <tr>
-                      <td className={styles["field-name"]}>Notes</td>
-                      <td className={styles.skeleton}>AAAAAAAAAAAAAAAAAAAAAAAAA</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.right}>
-              <div className={styles.summary}>
-                {/* <Variations
-                skeleton={true}
-              /> */}
-              </div>
-            </div>
-          </div>
+          <div className={styles["loading"]}>
+          <CircularProgress
+            sx={{
+              color: "#000000",
+            }}
+          />
+          <p className="mt-3">Populating...</p>
+        </div>
         ) : (
           <div className={styles["child-work-popup"]}>
             <div className={styles.left}>
@@ -135,39 +125,93 @@ function ChildWorkPopup(props) {
                   <tbody>
                     <tr>
                       <td className={styles["field-name"]}>Series</td>
-                      <td>{childWorkData.summary.series}</td>
+                      <td>
+                      <EditableInput
+                      value={childWorkData.summary.series}
+                      save={saveChanges}
+                      />
+                      </td>
+
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Title</td>
-                      <td>{childWorkData.summary.title}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.title}
+                      save={saveChanges}
+
+                        /></td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Subtitle</td>
-                      <td>{childWorkData.summary.subtitle}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.subtitle}
+                      save={saveChanges}
+
+                        /></td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Color</td>
-                      <td>{childWorkData.summary.color}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.color}
+                      save={saveChanges}
+
+                        /></td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Year</td>
-                      <td>{childWorkData.summary.year}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.year}
+                      save={saveChanges}
+
+                        type="number"
+                        /></td>
+                        
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Medium</td>
-                      <td>{childWorkData.summary.medium}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.medium}
+                      save={saveChanges}
+
+                        multiline={true}
+                        /></td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Size</td>
-                      <td>{childWorkData.summary.size}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.size}
+                      save={saveChanges}
+
+                        />
+                        </td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Type</td>
-                      <td>{childWorkData.summary.type}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.type}
+                      save={saveChanges}
+
+                        /></td>
                     </tr>
                     <tr>
                       <td className={styles["field-name"]}>Notes</td>
-                      <td>{childWorkData.summary.notes}</td>
+                      <td>
+                        <EditableInput
+                        value={childWorkData.summary.notes}
+                      save={saveChanges}
+
+                        multiline={true}
+                        rows={4}
+
+                        /></td>
+
                     </tr>
                   </tbody>
                 </table>
@@ -184,6 +228,8 @@ function ChildWorkPopup(props) {
       closePopup={props.closePopup}
     />
   );
+  <Toaster containerStyle={{ top: "50px" }} />
+
 }
 
 export default ChildWorkPopup;
