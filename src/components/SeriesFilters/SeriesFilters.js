@@ -52,12 +52,15 @@ function SeriesFilters(props) {
     window.scrollBy(0, -1);
   };
 
+
+
+
  
 
   return (
-    <div className={styles["series-filters"]}>
+    <div className={styles["series-filters"]} id="series-filters">
       <div className={`${styles["top"]} row w-100`}>
-        <div className="col-sm-12 col-md-6 mb-3">
+        <div className="col-sm-12 col-md-6 mb-3 p-0">
           <div className="d-flex flex-row">
             <Autocomplete
               sx={{
@@ -106,7 +109,7 @@ function SeriesFilters(props) {
           </div>
         </div>
 
-        <div className="col-sm-12 col-md-6 d-flex justify-content-end">
+        <div className="col-sm-12 col-md-6 d-flex justify-content-end p-0">
           <Search
             searchQuery={props.searchQuery}
             setSearchQuery={props.setSearchQuery}

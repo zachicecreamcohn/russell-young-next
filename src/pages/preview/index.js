@@ -30,7 +30,7 @@ function Preview({ metaTags, seriesData }) {
           <div className={styles.preview}>
             <div className={styles.left}>
               <div className={styles["img-container"]}>
-                <Image
+                <img
                   src={localSeriesData.mainImageURL}
                   alt="preview"
                 />

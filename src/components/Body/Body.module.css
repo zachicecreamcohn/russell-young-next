@@ -17,10 +17,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    /* height: 80%; */
+    justify-content: start;
 }
 
+.body.h-80 {
+    height:80%;
+}
 .body.flex-col {
     display: flex;
     flex-direction: column;

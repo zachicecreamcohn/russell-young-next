@@ -1,20 +1,20 @@
 .series-filters {
-    width: calc(100% - 3.5rem);
-    margin-right: 2rem;
+    width: calc(100% - 3rem);
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    padding-top: 0;
+    padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
-    padding-top: 2rem;
-    margin-bottom: 4.5rem;
+    margin-bottom: 2.5rem;
     z-index: 11;
     padding-left: 1.75rem;
     padding-right: 1.75rem;
+    transition: padding-top 0.2s;
 }
+
 
 
 .series-filters .row {

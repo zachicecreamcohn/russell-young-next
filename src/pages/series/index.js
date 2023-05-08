@@ -7,7 +7,6 @@ import $ from "jquery";
 import SearchableSeriesList from "@/components/SearchableSeriesList/SearchableSeriesList";
 import ToTopOfPageButton from "@/components/ToTopOfPageButton/ToTopOfPageButton";
 import ChildWorkPopup from "@/components/popups/ChildWorkPopup/ChildWorkPopup";
-
 import styles from "./series.module.css";
 
 function SeriesPage() {
@@ -55,46 +54,6 @@ function SeriesPage() {
     let lastUpdatedDatetime = getLastUpdatedDatetime();
 
     setLoading(true);
-
-    // let URL = "https://api.russellyoung.zachcohndev.com/demo/series-summary";
-    // if (lastUpdatedDatetime !== null) {
-    //   URL += "?lastUpdatedDatetime=" + lastUpdatedDatetime;
-    // }
-
-    // fetch(URL)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.newInfo) {
-    //       localStorage.setItem("lastUpdatedDatetime", data.lastUpdatedDatetime);
-    //       localStorage.setItem("seriesInfo", JSON.stringify(data.series_names));
-    //     } else {
-    //       data.series_names = JSON.parse(localStorage.getItem("seriesInfo"));
-
-    //     }
-
-    //     if (data.series_names === undefined || data.series_names.length === 0) {
-    //       setSeriesList([]);
-    //       setSeriesOptions([]);
-    //       setSeriesInfo([]);
-    //       setLoading(false);
-    //       return;
-    //     }
-    //     let series_names = [];
-    //     for (let i = 0; i < data.series_names.length; i++) {
-    //       series_names.push(data.series_names[i].series);
-    //     }
-
-    //     if (initiallyLoading) {
-    //       setSeriesList([defaultSeries]);
-    //       setInitiallyLoading(false);
-    //     } else {
-    //       setSeriesList(series_names);
-    //     }
-
-    //     setSeriesOptions(series_names);
-    //     setSeriesInfo(data.series_names);
-    //     setLoading(false);
-    //   });
 
 
     fetch('/api/series/getAllSeriesSummary', {
@@ -158,7 +117,12 @@ function SeriesPage() {
     }
   }, []);
   return (
-    <Body center direction="column">
+    <Body
+    center
+    direction="column"
+    Tabs={true}
+    activeTab="series"
+    >
       <SeriesFilters
         defaultSeries={defaultSeries}
         searchQuery={searchQuery}
