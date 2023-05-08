@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function DropFileInput(props) {
     const files = props.file;
     const setFiles = props.setFile;
+
 
 
 const baseStyle = {
@@ -108,9 +111,21 @@ const baseStyle = {
     useDropzone({
       accept: {
         "image/png": [".png", ".jpg", ".jpeg"],
+        // tiff
+        "image/tiff": [".tif", ".tiff"], 
       },
       maxFiles: 1,
-      onDrop: (acceptedFiles) => {
+      // maxSize: 25 * 1024 * 1024, // 25 MB in bytes
+      onDrop: (acceptedFiles, rejectedFiles) => {
+        if (rejectedFiles.length > 0) {
+          // Display a toaster notification if a file is rejected due to size
+          toast.error('File size limit exceeded. Please upload a file under 25MB.', {
+          style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+          },
+          position: "top-center",
+        });
+        } else {
         setFiles(
           acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -118,7 +133,28 @@ const baseStyle = {
             })
           )
         );
+        }
       },
+      validator: (file) => {
+        // get file extension
+        const extension = file.name.split('.').pop();
+        console.log(extension);
+        console.log(file);
+        // first, check if it's a tiff file
+        if (extension == 'tif' || extension == 'tiff') {
+          return null;
+        } else {
+          console.log('not a tiff file');
+
+          // check the size
+          if (file.size > 25 * 1024 * 1024) {
+            return {
+              code: 'file-too-large',
+              message: 'File size cannot exceed 25MB.'
+            };
+          }
+        }
+    },
     });
 
     const style = useMemo(() => ({
@@ -139,7 +175,9 @@ const baseStyle = {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
+
   return (
+    <>
     <section className="">
       <div {...getRootProps({style})}>
         <input {...getInputProps()} />
@@ -147,6 +185,11 @@ const baseStyle = {
       </div>
       <aside style={thumbsContainer}>{thumbs}</aside>
     </section>
+
+    <Toaster containerStyle={{ top: "50px" }} />
+
+</>
+
   );
 }
 

@@ -1,4 +1,4 @@
-import MySQL from '@/MySQL'
+import MySQL from '@/pages/api/_common/MySQL/MySQL'
 
 console
 

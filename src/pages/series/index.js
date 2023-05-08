@@ -56,12 +56,57 @@ function SeriesPage() {
 
     setLoading(true);
 
-    let URL = "https://api.russellyoung.zachcohndev.com/demo/series-summary";
-    if (lastUpdatedDatetime !== null) {
-      URL += "?lastUpdatedDatetime=" + lastUpdatedDatetime;
-    }
+    // let URL = "https://api.russellyoung.zachcohndev.com/demo/series-summary";
+    // if (lastUpdatedDatetime !== null) {
+    //   URL += "?lastUpdatedDatetime=" + lastUpdatedDatetime;
+    // }
 
-    fetch(URL)
+    // fetch(URL)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.newInfo) {
+    //       localStorage.setItem("lastUpdatedDatetime", data.lastUpdatedDatetime);
+    //       localStorage.setItem("seriesInfo", JSON.stringify(data.series_names));
+    //     } else {
+    //       data.series_names = JSON.parse(localStorage.getItem("seriesInfo"));
+
+    //     }
+
+    //     if (data.series_names === undefined || data.series_names.length === 0) {
+    //       setSeriesList([]);
+    //       setSeriesOptions([]);
+    //       setSeriesInfo([]);
+    //       setLoading(false);
+    //       return;
+    //     }
+    //     let series_names = [];
+    //     for (let i = 0; i < data.series_names.length; i++) {
+    //       series_names.push(data.series_names[i].series);
+    //     }
+
+    //     if (initiallyLoading) {
+    //       setSeriesList([defaultSeries]);
+    //       setInitiallyLoading(false);
+    //     } else {
+    //       setSeriesList(series_names);
+    //     }
+
+    //     setSeriesOptions(series_names);
+    //     setSeriesInfo(data.series_names);
+    //     setLoading(false);
+    //   });
+
+
+    fetch('/api/series/getAllSeriesSummary', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lastUpdatedDatetime: lastUpdatedDatetime
+      })
+    })
+
       .then((response) => response.json())
       .then((data) => {
         if (data.newInfo) {
@@ -94,7 +139,8 @@ function SeriesPage() {
         setSeriesOptions(series_names);
         setSeriesInfo(data.series_names);
         setLoading(false);
-      });
+      }
+      );
   }, [searchQuery]);
 
 

@@ -2,9 +2,11 @@
 
 import React from 'react';
 
-// import './FullScreenPopup.css'; //TODO: Fix this
+import styles from './FullScreenPopup.module.css';
 
 import $ from 'jquery';
+
+
 
 // import the close button from material-ui
 import CloseIcon from '@mui/icons-material/Close';
@@ -28,16 +30,16 @@ function FullScreenPopup(props) {
     
         return (
             <>
-            <div className="full-screen-popup" onClick={handleClicksToClose}>
-                <div className='popup'>
-                    <div className='popup-container'>
-                    <div className="popup-header">
+            <div className={styles["full-screen-popup"]} onClick={handleClicksToClose}>
+                <div className={styles.popup}>
+                    <div className={styles['popup-container']}>
+                    <div className={styles["popup-header"]}>
                         {/* on the left, any nav options (if present) */}
-                        <div className="popup-header-options">
+                        <div className={styles["popup-header-options"]}>
                             {props.headerOptions}
                         </div>
                         {/* on the right, a close button */}
-                        <div className="popup-header-close">
+                        <div className={styles["popup-header-close"]}>
                             <CloseIcon 
                             // resize the close button
                             sx={{
@@ -52,7 +54,7 @@ function FullScreenPopup(props) {
                             />
                         </div>
                     </div>
-                    <div className="popup-content">
+                    <div className={styles["popup-content"]}>
                         {popupContent}
                     </div>
                     </div>
