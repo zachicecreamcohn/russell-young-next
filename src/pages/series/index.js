@@ -35,7 +35,7 @@ function SeriesPage() {
 
   function getLastUpdatedDatetime() {
     // check local storage for last updated datetime
-    let localDatetime= localStorage.getItem("lastUpdatedDatetime");
+    let localDatetime = localStorage.getItem("lastUpdatedDatetime");
     if (localDatetime) {
       // ensure that htere is a value in local storage
       let localSeriesInfo = localStorage.getItem("seriesInfo");
@@ -50,22 +50,19 @@ function SeriesPage() {
   }
 
   useEffect(() => {
-
     let lastUpdatedDatetime = getLastUpdatedDatetime();
 
     setLoading(true);
 
-
-    fetch('/api/series/getAllSeriesSummary', {
-      method: 'POST',
+    fetch("/api/series/getAllSeriesSummary", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        lastUpdatedDatetime: lastUpdatedDatetime
-      })
+        lastUpdatedDatetime: lastUpdatedDatetime,
+      }),
     })
-
       .then((response) => response.json())
       .then((data) => {
         if (data.newInfo) {
@@ -73,7 +70,6 @@ function SeriesPage() {
           localStorage.setItem("seriesInfo", JSON.stringify(data.series_names));
         } else {
           data.series_names = JSON.parse(localStorage.getItem("seriesInfo"));
-
         }
 
         if (data.series_names === undefined || data.series_names.length === 0) {
@@ -98,16 +94,13 @@ function SeriesPage() {
         setSeriesOptions(series_names);
         setSeriesInfo(data.series_names);
         setLoading(false);
-      }
-      );
+      });
   }, [searchQuery]);
-
 
   // on page load, check if the url has ?childID in it. If it does, render that popup
   const [childIDInURL, setChildIDInURL] = useState("");
   const [childIDPopupOpen, setChildIDPopupOpen] = useState(false);
   useEffect(() => {
-    
     if (window.location.href.includes("?childID=")) {
       console.log("childID in URL");
       console.log(window.location.href.split("?childID=")[1]);
@@ -117,34 +110,23 @@ function SeriesPage() {
     }
   }, []);
   return (
-    <Body
-    center
-    direction="column"
-    Tabs={true}
-    activeTab="series"
-    >
+    <Body center direction="column" Tabs={true} activeTab="series">
       <SeriesFilters
         defaultSeries={defaultSeries}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-
         seriesOptions={seriesOptions}
         setSeriesOptions={setSeriesOptions}
-
         seriesList={seriesList}
         setSeriesList={setSeriesList}
-
         seriesInfo={seriesInfo}
         setSeriesInfo={setSeriesInfo}
-
         startYear={startYear}
         setStartYear={setStartYear}
         endYear={endYear}
         setEndYear={setEndYear}
         hideSoldOut={hideSoldOut}
         setHideSoldOut={setHideSoldOut}
-
-
       />
       <SearchableSeriesList
         searchQuery={searchQuery}
@@ -160,8 +142,8 @@ function SeriesPage() {
 
       {childIDInURL !== "" && childIDPopupOpen && (
         <ChildWorkPopup
-        id={childIDInURL}
-        closePopup={() => setChildIDPopupOpen(false)}
+          id={childIDInURL}
+          closePopup={() => setChildIDPopupOpen(false)}
         />
       )}
 

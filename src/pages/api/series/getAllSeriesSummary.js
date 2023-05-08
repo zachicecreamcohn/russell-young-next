@@ -145,8 +145,11 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
         const variationsRows = await db.query(variationsStmt);
         
         variationsRows.forEach((row) => {
-          const child = children.find((child) => child.childID === row.childID);
-        
+
+          const child = children.find((child) => child.childID === row.childid);
+
+
+
           if (child) {
             child.unsold = row.unsold;
             child.examples = row.Examples;
@@ -154,8 +157,10 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
             child.sold_out = row.sold_out;
             child.visible = row.visible;
           }
+
         });
         
+
         // now, add the children to the appropriate parent
         children.forEach((child) => {
           const parent = parents.find((parent) => parent.parentID === child.parentID);
@@ -163,6 +168,7 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
           if (parent) {
             parent.children.push(child);
           }
+
 
         });
 
@@ -173,7 +179,6 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
         
           if (series) {
             series.parentWorks.push(parent);
-            console.log(series);
           }
 
         });
@@ -199,10 +204,10 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
 
   export default async function handler(req, res) {
     try {
-        if (req.method !== "POST") {
-            res.status(405).json({ error: "Method Not Allowed" });
-            return;
-          }
+        // if (req.method !== "POST") {
+        //     res.status(405).json({ error: "Method Not Allowed" });
+        //     return;
+        //   }
      // make sure lastUpdatedDatetime is passed in the request
         var lastUpdatedDatetime = null;
         if (req.body.lastUpdatedDatetime && req.body.lastUpdatedDatetime != "") {

@@ -8,6 +8,7 @@ import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
 import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
 function Child(props) {
+  console.log(props);
   function shareWork() {
     shareContent({
       title: props.childWork.title,
@@ -83,8 +84,13 @@ function Child(props) {
           : `${styles.child} d-flex flex-row`
       }
     >
-      <div className={`${styles["child-content"]} d-flex justify-content-between w-100`}>
-        <div className={`${styles["child-header"]} d-flex justify-content-start flex-column`} style={{width: '250px'}}>
+      <div
+        className={`${styles["child-content"]} d-flex justify-content-between w-100`}
+      >
+        <div
+          className={`${styles["child-header"]} d-flex justify-content-start flex-column`}
+          style={{ width: "250px" }}
+        >
           <h5 className={styles["child-title"]}>
             <a
               className="title"
@@ -97,18 +103,26 @@ function Child(props) {
           </h5>
           <div className="pt-2">
             <div className="d-flex flex-row justify-content-between">
-              <div className={`${styles["parent-detail-left"]} d-flex flex-start flex-column`}>
+              <div
+                className={`${styles["parent-detail-left"]} d-flex flex-start flex-column`}
+              >
                 <p className={`${styles["parent-detail"]}`}>{price}</p>
 
                 {work.RYCA > 0 && !soldOut ? (
-                  <p className={`${styles["parent-detail"]} pt-1`}>RYCA: {work.RYCA}</p>
+                  <p className={`${styles["parent-detail"]} pt-1`}>
+                    RYCA: {work.RYCA}
+                  </p>
                 ) : (
                   <></>
                 )}
               </div>
               <div className={`${styles["parent-detail-right"]}`}>
                 {soldOut ? (
-                  <p className={`${styles["parent-detail"]} ${styles["sold-out"]}`}>Sold Out</p>
+                  <p
+                    className={`${styles["parent-detail"]} ${styles["sold-out"]}`}
+                  >
+                    Sold Out
+                  </p>
                 ) : (
                   <></>
                 )}
@@ -116,90 +130,110 @@ function Child(props) {
                 {work.examples > 0 && work.unsold > 0 && !soldOut ? (
                   <p className={`${styles["parent-detail"]}`}>
                     {work.examples} | {work.unsold} unsold
-</p>
-) : (
-<></>
-)}
-</div>
-</div>
-</div>
-</div>
-<div className={`${styles["child-info"]} pe-2 d-flex flex-row`} style={{width: '40%'}}>
-      <div className={`${styles["child-img"]}`} style={{marginRight: '2rem'}}>
-        <img src={iconURL} alt={work.title} style={{width: 'auto', height: '60px', objectFit: 'contain', borderRadius: '0.25rem', maxWidth: '300px', cursor: 'pointer'}} />
-      </div>
-      <div>
-        {visible ? (
-          <span
-            className={`${styles.circle} ${styles.green}`}
-            onClick={() => {
-              madeInvisible();
-            }}
+                  </p>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`${styles["child-info"]} pe-2 d-flex flex-row`}
+          style={{ width: "30%" }}
+        >
+          <div
+            className={`${styles["child-img"]}`}
           >
-            {" "}
-          </span>
-        ) : (
-          <span
-            className={`${styles.circle} ${styles.red}`}
+            <img
+              src={iconURL}
+              alt={work.title}
+              style={{
+                width: "auto",
+                height: "60px",
+                objectFit: "contain",
+                borderRadius: "0.25rem",
+                maxWidth: "300px",
+                cursor: "pointer",
+              }}
+            />
+          </div>
+          
+        </div>
+        <div
+          className={`${styles.share} d-flex flex-column justify-content-around `}
+          style={{ width: "10%" }}
+        >
+          <Share
+            size={20}
             onClick={() => {
-              madeVisible();
+              shareWork();
             }}
-          >
-            {" "}
-          </span>
-        )}
+          />
+          <Link
+            size={20}
+            onClick={() => {
+              // first, test if there is a tif file at the URL
+              const URL =
+                "https://pub-de9874e2af7140ca8233ad1e437c52d9.r2.dev/" +
+                work.childID +
+                ".tif";
+              fetch(URL)
+                .then((response) => {
+                  if (response.status == 404) {
+                    toast.error("No tif file uploaded", {
+                      style: {
+                        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+                      },
+                      position: "top-center",
+                    });
+                  } else {
+                    // copy to clipboard
+                    navigator.clipboard.writeText(URL);
+                    toast.success("Copied to clipboard", {
+                      style: {
+                        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+                      },
+                      position: "top-center",
+                    });
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }}
+          />
+        </div>
+        <div>
+            {visible ? (
+              <span
+                className={`${styles.circle} ${styles.green}`}
+                onClick={() => {
+                  madeInvisible();
+                }}
+              >
+                {" "}
+              </span>
+            ) : (
+              <span
+                className={`${styles.circle} ${styles.red}`}
+                onClick={() => {
+                  madeVisible();
+                }}
+              >
+                {" "}
+              </span>
+            )}
+          </div>
+
+        
       </div>
+
+      <Toaster containerStyle={{ top: "50px" }} />
+      {ChildWorkPopupIsOpen && (
+        <ChildWorkPopup closePopup={closePopup} id={work.childID} work={work} />
+      )}
     </div>
-
-    <div className={`${styles.share} d-flex flex-column justify-content-around `} style={{width: '10%'}}>
-      <Share
-        size={20}
-        onClick={() => {
-          shareWork();
-        }}
-      />
-      <Link
-        size={20}
-        onClick={() => {
-          // first, test if there is a tif file at the URL
-          const URL = 'https://pub-de9874e2af7140ca8233ad1e437c52d9.r2.dev/' + work.childID + ".tif";
-          fetch(URL)
-            .then((response) => {
-              if (response.status == 404) {
-                toast.error("No tif file uploaded", {
-                  style: {
-                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-                  },
-                  position: "top-center",
-                });
-              } else {
-                // copy to clipboard
-                navigator.clipboard.writeText(URL);
-                toast.success("Copied to clipboard", {
-                  style: {
-                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-                  },
-                  position: "top-center",
-                });
-
-              }
-            }
-            )
-            .catch((error) => {
-              console.log(error);
-            });
-        }}
-
-      />
-    </div>
-  </div>
-
-  <Toaster containerStyle={{ top: "50px" }} />
-  {ChildWorkPopupIsOpen && (
-    <ChildWorkPopup closePopup={closePopup} id={work.childID} work={work} />
-  )}
-</div>
-
-);
+  );
 }
 export default Child;

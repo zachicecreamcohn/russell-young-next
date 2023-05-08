@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Tabs.module.css";
-import { Settings } from "tabler-icons-react";
+import { UserCircle } from "tabler-icons-react";
 
 
 function navigate(tab) {
@@ -14,20 +14,21 @@ function Tabs(props) {
       className={props.activeTab === "series" ? styles.tab+ " " + styles.active : styles.tab}
         onClick={() => navigate("series")}
       
-      >SERIES</div>
+      >Series</div>
         <div 
         className={props.activeTab === "consignment" ? styles.tab+ " " + styles.active : styles.tab}
         onClick={() => navigate("consignment")}
 
-        >CONSIGNMENT</div>
+        >Consignment</div>
 
         <div
         className={props.activeTab === "settings" ? styles.tab+ " " + styles.active : styles.tab}
         onClick={() => navigate("settings")}
-        ><Settings
-        size={22}
-        
-        />
+        >
+
+          <UserCircle size={24} strokeWidth={1.5}/>
+
+        {/* <p></p> */}
         </div>
     </div>
   );
