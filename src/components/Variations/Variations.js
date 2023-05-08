@@ -13,18 +13,37 @@ function Variations(props) {
   const [originalData, setOriginalData] = useState({});
 
   const fetchData = async () => {
-    fetch(
-      "https://api.russellyoung.zachcohndev.com/demo/variationdetails?childid=" +
-        childID,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    // fetch(
+    //   "https://api.russellyoung.zachcohndev.com/demo/variationdetails?childid=" +
+    //     childID,
+    //   {
+    //     method: "GET",
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setVariations(data.data);
+    //     setOriginalData(data.data);
+    //   });
+
+    fetch('/api/variations/getAllDetails',
+    {
+        method: 'POST',
+        headers: {
+
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            childID: childID
+        })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
         setVariations(data.data);
         setOriginalData(data.data);
-      });
+    }
+    );
   };
 
   useEffect(() => {

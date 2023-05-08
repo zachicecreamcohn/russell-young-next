@@ -1,0 +1,29 @@
+.editable-input {
+    position: absolute;
+    height: 100%;
+    border: 1px solid black;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .5rem;
+    border-radius: 0;
+
+}
+
+
+.container {
+    width: 100%;
+    min-height: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+}
+
+.textarea {
+    border: 2px solid black !important;
+    border-radius: 0.25rem !important;
+    padding: 0.25rem !important;
+    outline: none !important;
+
+}
