@@ -21,13 +21,14 @@ function Menu(props) {
                 )
             }
             )}
-            </div>
-            <div className={styles['logout-btn']}>
+            <div className={styles['logout-btn'] + " " +styles['menu-item']}>
                 <p>LOGOUT</p>
                 <Logout size={22}
                  />
 
             </div>
+            </div>
+            
         </div>
 
     );

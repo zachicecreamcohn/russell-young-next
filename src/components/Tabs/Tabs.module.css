@@ -12,7 +12,8 @@
 } */
 
 .tab {
-    padding: 0.3rem;
+    padding: 0.5rem;
+    width: 120px;
     padding-left: 1rem;
     padding-right: 1rem;
     border: 1px solid black;
@@ -31,4 +32,15 @@
 .tab.active {
     background-color: black;
     color: white;
+}
+
+/* last tab */
+.tab:last-child {
+    border-left: none;
+    
+}
+
+/* first tab */
+.tab:first-child {
+    border-right: none;
 }
