@@ -1,0 +1,54 @@
+.menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.menu .item p {
+    font-size: 14pt;
+    font-family: 'Din Mittelschrift';
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.menu .item.active p {
+    font-weight: bold;
+    opacity: 1;
+}
+
+.menu .item p:hover {
+    opacity: 1;
+}
+
+.logout-btn {
+    cursor: pointer;
+    transition: all 0.1s !important;
+    color: red;
+    padding: 0.5rem;
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    width: 100px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.logout-btn:hover {
+    color: black;
+    border-color: black;
+
+}
+
+.logout-btn svg {
+    transition: all 0.1s !important;
+    transition-delay: 0 !important;
+}
