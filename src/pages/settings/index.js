@@ -10,7 +10,7 @@ function Settings() {
     <Body center direction="column" Tabs={true} activeTab="settings" h-80 >
       <div className={styles.container}>
 
-        <div className="w-100">
+        <div className={styles.left + " w-100"}>
             <h1 className={styles.title}>SETTINGS</h1>
             <span className={styles.divider}></span>
           <Menu
