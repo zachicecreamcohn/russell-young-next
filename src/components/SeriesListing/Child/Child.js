@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Child.module.css";
-import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
 import { useState, useEffect } from "react";
 import { Share, Link } from "tabler-icons-react";
 import toast, { Toaster } from "react-hot-toast";
 import shareContent from "@/common/util/Share";
 import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
+import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
 function Child(props) {
   function shareWork() {
     shareContent({
@@ -161,8 +161,35 @@ function Child(props) {
       <Link
         size={20}
         onClick={() => {
-          console.log("copy link");
+          // first, test if there is a tif file at the URL
+          const URL = 'https://pub-de9874e2af7140ca8233ad1e437c52d9.r2.dev/' + work.childID + ".tif";
+          fetch(URL)
+            .then((response) => {
+              if (response.status == 404) {
+                toast.error("No tif file uploaded", {
+                  style: {
+                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+                  },
+                  position: "top-center",
+                });
+              } else {
+                // copy to clipboard
+                navigator.clipboard.writeText(URL);
+                toast.success("Copied to clipboard", {
+                  style: {
+                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+                  },
+                  position: "top-center",
+                });
+
+              }
+            }
+            )
+            .catch((error) => {
+              console.log(error);
+            });
         }}
+
       />
     </div>
   </div>

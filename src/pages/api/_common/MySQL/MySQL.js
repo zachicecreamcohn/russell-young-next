@@ -10,8 +10,13 @@ class MySQL {
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       port: process.env.DB_PORT,
-      connectionLimit: 10, // Adjust this value according to your needs
+      connectionLimit: 50, // Adjust this value according to your needs
     });
+
+    // Log the number of active connections every 30 seconds
+    setInterval(() => {
+      console.log(`Active connections: ${this.pool._allConnections.length}`);
+    }, 30000);
   }
 
   query(sql, args) {
@@ -21,7 +26,10 @@ class MySQL {
 
         connection.query(sql, args, (err, rows) => {
           connection.release();
-          if (err) return reject(err);
+          if (err) {
+            console.error(`Error releasing connection: ${err}`);
+            return reject(err);
+          }
           resolve(rows);
         });
       });

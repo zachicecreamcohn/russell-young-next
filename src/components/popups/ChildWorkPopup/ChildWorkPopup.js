@@ -11,9 +11,12 @@ import HoverImageUpload from "../../HoverImageUpload/HoverImageUpload";
 import { CircularProgress } from "@mui/material";
 import EditableInput from "@/components/EditableInput/EditableInput";
 import toast, { Toaster } from "react-hot-toast";
+// import {Image as Img} from "next/image";
+
 
 
 function ChildWorkPopup(props) {
+
 
 
 
@@ -82,17 +85,47 @@ function ChildWorkPopup(props) {
 
 
 
-  function saveChanges() {
+
+  function saveChanges(field, value) {
     //TODO: fill this out
-    toast.success("Changes saved", {
-      style: {
-        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+    console.log("saving changes");
+    console.log(field, value);
+
+    fetch ('/api/childDetails/editDetail', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
       },
-      position: "top-center",
-    });
+      body: JSON.stringify({
+        childID: id,
+        field: field,
+        value: value,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        toast.success("Changes saved", {
+          style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+          },
+          position: "top-center",
+        });
+      } else {
+        toast.error("Error saving changes", {
+          style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
+          },
+          position: "top-center",
+        });
+
+      throw new Error(data.message);
+      }
+
+
+    }
+    );
   }
-  const placeholderImageObj = new Image();
-  const placeholderURL = placeholderImageObj.getStandardSized();
 
   return (
     <FullScreenPopup
@@ -128,7 +161,7 @@ function ChildWorkPopup(props) {
                       <td>
                       <EditableInput
                       value={childWorkData.summary.series}
-                      save={saveChanges}
+                      save={(value) => saveChanges("series", value)}
                       />
                       </td>
 
@@ -138,7 +171,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.title}
-                      save={saveChanges}
+                        save={(value) => saveChanges("title", value)}
 
                         /></td>
                     </tr>
@@ -147,8 +180,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.subtitle}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("subTitle", value)}
                         /></td>
                     </tr>
                     <tr>
@@ -156,8 +188,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.color}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("color", value)}
                         /></td>
                     </tr>
                     <tr>
@@ -165,8 +196,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.year}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("year", value)}
                         type="number"
                         /></td>
                         
@@ -176,8 +206,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.medium}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("medium", value)}
                         multiline={true}
                         /></td>
                     </tr>
@@ -186,8 +215,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.size}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("size", value)}
                         />
                         </td>
                     </tr>
@@ -196,8 +224,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.type}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("type", value)}
                         /></td>
                     </tr>
                     <tr>
@@ -205,8 +232,7 @@ function ChildWorkPopup(props) {
                       <td>
                         <EditableInput
                         value={childWorkData.summary.notes}
-                      save={saveChanges}
-
+                        save={(value) => saveChanges("notes", value)}
                         multiline={true}
                         rows={4}
 

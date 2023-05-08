@@ -5,6 +5,7 @@ import CONFIG_VARS from "@/CONFIG_VARS";
 import Body from "@/components/Body/Body";
 import styles from "./preview.module.css";
 import Head from 'next/head';
+import Image from "next/image";
 
 function Preview({ metaTags, seriesData }) {
   const [localSeriesData, setLocalSeriesData] = useState(seriesData);
@@ -29,7 +30,7 @@ function Preview({ metaTags, seriesData }) {
           <div className={styles.preview}>
             <div className={styles.left}>
               <div className={styles["img-container"]}>
-                <img
+                <Image
                   src={localSeriesData.mainImageURL}
                   alt="preview"
                 />

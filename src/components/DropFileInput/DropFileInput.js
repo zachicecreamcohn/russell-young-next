@@ -111,9 +111,11 @@ const baseStyle = {
     useDropzone({
       accept: {
         "image/png": [".png", ".jpg", ".jpeg"],
+        // tiff
+        "image/tiff": [".tif", ".tiff"], 
       },
       maxFiles: 1,
-      maxSize: 25 * 1024 * 1024, // 25 MB in bytes
+      // maxSize: 25 * 1024 * 1024, // 25 MB in bytes
       onDrop: (acceptedFiles, rejectedFiles) => {
         if (rejectedFiles.length > 0) {
           // Display a toaster notification if a file is rejected due to size
@@ -133,6 +135,26 @@ const baseStyle = {
         );
         }
       },
+      validator: (file) => {
+        // get file extension
+        const extension = file.name.split('.').pop();
+        console.log(extension);
+        console.log(file);
+        // first, check if it's a tiff file
+        if (extension == 'tif' || extension == 'tiff') {
+          return null;
+        } else {
+          console.log('not a tiff file');
+
+          // check the size
+          if (file.size > 25 * 1024 * 1024) {
+            return {
+              code: 'file-too-large',
+              message: 'File size cannot exceed 25MB.'
+            };
+          }
+        }
+    },
     });
 
     const style = useMemo(() => ({

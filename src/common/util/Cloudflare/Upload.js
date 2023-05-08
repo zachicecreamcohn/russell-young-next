@@ -1,3 +1,5 @@
+
+
 class Upload {
   constructor(file, childID) {
     this.file = file;
@@ -5,6 +7,42 @@ class Upload {
   }
 
   async upload() {
+    // get file extension
+    const fileExtension = this.file.name.split('.').pop();
+    // first, check if the file is a tif or tiff
+
+    if (fileExtension === 'tif' || fileExtension === 'tiff') {
+      // upload the file to Cloudflare (R2 via worker)
+      try {
+        console.log('uploading tiff file');
+        console.log(this.file);
+        await fetch('https://production.muddy-glade-38c1.zach-russellyoung836.workers.dev', {
+          method: 'POST',
+          headers: {
+            'Content-Type': this.file.type,
+            'filename': this.childID + '.' + fileExtension,
+          },
+          body: this.file
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.success = true;
+          console.log('upload success');
+        });
+
+        return true;
+
+
+        
+      } catch (error) {
+        console.error(`Error in Upload.upload(): ${error.message}\n${error.stack}`);
+        return false;
+      }
+
+    }
+
+
     try {
       // get the upload URL from Cloudflare
       const response = await fetch('/api/cloudflare/getDirectUploadURL', {

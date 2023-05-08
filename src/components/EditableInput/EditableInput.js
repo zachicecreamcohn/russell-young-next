@@ -4,19 +4,22 @@ import $ from 'jquery';
 import { TextField, TextareaAutosize } from '@mui/material';
 
 function EditableInput(props) {
+    let value_from_props = props.value;
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(props.value);
     const randomID = Math.random().toString(36).substring(7);
    
 
-
-
   useEffect(() => {
     if (!isEditing) {
-        save(value);
-        console.log("Saved");
-    }
+        // check if the value has changed
+        if (value !== value_from_props) {
+            // if so, save the new value
+            save(value);
+            value_from_props = value;
 
+        }
+    }
 
 
 
@@ -69,7 +72,6 @@ function EditableInput(props) {
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         autoFocus
-        fullWidth
         size="small"
         variant="outlined"
         minRows={props.rows}
