@@ -5,7 +5,7 @@ import CONFIG_VARS from "@/CONFIG_VARS";
 import Body from "@/components/Body/Body";
 import styles from "./preview.module.css";
 import Head from 'next/head';
-import Image from "next/image";
+import Image from "@/common/util/Cloudflare/Image";
 
 function Preview({ metaTags, seriesData }) {
   const [localSeriesData, setLocalSeriesData] = useState(seriesData);
@@ -40,7 +40,7 @@ function Preview({ metaTags, seriesData }) {
               <div className={styles["info-container"]}>
                 <div className={styles.details}>
                   <h1 className={styles.title}>{localSeriesData.title}</h1>
-                  <p className={styles["series-name"]}>{localSeriesData.series}</p>
+                  {/* <p className={styles["series-name"]}>{localSeriesData.series}</p> */}
                   <p className={styles.year}>{localSeriesData.year}</p>
                   <p className={styles.description}>
                     {localSeriesData.medium}
@@ -84,9 +84,12 @@ export async function getServerSideProps(context) {
 
   const title = seriesData[0].title;
   const series = seriesData[0].series;
-  const mainImageURL = `${process.env.CLOUDFLARE_ROOT_URL}/${seriesData[0].cloudflare_image_id}/w=500`;
+  const imageObject = new Image(seriesData[0].cloudflare_image_id);
+  const mainImageURL = imageObject.getStandardSized();
+  const imageURL = imageObject.getPreviewSized();
+  // const mainImageURL = `${process.env.CLOUDFLARE_ROOT_URL}/${seriesData[0].cloudflare_image_id}/w=500`;
   seriesData[0].mainImageURL = mainImageURL;
-  const imageURL = `${process.env.CLOUDFLARE_ROOT_URL}/${seriesData[0].cloudflare_image_id}/w=200`;
+  // const imageURL = `${process.env.CLOUDFLARE_ROOT_URL}/${seriesData[0].cloudflare_image_id}/w=200`;
   const url = `${CONFIG_VARS.ROOT_URL}${context.req.url}`;
 
   const metaTags = [
