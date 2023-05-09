@@ -156,6 +156,10 @@ function Child(props) {
                 maxWidth: "300px",
                 cursor: "pointer",
               }}
+
+              onClick={() => {
+                setChildWorkPopupIsOpen(true);
+              }}
             />
           </div>
           
