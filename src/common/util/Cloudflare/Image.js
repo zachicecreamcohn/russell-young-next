@@ -49,6 +49,14 @@ class Image {
         return this.getImage(options)
         }
 
+    // get size for url preview
+    getPreviewSized() {
+        const options = {
+            width: 200
+        }
+        return this.getImage(options)
+    }
+
 
     
 }
