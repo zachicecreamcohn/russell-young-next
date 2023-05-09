@@ -44,7 +44,7 @@ class Image {
     // Get a full sized version
     getStandardSized() {
         const options = {
-            width: 300
+            width: 1300
         }
         return this.getImage(options)
         }
