@@ -132,7 +132,7 @@ function RequestLoginForm(props) {
                  
                  <div className={styles.secondaryActionMessage}>
                     {/* If the form is register, show the option to login. Otherwise, show a request access option */}
-                    {props.formType === "request" ? <p>Already have an account? <a href="/login">Login</a></p> : 
+                    {props.formType === "request" ? <p>Already have an account? <Link href="/login">Login</Link></p> : 
                     
                     <><p><Link href="/request-access">
                     Request Access
