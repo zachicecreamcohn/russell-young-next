@@ -1,9 +1,12 @@
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./Body.module.css";
 import Tabs from "../Tabs/Tabs";
+import {useState, useEffect, } from 'react';
 
 // this is a simple component that shows the navbar and styles the body of the page
 function Body(props) {
+
+
   const bodyClasses = [styles.body];
 
   if (props.center) {
@@ -29,8 +32,11 @@ function Body(props) {
       {/* if prop center = true, add class .center to body. */}
       {/* If align="row", add flex-row. If align=col, add flex-col */}
       <div className={bodyClasses.join(" ")}>{props.children}</div>
+    
     </>
+
   );
+
 }
 
 export default Body;

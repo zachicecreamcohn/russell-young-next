@@ -3,21 +3,23 @@ import React from 'react';
 
 // import components
 import Body from '@/components/Body/Body';
-import RegisterLoginForm from '@/components/RegisterLoginForm/RegisterLoginForm';
-
-
-function Register() {
+import RequestLoginForm from '@/components/RegisterLoginForm/RequestLoginForm';
+function Login() {
     return (
         <>
-            <Body center>
+            <Body center h-80>
                 {/* show the login form */}
-                <RegisterLoginForm formType="register"/>
+                <RequestLoginForm formType="login"/>
             </Body>
         </>
+
+
+
+        
 
 
     );
     }
 
-export default Register;
+export default Login;
 
