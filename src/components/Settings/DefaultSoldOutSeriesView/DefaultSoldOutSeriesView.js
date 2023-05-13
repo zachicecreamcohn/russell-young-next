@@ -5,11 +5,12 @@ import styles from "./DefaultSoldOutSeriesView.module.css";
 function DefaultSoldOutSeriesView(props) {
   const setDataToSave = props.setDataToSave;
   const [showSoldOut, setShowSoldOut] = useState(false);
-  const existingData = props.existingData;
+  const existingData = props.existingData.preferences;
   const changeHasBeenMade = props.changeHasBeenMade;
   const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
   useEffect(() => {
+    console.log("existingData", existingData);
     if (existingData && existingData.showSoldOut !== undefined) {
       setShowSoldOut(existingData.showSoldOut == 1 ? true : false);
     }
@@ -37,7 +38,10 @@ function DefaultSoldOutSeriesView(props) {
             );
             setDataToSave((prevState) => ({
               ...prevState,
-              showSoldOut: !showSoldOut,
+              preferences: {
+                ...prevState.preferences,
+                showSoldOut: !showSoldOut ? 1 : 0,
+              },              
             }));
           }}
           label="Show Sold Out'"

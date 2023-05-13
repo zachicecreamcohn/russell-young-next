@@ -11,14 +11,17 @@ function SeriesPrioritySelector(props) {
   const [selectedSeries, setSelectedSeries] = useState(null);
 
   const setDataToSave = props.setDataToSave;
-  const existingData = props.existingData;
+  const existingData = props.existingData.preferences;
   const changeHasBeenMade = props.changeHasBeenMade;
   const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
   function updateSeriesPriorityData() {
     setDataToSave((prevState) => ({
       ...prevState,
-      seriesPriority: getUpdatedList(),
+      preferences: {
+        ...prevState.preferences,
+        seriesPriority: getUpdatedList(),
+      },
     }));
   }
 
