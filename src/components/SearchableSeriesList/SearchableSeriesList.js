@@ -7,6 +7,7 @@ import { CircularProgress } from "@mui/material";
 import Series from "../SeriesListing/Series/Series";
 
 function SearchableSeriesList(props) {
+
   return (
     <div className={styles["series-list"]}>
       {/* Use a ternary operator to conditionally render the loading spinner */}

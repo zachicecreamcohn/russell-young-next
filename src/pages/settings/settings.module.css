@@ -31,7 +31,41 @@
     align-items: flex-start;
     justify-content: flex-start;
     height: 100%;
-    width: 80%;
-    margin-left: 5rem;
+    width: 75%;
 }
 
+.save-button-container {
+    width: 100%;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.save-button-container button {
+    width: fit-content;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+h1.title {
+    margin-bottom: 1.5rem;
+    margin-top: 4rem;
+}
+
+h1.title.no-margin {
+    margin-top: 0;
+}
+
+p.subtitle {
+    margin-bottom: 1.25rem;
+}
+
+p.subtitle.separating {
+    margin-top: 3rem;
+}
+
+.content-separator {
+    height: 4rem;
+    opacity: 0;
+}

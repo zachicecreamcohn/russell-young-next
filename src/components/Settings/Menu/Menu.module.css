@@ -13,6 +13,7 @@
     opacity: 0.5;
     cursor: pointer;
     width: fit-content;
+    
 }
 
 .menu .item.active p {

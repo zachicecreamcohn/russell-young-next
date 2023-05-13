@@ -119,9 +119,9 @@ function SeriesPage() {
   function toggleCollapseAll() {
     setAllCollapsed((prevValue) => !prevValue);
     if (!allCollapsed) {
-      $(".series-body").addClass("collapsed");
+      $(".series-collapsable").addClass("collapsed");
     } else {
-      $(".series-body").removeClass("collapsed");
+      $(".series-collapsable").removeClass("collapsed");
     }
   }
 
