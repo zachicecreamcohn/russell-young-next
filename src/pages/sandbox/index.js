@@ -1,6 +1,6 @@
 import React from "react";
 import Body from "@/components/Body/Body";
-import SeriesPrioritySelector from "@/components/SeriesPrioritySelector/SeriesPrioritySelector";
+import SeriesPrioritySelector from "@/components/Settings/SeriesPrioritySelector/SeriesPrioritySelector";
 
 function Sandbox() {
   return (
