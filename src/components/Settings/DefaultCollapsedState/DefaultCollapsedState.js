@@ -3,7 +3,7 @@ import CustomToggle from "@/components/CustomToggle/CustomToggle";
 import styles from "./DefaultCollapsedState.module.css";
 
 function DefaultCollapsedState(props) {
-  const existingData = props.existingData;
+  const existingData = props.existingData.preferences;
 
   const setDataToSave = props.setDataToSave;
   const [collapsedIsDefault, setCollapsedIsDefault] = useState(false);
@@ -11,7 +11,10 @@ function DefaultCollapsedState(props) {
   const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
 
+
+
   useEffect(() => {
+    console.log("existingData", existingData);
     if (existingData && existingData.DefaultCollapsedState !== undefined) {
       setCollapsedIsDefault(existingData.DefaultCollapsedState == 1 ? true : false);
     }
@@ -39,7 +42,10 @@ function DefaultCollapsedState(props) {
             );
             setDataToSave((prevState) => ({
               ...prevState,
-              defaultCollapsedState: !collapsedIsDefault,
+              preferences: {
+                ...prevState.preferences,
+                defaultCollapsedState: collapsedIsDefault ? 0 : 1,
+              },
             }));
           }}
           label="Series Collapsed On Page Load"

@@ -4,14 +4,17 @@ import { TextField, MenuItem } from "@mui/material";
 function DefaultSeriesOrder(props) {
     const [defaultSeriesSortOrder, setDefaultSeriesSortOrder] = useState(null);
     const setDataToSave = props.setDataToSave;
-    const existingData = props.existingData;
+    const existingData = props.existingData.preferences;
     const changeHasBeenMade = props.changeHasBeenMade;
   const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
     function updateDefaultSeriesSortOrder() {
         setDataToSave((prevState) => ({
             ...prevState,
-            defaultSeriesSortOrder: defaultSeriesSortOrder,
+            preferences: {
+                ...prevState.preferences,
+                defaultSeriesSortOrder: defaultSeriesSortOrder,
+            },
         }));
     }
 

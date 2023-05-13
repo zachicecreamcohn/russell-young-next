@@ -8,8 +8,7 @@ import SeriesPrioritySelector from "@/components/Settings/SeriesPrioritySelector
 import DefaultSeriesOrder from "@/components/Settings/DefaultSeriesOrder/DefaultSeriesOrder";
 import DefaultCollapsedState from "@/components/Settings/DefaultCollapsedState/DefaultCollapsedState";
 import DefaultSoldOutSeriesView from "@/components/Settings/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
-import { data } from "jquery";
-
+import toast, { Toaster } from "react-hot-toast";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
@@ -18,6 +17,24 @@ function Settings() {
   const [existingData, setExistingData] = useState({});
   const [changeHasBeenMade, setChangeHasBeenMade] = useState(false);
   const [saveable, setSaveable] = useState(false);
+
+  function alertError(message) {
+    toast.error(message, {
+      style: {
+        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+      },
+      position: "top-center",
+    });
+  }
+
+  function alertSuccess(message) {
+    toast.success(message, {
+      style: {
+        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+      },
+      position: "top-center",
+    });
+  }
 
   useEffect(() => {
     checkLogin()
@@ -33,6 +50,15 @@ function Settings() {
       });
   }, []);
 
+  function saveChanges() {
+    console.log("save changes");
+    setSaveable(false);
+    // set the existing data to the data to save
+    setExistingData(dataToSave);
+
+    alertSuccess("Changes saved.");
+  }
+
   async function getExistingData() {
     return fetch("/api/settings/preferences/getPreferences", {
       method: "GET",
@@ -42,14 +68,18 @@ function Settings() {
     })
       .then((response) => response.json())
       .then((data) => {
-        let existingData = data.preferences;
+        let existingData = data;
         let newData = {};
-        newData.DefaultCollapsedState = existingData.series_start_collapsed;
-        newData.showSoldOut = existingData.sold_out_start_hidden;
-        newData.defaultSeriesSortOrder = existingData.default_series_order;
-        newData.seriesPriority = existingData.series_priority;
+
+        let preferences = {};
+        preferences.defaultCollapsedState = existingData.preferences.series_start_collapsed;
+        preferences.showSoldOut = existingData.preferences.sold_out_start_hidden;
+        preferences.defaultSeriesSortOrder = existingData.preferences.default_series_order;
+        preferences.seriesPriority = existingData.preferences.series_priority;
+        
+        newData.preferences = preferences;
+
         setExistingData(newData);
-        console.log("existingData", existingData);
         // set the data to save to the existing data
         setDataToSave(newData);
       })
@@ -63,25 +93,16 @@ function Settings() {
     getExistingData();
   }, []);
 
-
   useEffect(() => {
     let changed = dataHasChanged();
     if (changed) {
-      
       console.log("data has changed");
+      console.log("dataToSave", dataToSave);
+      console.log("existingData", existingData);
     }
 
     setSaveable(changed);
   }, [dataToSave]);
-  // DEBUG
-  // useEffect(() => {
-  //   console.log("dataToSave", dataToSave);
-  // }, [dataToSave]);
-
-  // // DEBUG
-  // useEffect(() => {
-  //   console.log("existingData", existingData);
-  // }, [existingData]);
 
   function deepEqual(a, b) {
     // This is necessary because comparing two arrays does so by reference, not by value
@@ -187,7 +208,7 @@ function Settings() {
                     setDataToSave={setDataToSave}
                     existingData={existingData}
                     changeHasBeenMade={changeHasBeenMade}
-                      setChangeHasBeenMade={setChangeHasBeenMade}
+                    setChangeHasBeenMade={setChangeHasBeenMade}
                   />
                   <span className={styles["content-separator"]}></span>
                 </>
@@ -197,7 +218,7 @@ function Settings() {
                 setDataToSave={setDataToSave}
                 existingData={existingData}
                 changeHasBeenMade={changeHasBeenMade}
-                      setChangeHasBeenMade={setChangeHasBeenMade}
+                setChangeHasBeenMade={setChangeHasBeenMade}
               />
               {Object.keys(existingData).length !== 0 && (
                 <>
@@ -210,7 +231,7 @@ function Settings() {
                   setDataToSave={setDataToSave}
                   existingData={existingData}
                   changeHasBeenMade={changeHasBeenMade}
-                      setChangeHasBeenMade={setChangeHasBeenMade}
+                  setChangeHasBeenMade={setChangeHasBeenMade}
                 />
               )}
             </>
@@ -223,12 +244,14 @@ function Settings() {
             <button
               className={styles["save-button"] + " theme-design"}
               disabled={!saveable}
+              onClick={saveChanges}
             >
               SAVE CHANGES
             </button>
           </div>
         </div>
       </div>
+      <Toaster containerStyle={{ top: "50px" }} />
     </Body>
   );
 }
