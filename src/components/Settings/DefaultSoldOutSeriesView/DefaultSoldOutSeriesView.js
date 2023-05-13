@@ -6,7 +6,8 @@ function DefaultSoldOutSeriesView(props) {
   const setDataToSave = props.setDataToSave;
   const [showSoldOut, setShowSoldOut] = useState(false);
   const existingData = props.existingData;
-
+  const changeHasBeenMade = props.changeHasBeenMade;
+  const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
   useEffect(() => {
     if (existingData && existingData.showSoldOut !== undefined) {
@@ -28,6 +29,9 @@ function DefaultSoldOutSeriesView(props) {
         <CustomToggle
           checked={showSoldOut}
           onChange={() => {
+            if (!changeHasBeenMade) {
+              setChangeHasBeenMade(true);
+            }
             setShowSoldOut(
               (prevShowSoldOut) => !prevShowSoldOut
             );
