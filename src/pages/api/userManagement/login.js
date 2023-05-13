@@ -4,14 +4,14 @@ import { withIronSession } from "next-iron-session";
 
 
 
-async function authenticateUser(email, password) {
+async function authenticateUser(email, username, password) {
   const db = new MySQL();
 
-  const authQuery = "SELECT id, password FROM users WHERE email = ?";
-  const authResponse = await db.query(authQuery, [email]);
+  const authQuery = "SELECT id, password FROM users WHERE email = ? OR username = ?";
+  const authResponse = await db.query(authQuery, [email, username]);
 
     if (authResponse.length === 0) {
-        return {success: false, message: 'Invalid email or password.'}
+        return {success: false, message: 'Invalid username/email or password.'}
     }
 
     // log the response
@@ -21,7 +21,7 @@ async function authenticateUser(email, password) {
 
     const match = await bcrypt.compare(password, hashedPassword);
     if (!match) {
-        return {success: false, message: 'Invalid email or password.'}
+        return {success: false, message: 'Invalid username/email or password.'}
     }
 
     return {success: true, user_id: user_id};
@@ -33,8 +33,8 @@ async function handler(req, res) {
         return;
     }
 
-    const {email, password} = req.body;
-    const authResponse = await authenticateUser(email, password);
+    const {email, username, password} = req.body;
+    const authResponse = await authenticateUser(email, username, password);
     if (!authResponse.success) {
         res.status(401).json(authResponse);
         return;
