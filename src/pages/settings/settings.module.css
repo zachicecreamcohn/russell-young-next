@@ -17,7 +17,7 @@
 
 .title {
     font-family: 'Din Mittelschrift';
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: 400;
 }
 
@@ -35,10 +35,11 @@
 }
 
 .save-button-container {
+    margin-top: 5rem;
     width: 100%;
     padding-right: 1rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-direction: row;
 }
 

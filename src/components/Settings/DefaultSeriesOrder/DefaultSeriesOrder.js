@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import styles from "./DefaultSeriesOrder.module.css";
 import { TextField, MenuItem } from "@mui/material";
 function DefaultSeriesOrder(props) {
-    const [defaultSeriesSortOrder, setDefaultSeriesSortOrder] = useState([]);
-    const dataToSave = props.dataToSave;
+    const [defaultSeriesSortOrder, setDefaultSeriesSortOrder] = useState(null);
     const setDataToSave = props.setDataToSave;
+    const existingData = props.existingData;
 
     function updateDefaultSeriesSortOrder() {
         setDataToSave((prevState) => ({
@@ -18,13 +18,24 @@ function DefaultSeriesOrder(props) {
     }, [defaultSeriesSortOrder]);
 
 
+    function populateWithExistingData() {
+        if (existingData.defaultSeriesSortOrder) {
+            setDefaultSeriesSortOrder(existingData.defaultSeriesSortOrder);
+        }
+    }
+
+    useEffect(() => {
+        populateWithExistingData();
+    }, []);
+    
+
     return (
         <><p className={styles.title}>
             Set Default Series Order
         </p><TextField
             id="outlined-select-series"
             select
-            value={defaultSeriesSortOrder.length ? defaultSeriesSortOrder : "A → Z"}
+            value={defaultSeriesSortOrder ? defaultSeriesSortOrder : "A → Z"}
             onChange={(event) => setDefaultSeriesSortOrder(event.target.value)}
             variant="outlined"
             size="small"
