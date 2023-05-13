@@ -45,8 +45,7 @@ function RequestLoginForm(props) {
             },
             body: JSON.stringify({
                 full_name: name,
-                email: email
-            })
+                email: email,            })
         })
             .then((response) => response.json())
             .then((data) => {
@@ -71,7 +70,8 @@ function RequestLoginForm(props) {
             },
             body: JSON.stringify({
                 email: email,
-                password: password
+                password: password,
+                username : email
             })
         })
 

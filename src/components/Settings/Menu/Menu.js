@@ -1,5 +1,6 @@
 import React from "react";
 import { Logout } from "tabler-icons-react";
+import { logout } from "@/common/util/auth";
 
 import styles from "./Menu.module.css";
 
@@ -21,7 +22,9 @@ function Menu(props) {
                 )
             }
             )}
-            <div className={styles['logout-btn'] + " " +styles['menu-item']}>
+            <div className={styles['logout-btn'] + " " +styles['menu-item']}
+                            onClick={() => logout()}
+                            >
                 <p>LOGOUT</p>
                 <Logout size={22}
                  />
