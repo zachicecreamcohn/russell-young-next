@@ -1,0 +1,25 @@
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container p {
+    margin-right: 2rem;
+}
+
+.container .left {
+    min-width: 200px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.container .right {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}

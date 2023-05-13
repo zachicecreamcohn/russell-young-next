@@ -7,7 +7,7 @@
 }
 
 .menu .item p {
-    font-size: 14pt;
+    font-size: 12pt;
     font-family: 'Din Mittelschrift';
     margin-bottom: 1rem;
     opacity: 0.5;
@@ -36,7 +36,7 @@
     width: 100px;
     /* padding-left: 1rem; */
     font-family: 'Din Mittelschrift';
-    font-size: 14pt;
+    font-size: 12pt;
     /* padding-right: 1rem; */
     display: flex;
     flex-direction: row;
@@ -47,7 +47,7 @@
     
 }
 .logout-btn p {
-    font-size: 14pt;
+    font-size: 12pt;
 
 }
 

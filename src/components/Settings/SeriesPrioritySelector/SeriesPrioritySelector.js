@@ -10,20 +10,19 @@ function SeriesPrioritySelector(props) {
   const [seriesNames, setSeriesNames] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState(null);
 
-  const dataToSave = props.dataToSave;
   const setDataToSave = props.setDataToSave;
-
+  const existingData = props.existingData;
 
   function updateSeriesPriorityData() {
     setDataToSave((prevState) => ({
-        ...prevState,
-        seriesPriority: getIds(),
-        }));
+      ...prevState,
+      seriesPriority: getUpdatedList(),
+    }));
   }
 
   useEffect(() => {
     updateSeriesPriorityData();
-    }, [list]);
+  }, [list]);
 
   useEffect(() => {
     const names = getSeriesNames();
@@ -44,6 +43,7 @@ function SeriesPrioritySelector(props) {
 
     return seriesNames;
   }
+
 
   const handleAdd = () => {
     if (selectedSeries && !list.includes(selectedSeries)) {
@@ -66,16 +66,51 @@ function SeriesPrioritySelector(props) {
     setList(items);
   };
 
-       
-  function getIds() {
-    return list.map((item) => item.id);
+  function getUpdatedList() {
+    const format = {
+      priority: 0, // 0 is highest priority and represents the first item in the list
+      series_id: 0, // series_id is the id of the series
+      series: "", // series is the name of the series
+    }
+
+    let updatedList = [];
+    for (let i = 0; i < list.length; i++) {
+      updatedList.push({
+        ...format,
+        priority: i,
+        series_id: list[i].id,
+        series: list[i].content
+      });
+
   }
+
+    return updatedList;
+  }
+
+  function populateWithExistingData() {
+    console.log(existingData);
+    let data = existingData.seriesPriority;
+    let existingPriorityListWithNames = [];
+
+   for (let i = 0; i < data.length; i++) {
+      existingPriorityListWithNames.push({
+        content: data[i].series,
+        id: data[i].series_id
+      });
+    }
+    setList(existingPriorityListWithNames); // Add this line to update the list state
+  }
+  
+
+  useEffect(() => {
+    populateWithExistingData();
+  }, [props.existingData]);
 
   return (
     <>
-                    <p className={styles.title}>
-                  Assign priority placement for <b>Series</b> tab listings
-                </p>
+      <p className={styles.title}>
+        Assign priority placement for <b>Series</b> tab listings
+      </p>
       <div className={styles["priority-list-container"]}>
         <div className={styles.list}>
           <DragDropContext onDragEnd={handleDragEnd}>
