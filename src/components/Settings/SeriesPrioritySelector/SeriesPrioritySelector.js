@@ -12,6 +12,8 @@ function SeriesPrioritySelector(props) {
 
   const setDataToSave = props.setDataToSave;
   const existingData = props.existingData;
+  const changeHasBeenMade = props.changeHasBeenMade;
+  const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
   function updateSeriesPriorityData() {
     setDataToSave((prevState) => ({
@@ -21,6 +23,9 @@ function SeriesPrioritySelector(props) {
   }
 
   useEffect(() => {
+    if (!changeHasBeenMade) {
+      setChangeHasBeenMade(true);
+    }
     updateSeriesPriorityData();
   }, [list]);
 
@@ -88,7 +93,6 @@ function SeriesPrioritySelector(props) {
   }
 
   function populateWithExistingData() {
-    console.log(existingData);
     let data = existingData.seriesPriority;
     let existingPriorityListWithNames = [];
 

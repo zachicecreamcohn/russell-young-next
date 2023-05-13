@@ -6,9 +6,9 @@ function DefaultCollapsedState(props) {
   const existingData = props.existingData;
 
   const setDataToSave = props.setDataToSave;
-  console.log(existingData.DefaultCollapsedState);
   const [collapsedIsDefault, setCollapsedIsDefault] = useState(false);
-
+  const changeHasBeenMade = props.changeHasBeenMade;
+  const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
 
   useEffect(() => {
@@ -31,6 +31,9 @@ function DefaultCollapsedState(props) {
         <CustomToggle
           checked={collapsedIsDefault}
           onChange={() => {
+            if (!changeHasBeenMade) {
+              setChangeHasBeenMade(true);
+            }
             setCollapsedIsDefault(
               (prevCollapsedIsDefault) => !prevCollapsedIsDefault
             );

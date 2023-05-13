@@ -8,6 +8,7 @@ import SeriesPrioritySelector from "@/components/Settings/SeriesPrioritySelector
 import DefaultSeriesOrder from "@/components/Settings/DefaultSeriesOrder/DefaultSeriesOrder";
 import DefaultCollapsedState from "@/components/Settings/DefaultCollapsedState/DefaultCollapsedState";
 import DefaultSoldOutSeriesView from "@/components/Settings/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
+import { data } from "jquery";
 
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
@@ -15,6 +16,8 @@ function Settings() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dataToSave, setDataToSave] = useState({});
   const [existingData, setExistingData] = useState({});
+  const [changeHasBeenMade, setChangeHasBeenMade] = useState(false);
+  const [saveable, setSaveable] = useState(false);
 
   useEffect(() => {
     checkLogin()
@@ -31,7 +34,7 @@ function Settings() {
   }, []);
 
   async function getExistingData() {
-    fetch("/api/settings/preferences/getPreferences", {
+    return fetch("/api/settings/preferences/getPreferences", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -47,76 +50,94 @@ function Settings() {
         newData.seriesPriority = existingData.series_priority;
         setExistingData(newData);
         console.log("existingData", existingData);
+        // set the data to save to the existing data
+        setDataToSave(newData);
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-
   // fetch existing data
   useEffect(() => {
     getExistingData();
-    
   }, []);
+
+
+  useEffect(() => {
+    let changed = dataHasChanged();
+    if (changed) {
+      
+      console.log("data has changed");
+    }
+
+    setSaveable(changed);
+  }, [dataToSave]);
+  // DEBUG
+  // useEffect(() => {
+  //   console.log("dataToSave", dataToSave);
+  // }, [dataToSave]);
+
+  // // DEBUG
+  // useEffect(() => {
+  //   console.log("existingData", existingData);
+  // }, [existingData]);
 
   function deepEqual(a, b) {
     // This is necessary because comparing two arrays does so by reference, not by value
     if (a === b) {
       return true;
     }
-  
-    if (typeof a !== "object" || typeof b !== "object" || a === null || b === null) {
+
+    if (
+      typeof a !== "object" ||
+      typeof b !== "object" ||
+      a === null ||
+      b === null
+    ) {
       return false;
     }
-  
+
     const keysA = Object.keys(a);
     const keysB = Object.keys(b);
-  
+
     if (keysA.length !== keysB.length) {
       return false;
     }
-  
+
     for (let key of keysA) {
       if (!keysB.includes(key) || !deepEqual(a[key], b[key])) {
         return false;
       }
     }
-  
+
     return true;
   }
-  
+
   function dataHasChanged() {
     // check if the data to save is different from the existing data
+    // make sure the existing data is not empty
+    if (
+      Object.keys(existingData).length === 0 ||
+      Object.keys(dataToSave).length === 0
+    ) {
+      return false;
+    }
+
+    if (!changeHasBeenMade) {
+      return false;
+    }
+
     for (let key in dataToSave) {
-      if (dataToSave[key] !== existingData[key] && !deepEqual(dataToSave[key], existingData[key])) {
+      if (
+        dataToSave[key] !== existingData[key] &&
+        !deepEqual(dataToSave[key], existingData[key])
+      ) {
         return true;
-      
       }
     }
     return false;
   }
-
-
-
-
-  useEffect(() => {
-
-    // check if the data to save is different from the existing data
-    if (dataHasChanged()) {
-      console.log("data has changed");
-
-      // identify what has changed
-      for (let key in dataToSave) {
-        if (dataToSave[key] !== existingData[key]) {
-          console.log(key, "has changed");
-          console.log("existingData", existingData[key]);
-          console.log("dataToSave", dataToSave[key]);
-        }
-      }
-    }
-    
-  }, [dataToSave]);
 
   if (!isLoggedIn) {
     return (
@@ -149,24 +170,49 @@ function Settings() {
                   Series Display Settings
                 </h1>
                 {Object.keys(existingData).length !== 0 && (
-
-                <><SeriesPrioritySelector setDataToSave={setDataToSave} existingData={existingData} /><span className={styles["content-separator"]}></span></>
+                  <>
+                    <SeriesPrioritySelector
+                      setDataToSave={setDataToSave}
+                      existingData={existingData}
+                      changeHasBeenMade={changeHasBeenMade}
+                      setChangeHasBeenMade={setChangeHasBeenMade}
+                    />
+                    <span className={styles["content-separator"]}></span>
+                  </>
                 )}
-
               </>
-              {Object.keys(existingData).length !== 0 && (<>
-              <DefaultSeriesOrder setDataToSave={setDataToSave} existingData={existingData}/>
-              <span className={styles["content-separator"]}></span>
-              </>)}
+              {Object.keys(existingData).length !== 0 && (
+                <>
+                  <DefaultSeriesOrder
+                    setDataToSave={setDataToSave}
+                    existingData={existingData}
+                    changeHasBeenMade={changeHasBeenMade}
+                      setChangeHasBeenMade={setChangeHasBeenMade}
+                  />
+                  <span className={styles["content-separator"]}></span>
+                </>
+              )}
 
-              <DefaultCollapsedState setDataToSave={setDataToSave} existingData={existingData}/>
-              {Object.keys(existingData).length !== 0 && (<>
-              <span className={styles["content-separator"]}></span>
-              </>)}
+              <DefaultCollapsedState
+                setDataToSave={setDataToSave}
+                existingData={existingData}
+                changeHasBeenMade={changeHasBeenMade}
+                      setChangeHasBeenMade={setChangeHasBeenMade}
+              />
+              {Object.keys(existingData).length !== 0 && (
+                <>
+                  <span className={styles["content-separator"]}></span>
+                </>
+              )}
 
-                {Object.keys(existingData).length !== 0 && (
-              <DefaultSoldOutSeriesView setDataToSave={setDataToSave} existingData={existingData}/>
-                )}
+              {Object.keys(existingData).length !== 0 && (
+                <DefaultSoldOutSeriesView
+                  setDataToSave={setDataToSave}
+                  existingData={existingData}
+                  changeHasBeenMade={changeHasBeenMade}
+                      setChangeHasBeenMade={setChangeHasBeenMade}
+                />
+              )}
             </>
           ) : activeMenuItem === "manage users" ? (
             <h1>User Stuff</h1>
@@ -176,9 +222,9 @@ function Settings() {
           <div className={styles["save-button-container"]}>
             <button
               className={styles["save-button"] + " theme-design"}
-              disabled={Object.keys(dataToSave).length === 0}
+              disabled={!saveable}
             >
-              SAVE
+              SAVE CHANGES
             </button>
           </div>
         </div>

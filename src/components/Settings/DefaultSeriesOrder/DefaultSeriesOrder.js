@@ -5,6 +5,8 @@ function DefaultSeriesOrder(props) {
     const [defaultSeriesSortOrder, setDefaultSeriesSortOrder] = useState(null);
     const setDataToSave = props.setDataToSave;
     const existingData = props.existingData;
+    const changeHasBeenMade = props.changeHasBeenMade;
+  const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
     function updateDefaultSeriesSortOrder() {
         setDataToSave((prevState) => ({
@@ -15,6 +17,9 @@ function DefaultSeriesOrder(props) {
 
     useEffect(() => {
         updateDefaultSeriesSortOrder();
+        if (!changeHasBeenMade) {
+            setChangeHasBeenMade(true);
+          }
     }, [defaultSeriesSortOrder]);
 
 
