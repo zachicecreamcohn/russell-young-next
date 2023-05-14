@@ -35,6 +35,8 @@
         width: 100%;
         max-width: 100%;
         min-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -43,12 +45,12 @@
 }
 
 .child .child-content {
-    max-width: 700px;
+    max-width: 600px;
 }
 
 .child .child-info {
     width: 40%;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .child .child-title {
@@ -75,6 +77,8 @@
 
 }
 
+
+
 .circle.green:hover {
     background-color: #ff0000;
 }
@@ -98,4 +102,12 @@
 .parent-detail.sold-out {
     color: #ff0000;
 
+}
+
+
+.info-and-btns {
+    display: flex;
+    width: 32%;
+    min-width: fit-content;
+    justify-content: space-evenly;
 }

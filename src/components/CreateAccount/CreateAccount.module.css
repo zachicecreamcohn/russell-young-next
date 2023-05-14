@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: fit-content;
+    height: 100%;
+    width: 274px;
+}
+
+.container h1 {
+    text-align: left;
+width: 100%;
+font-size: 18pt;
+font-weight: 400;
+margin-bottom: 1.5rem;
+}
+
+.container input {
+    margin-bottom: 10px;
+}
+
+.container .secondaryActionMessage {
+    margin-top: 1rem;
+    width: 100%;
+    font-size: 10pt;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    color: black;
+}
+
+.container a {
+    color: black;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}

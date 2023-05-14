@@ -8,8 +8,11 @@ import SearchableSeriesList from "@/components/SearchableSeriesList/SearchableSe
 import ToTopOfPageButton from "@/components/ToTopOfPageButton/ToTopOfPageButton";
 import ChildWorkPopup from "@/components/popups/ChildWorkPopup/ChildWorkPopup";
 import styles from "./series.module.css";
+import { checkLogin } from "@/common/util/auth";
 
 function SeriesPage() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const defaultSeries = "FAME"; // default series to display on load
 
   const [loading, setLoading] = useState(true);
@@ -24,30 +27,20 @@ function SeriesPage() {
 
   const [searchQuery, setSearchQuery] = useState({});
 
-  function toggleCollapseAll() {
-    setAllCollapsed((prevValue) => !prevValue);
-    if (!allCollapsed) {
-      $(".series-body").addClass("collapsed");
-    } else {
-      $(".series-body").removeClass("collapsed");
-    }
-  }
+  useEffect(() => {
+    checkLogin()
+      .then((loggedIn) => {
+        if (!loggedIn && window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        } else {
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
-  function getLastUpdatedDatetime() {
-    // check local storage for last updated datetime
-    let localDatetime = localStorage.getItem("lastUpdatedDatetime");
-    if (localDatetime) {
-      // ensure that htere is a value in local storage
-      let localSeriesInfo = localStorage.getItem("seriesInfo");
-      if (localSeriesInfo) {
-        return localDatetime;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
 
   useEffect(() => {
     let lastUpdatedDatetime = getLastUpdatedDatetime();
@@ -109,6 +102,45 @@ function SeriesPage() {
       setChildIDPopupOpen(true);
     }
   }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <Body center h-80>
+        <CircularProgress
+          sx={{
+            color: "#000000",
+          }}
+        />
+      </Body>
+    );
+  }
+
+
+  function toggleCollapseAll() {
+    setAllCollapsed((prevValue) => !prevValue);
+    if (!allCollapsed) {
+      $(".series-collapsable").addClass("collapsed");
+    } else {
+      $(".series-collapsable").removeClass("collapsed");
+    }
+  }
+
+  function getLastUpdatedDatetime() {
+    // check local storage for last updated datetime
+    let localDatetime = localStorage.getItem("lastUpdatedDatetime");
+    if (localDatetime) {
+      // ensure that htere is a value in local storage
+      let localSeriesInfo = localStorage.getItem("seriesInfo");
+      if (localSeriesInfo) {
+        return localDatetime;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Body center direction="column" Tabs={true} activeTab="series">
       <SeriesFilters

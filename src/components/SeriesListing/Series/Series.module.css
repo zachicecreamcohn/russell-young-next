@@ -21,10 +21,20 @@
     padding-right: 1.75rem;
 }
 
+
+
 .series .series-header .series-name h3 {
     font-size: 16pt !important;
 }
 
 .collapsed {
     display: none !important;
+}
+
+/* on mobile */
+@media (max-width: 768px) {
+    .series .series-body {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
 }

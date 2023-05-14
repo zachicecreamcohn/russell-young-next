@@ -8,7 +8,6 @@ import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
 import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
 function Child(props) {
-  console.log(props);
   function shareWork() {
     shareContent({
       title: props.childWork.title,
@@ -17,7 +16,6 @@ function Child(props) {
     });
   }
 
-  const notify = () => toast("Here is your toast.");
 
   const [ChildWorkPopupIsOpen, setChildWorkPopupIsOpen] = useState(
     props.popupOpen || false
@@ -138,13 +136,11 @@ function Child(props) {
             </div>
           </div>
         </div>
+        <div className={styles["info-and-btns"]}>
         <div
-          className={`${styles["child-info"]} pe-2 d-flex flex-row`}
-          style={{ width: "30%" }}
+          className={`${styles["child-info"]} d-flex flex-row`}
         >
-          <div
-            className={`${styles["child-img"]}`}
-          >
+          <div className={`${styles["child-img"]}`}>
             <img
               src={iconURL}
               alt={work.title}
@@ -156,13 +152,11 @@ function Child(props) {
                 maxWidth: "300px",
                 cursor: "pointer",
               }}
-
               onClick={() => {
                 setChildWorkPopupIsOpen(true);
               }}
             />
           </div>
-          
         </div>
         <div
           className={`${styles.share} d-flex flex-column justify-content-around `}
@@ -208,29 +202,28 @@ function Child(props) {
             }}
           />
         </div>
-        <div>
-            {visible ? (
-              <span
-                className={`${styles.circle} ${styles.green}`}
-                onClick={() => {
-                  madeInvisible();
-                }}
-              >
-                {" "}
-              </span>
-            ) : (
-              <span
-                className={`${styles.circle} ${styles.red}`}
-                onClick={() => {
-                  madeVisible();
-                }}
-              >
-                {" "}
-              </span>
-            )}
-          </div>
-
-        
+        <div className="ps-2">
+          {visible ? (
+            <span
+              className={`${styles.circle} ${styles.green}`}
+              onClick={() => {
+                madeInvisible();
+              }}
+            >
+              {" "}
+            </span>
+          ) : (
+            <span
+              className={`${styles.circle} ${styles.red}`}
+              onClick={() => {
+                madeVisible();
+              }}
+            >
+              {" "}
+            </span>
+          )}
+        </div>
+        </div>
       </div>
 
       <Toaster containerStyle={{ top: "50px" }} />

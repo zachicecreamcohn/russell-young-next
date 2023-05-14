@@ -30,3 +30,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+
+# ignore the sandbox route
+/src/pages/sandbox

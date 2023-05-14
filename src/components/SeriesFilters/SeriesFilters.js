@@ -11,7 +11,6 @@ import Search from "../Search/Search";
 
 import { Plus } from "tabler-icons-react";
 
-import $ from "jquery";
 function SeriesFilters(props) {
   // define a state variable to hold series to display as options
 
