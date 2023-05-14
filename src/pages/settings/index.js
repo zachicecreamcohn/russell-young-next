@@ -51,13 +51,34 @@ function Settings() {
   }, []);
 
   function saveChanges() {
-    console.log("save changes");
-    setSaveable(false);
-    // set the existing data to the data to save
-    setExistingData(dataToSave);
+    console.log(dataToSave);
+    // send the data to save to the server
+    fetch("/api/settings/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSave),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alertSuccess("Changes saved.");
+          // set the existing data to the data to save
+          setExistingData(dataToSave);
+          setChangeHasBeenMade(false);
+          setSaveable(false);
+        } else {
+          alertError("Error saving changes.");
+        }
+      })
+      .catch((error) => {
+        alertError("Error saving changes. Check console for details.");
+        console.error(error);
+      });
 
-    alertSuccess("Changes saved.");
   }
+
 
   async function getExistingData() {
     return fetch("/api/settings/preferences/getPreferences", {
