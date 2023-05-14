@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import styles from "./settings.module.css";
 import { CircularProgress } from "@mui/material";
 import { checkLogin } from "@/common/util/auth";
-import SeriesPrioritySelector from "@/components/Settings/SeriesPrioritySelector/SeriesPrioritySelector";
-import DefaultSeriesOrder from "@/components/Settings/DefaultSeriesOrder/DefaultSeriesOrder";
-import DefaultCollapsedState from "@/components/Settings/DefaultCollapsedState/DefaultCollapsedState";
-import DefaultSoldOutSeriesView from "@/components/Settings/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
+// Components for PREFERENCES
+import SeriesPrioritySelector from "@/components/Settings/preferences/SeriesPrioritySelector/SeriesPrioritySelector";
+import DefaultSeriesOrder from "@/components/Settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
+import DefaultCollapsedState from "@/components/Settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
+import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
+
+// Components for MANAGE USERS
+import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
 import toast, { Toaster } from "react-hot-toast";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
@@ -257,7 +261,14 @@ function Settings() {
               )}
             </>
           ) : activeMenuItem === "manage users" ? (
-            <h1>User Stuff</h1>
+            <><h1 className={styles.title + " " + styles["no-margin"]}>
+                User Accounts and Permissions
+              </h1><AccessRequests 
+              alertError={alertError}
+              alertSuccess={alertSuccess}
+              /> {/* standard dataToSave variables are not included here. This component is self-contained */}</>
+              
+
           ) : activeMenuItem === "my account" ? (
             <h1>Account</h1>
           ) : null}

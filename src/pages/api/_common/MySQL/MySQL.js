@@ -16,11 +16,6 @@ class MySQL {
     console.log('process.env.DB_ENDPOINT', process.env.DB_ENDPOINT);
     this.connectionCount++;
 
-    // Log the number of active connections every 30 seconds
-    setInterval(() => {
-      console.log(`Active connections: ${MySQL.pool._allConnections.length}`);
-    }, 30000);
-
     // Add event listener for new connections
     MySQL.pool.on('connection', () => {
       MySQL.connectionCount++;
