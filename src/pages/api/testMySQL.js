@@ -1,6 +1,5 @@
 import MySQL from '@/pages/api/_common/MySQL/MySQL'
 
-console
 
 const mysql = new MySQL();
 

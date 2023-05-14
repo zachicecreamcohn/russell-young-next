@@ -8,7 +8,6 @@ function Series(props) {
 
 
 
-
     const { series, seriesID, parentWorks, allCollapsed } = props;
   
     // define a state variable to hold the state (collapsed or expanded) of the series
@@ -17,6 +16,8 @@ function Series(props) {
     const [startYear, setStartYear] = useState(props.startYear);
     const [endYear, setEndYear] = useState(props.endYear);
 
+  
+  
     // handle changes in props.endYear and props.startYear
     useEffect(() => {
         setStartYear(props.startYear);
@@ -38,22 +39,21 @@ function Series(props) {
   
     // if the allCollapsed prop changes, update the state of the series
     useEffect(() => {
+
         setCollapsed(allCollapsed);
+        console.log("All collapsed changed");
+        console.log("All collapsed: " + allCollapsed);
+        console.log("Collapsed: " + collapsed);
+
     }, [allCollapsed]);
 
 
 
 
     function toggleCollapsed() {
-      setCollapsed(!collapsed);
-  
-      // add or remove the "collapsed" class from the series-body div
-      const seriesBody = document.getElementById(`series-body-${seriesID}`);
-      if (collapsed) {
-        seriesBody.classList.remove("collapsed");
-      } else {
-        seriesBody.classList.add("collapsed");
-      }
+      setCollapsed((prevCollapsed) => !prevCollapsed);
+
+      
     }
   
     return (
@@ -82,8 +82,13 @@ function Series(props) {
             )}
           </div>
         </div>
-  
-        <div className={styles["series-body"] + " d-flex flex-column"} id={`series-body-${seriesID}`}>
+            
+            
+        <div
+        // className={styles["series-body"] + " d-flex flex-column series-collapsable"}
+        className={collapsed ? styles["series-body"] + " d-flex flex-column series-collapsable" : styles["series-body"] + " d-flex flex-column series-collapsable d-none"}
+
+        id={`series-body-${seriesID}`}>
           {/* for each work in the parentWorks array, render a Parent component */}
           {parentWorks.map((parentWork) => {
 
