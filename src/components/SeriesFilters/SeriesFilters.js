@@ -39,6 +39,11 @@ function SeriesFilters(props) {
   );
 
   useEffect(() => {
+    // when seriesList prop changes, set the value of seriesList to the value of the prop
+    setSeriesList(props.defaultSeries);
+  }, [props.defaultSeries]);
+
+  useEffect(() => {
     // make sure each entry in  memoizedSeriesOptions  is unique
     const uniqueSeriesOptions = [...new Set(memoizedSeriesOptions)];
     setSeriesOptions(uniqueSeriesOptions);
@@ -85,9 +90,6 @@ function SeriesFilters(props) {
               renderInput={(params) => (
                 <TextField {...params} placeholder="Filter by series" />
               )}
-              // if (defaultSeries.length > 0) {
-              defaultValue={[props.defaultSeries]}
-              // }
               size="small"
             />
 
