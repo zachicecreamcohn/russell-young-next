@@ -12,8 +12,7 @@ import { checkLogin } from "@/common/util/auth";
 
 function SeriesPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const defaultSeries = "FAME"; // default series to display on load
+  const [defaultSeries, setDefaultSeries] = useState(["FAME"]);
 
   const [loading, setLoading] = useState(true);
   const [initiallyLoading, setInitiallyLoading] = useState(true);
@@ -24,7 +23,6 @@ function SeriesPage() {
   const [startYear, setStartYear] = useState(2000);
   const [endYear, setEndYear] = useState(new Date().getFullYear());
   const [hideSoldOut, setHideSoldOut] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState({});
 
   useEffect(() => {
@@ -40,7 +38,6 @@ function SeriesPage() {
         console.error(error);
       });
   }, []);
-
 
   useEffect(() => {
     let lastUpdatedDatetime = getLastUpdatedDatetime();
@@ -103,17 +100,6 @@ function SeriesPage() {
     }
   }, []);
 
-  if (!isLoggedIn) {
-    return (
-      <Body center h-80>
-        <CircularProgress
-          sx={{
-            color: "#000000",
-          }}
-        />
-      </Body>
-    );
-  }
 
 
   function toggleCollapseAll() {
@@ -139,6 +125,59 @@ function SeriesPage() {
     } else {
       return null;
     }
+  }
+
+
+  async function getPreferences() {
+    const response = await fetch("/api/settings/preferences/getPreferences", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    const preferences = {
+      defaultSeriesList: data.preferences.defaultSeries,
+      seriesPriorityList: data.preferences.series_priority,
+      startCollapsed: data.preferences.series_start_collapsed,
+      hideSoldOut: data.preferences.sold_out_start_hidden,
+      defaultSeriesSortOrder: data.preferences.default_series_order, // TODO: implement this
+    }
+
+    return preferences;
+
+  }
+
+
+
+
+  async function applyPreferences() {
+    const preferences = await getPreferences();
+    console.log(preferences);
+    let defaultSeriesList = [];
+    for (let i = 0; i < preferences.defaultSeriesList.length; i++) {
+      defaultSeriesList.push(preferences.defaultSeriesList[i].series);
+    }
+    console.log(defaultSeriesList);
+    setDefaultSeries(defaultSeriesList);
+    setHideSoldOut(preferences.hideSoldOut);
+    setAllCollapsed(preferences.startCollapsed);
+  }
+
+  useEffect(() => {
+    applyPreferences();
+  }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <Body center h-80>
+        <CircularProgress
+          sx={{
+            color: "#000000",
+          }}
+        />
+      </Body>
+    );
   }
 
   return (
