@@ -24,6 +24,8 @@ function SeriesPage() {
   const [endYear, setEndYear] = useState(new Date().getFullYear());
   const [hideSoldOut, setHideSoldOut] = useState(false);
   const [searchQuery, setSearchQuery] = useState({});
+  const [sortOrder, setSortOrder] = useState("A → Z");
+
 
   useEffect(() => {
     checkLogin()
@@ -75,7 +77,7 @@ function SeriesPage() {
         }
 
         if (initiallyLoading) {
-          setSeriesList([defaultSeries]);
+          setSeriesList(series_names);
           setInitiallyLoading(false);
         } else {
           setSeriesList(series_names);
@@ -162,6 +164,7 @@ function SeriesPage() {
     setDefaultSeries(defaultSeriesList);
     setHideSoldOut(preferences.hideSoldOut);
     setAllCollapsed(preferences.startCollapsed);
+    setSortOrder(preferences.defaultSeriesSortOrder);
   }
 
   useEffect(() => {
@@ -209,6 +212,8 @@ function SeriesPage() {
         toggleCollapseAll={toggleCollapseAll}
         hideSoldOut={hideSoldOut}
         setHideSoldOut={setHideSoldOut}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
       />
 
       {childIDInURL !== "" && childIDPopupOpen && (

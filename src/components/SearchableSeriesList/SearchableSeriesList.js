@@ -6,19 +6,42 @@ import Series from "../SeriesListing/Series/Series";
 
 function SearchableSeriesList(props) {
   const [sortedSeriesInfo, setSortedSeriesInfo] = useState([]);
+  const sortOrder = props.sortOrder;
+  const setSortOrder = props.setSortOrder;
 
   useEffect(() => {
     // Sort the seriesInfo whenever it changes
     sortSeriesInfo();
   }, [props.seriesInfo]);
 
+  useEffect(() => {
+    // Sort the seriesInfo whenever the sortOrder changes
+    sortSeriesInfo();
+  }, [sortOrder]);
+
+
   const sortSeriesInfo = () => {
+    console.log("Sorting series info");
+    console.log(sortOrder);
+    console.log(sortOrder == "Z → A");
+    switch (sortOrder) {
+      case "A → Z":
+        sortAZ();
+        break;
+      case "Z → A":
+        sortZA();
+        break;
+      default:
+        console.log("Defaulting to A → Z");
+        sortAZ();
+        break;
+    }
+  };
+
+  const sortAZ = () => {
     // Copy the seriesInfo array
     let sortedInfo = [...props.seriesInfo];
-
-    // Perform sorting based on your desired criteria
     sortedInfo.sort((a, b) => {
-      // Replace the condition with your custom sorting logic
       // Here, sorting based on the series name in ascending order
       if (a.series < b.series) return -1;
       if (a.series > b.series) return 1;
@@ -26,6 +49,20 @@ function SearchableSeriesList(props) {
     });
 
     setSortedSeriesInfo(sortedInfo);
+  };
+
+  const sortZA = () => {
+    // Copy the seriesInfo array
+    let sortedInfo = [...props.seriesInfo];
+    sortedInfo.sort((a, b) => {
+      // Here, sorting based on the series name in descending order
+      if (a.series > b.series) return -1;
+      if (a.series < b.series) return 1;
+      return 0;
+    });
+
+    setSortedSeriesInfo(sortedInfo);
+
   };
 
   return (
