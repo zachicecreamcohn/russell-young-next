@@ -98,14 +98,14 @@ function SeriesFilters(props) {
             </div>
           </div>
           <div className={`${styles["hide-sold-out"]} d-flex flex-row justify-content-start align-center`}>
-            <span className={styles["hide-sold-out-text"]}>Hide Sold Out Works</span>
+            <span className={styles["hide-sold-out-text"]}>Hide Sold Out</span>
             <CustomToggle
               checked={hideSoldOut}
               onChange={() => {
                 setHideSoldOut(!hideSoldOut);
                 console.log("hideSoldOut: ", hideSoldOut);
               }}
-              label="Hide Sold Out Works"
+              label="Hide Sold Out"
             />
           </div>
         </div>

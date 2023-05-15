@@ -9,7 +9,7 @@ import SeriesPrioritySelector from "@/components/Settings/preferences/SeriesPrio
 import DefaultSeriesOrder from "@/components/Settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
 import DefaultCollapsedState from "@/components/Settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
 import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
-import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
+// import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
 import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
 import toast, { Toaster } from "react-hot-toast";
@@ -227,7 +227,7 @@ function Settings() {
                   setChangeHasBeenMade={setChangeHasBeenMade}
                 />
               )}
-              {hasExistingData && (
+              {/* {hasExistingData && (
                 <span className={styles["content-separator"]}></span>
               )}
 
@@ -238,7 +238,7 @@ function Settings() {
                   changeHasBeenMade={changeHasBeenMade}
                   setChangeHasBeenMade={setChangeHasBeenMade}
                 />
-              )}
+              )} */}
 
               {hasExistingData && (
                 <span className={styles["content-separator"]}></span>
@@ -252,16 +252,7 @@ function Settings() {
                   setChangeHasBeenMade={setChangeHasBeenMade}
                 />
               )}
-              {hasExistingData && (
-                <span className={styles["content-separator"]}></span>
-              )}
 
-              <DefaultCollapsedState
-                setDataToSave={setDataToSave}
-                existingData={existingData}
-                changeHasBeenMade={changeHasBeenMade}
-                setChangeHasBeenMade={setChangeHasBeenMade}
-              />
               {hasExistingData && (
                 <span className={styles["content-separator"]}></span>
               )}
@@ -274,6 +265,17 @@ function Settings() {
                   setChangeHasBeenMade={setChangeHasBeenMade}
                 />
               )}
+
+              {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
+              )}
+
+              <DefaultCollapsedState
+                setDataToSave={setDataToSave}
+                existingData={existingData}
+                changeHasBeenMade={changeHasBeenMade}
+                setChangeHasBeenMade={setChangeHasBeenMade}
+              />
             </>
           )}
 

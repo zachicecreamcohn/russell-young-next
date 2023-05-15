@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Child.module.css";
 import { useState, useEffect } from "react";
-import { Share, Link } from "tabler-icons-react";
+import { Share, Link, ArrowForwardUp } from "tabler-icons-react";
 import toast, { Toaster } from "react-hot-toast";
 import shareContent from "@/common/util/Share";
 import CONFIG_VARS from "@/CONFIG_VARS";
@@ -148,7 +148,6 @@ function Child(props) {
                 width: "auto",
                 height: "60px",
                 objectFit: "contain",
-                borderRadius: "0.25rem",
                 maxWidth: "300px",
                 cursor: "pointer",
               }}
@@ -162,7 +161,7 @@ function Child(props) {
           className={`${styles.share} d-flex flex-column justify-content-around `}
           style={{ width: "10%" }}
         >
-          <Share
+          <ArrowForwardUp
             size={20}
             onClick={() => {
               shareWork();
