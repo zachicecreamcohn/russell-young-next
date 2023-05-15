@@ -27,7 +27,7 @@ function DefaultCollapsedState(props) {
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-        <p className={styles.title}>Series&apos; Start Collapsed</p>
+        <p className={styles.title}>Collapse Series</p>
 
 
         </div>

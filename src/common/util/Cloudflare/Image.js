@@ -36,7 +36,7 @@ class Image {
     // gets thumbnail sized version
     getIcon() {
         const options = {
-            height: 60
+            height: 200
         }
         return this.getImage(options);
     }

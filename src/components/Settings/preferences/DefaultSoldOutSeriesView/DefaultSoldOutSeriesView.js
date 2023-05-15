@@ -23,7 +23,7 @@ function DefaultSoldOutSeriesView(props) {
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-        <p className={styles.title}>Sold Out Start Hidden</p>
+        <p className={styles.title}>Hide Sold Out</p>
 
         </div>
         <div className={styles.right}>
