@@ -9,7 +9,7 @@ import SeriesPrioritySelector from "@/components/Settings/preferences/SeriesPrio
 import DefaultSeriesOrder from "@/components/Settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
 import DefaultCollapsedState from "@/components/Settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
 import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
-
+import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
 import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
 import toast, { Toaster } from "react-hot-toast";
@@ -80,9 +80,7 @@ function Settings() {
         alertError("Error saving changes. Check console for details.");
         console.error(error);
       });
-
   }
-
 
   async function getExistingData() {
     return fetch("/api/settings/preferences/getPreferences", {
@@ -97,11 +95,15 @@ function Settings() {
         let newData = {};
 
         let preferences = {};
-        preferences.defaultCollapsedState = existingData.preferences.series_start_collapsed;
-        preferences.showSoldOut = existingData.preferences.sold_out_start_hidden;
-        preferences.defaultSeriesSortOrder = existingData.preferences.default_series_order;
+        preferences.defaultCollapsedState =
+          existingData.preferences.series_start_collapsed;
+        preferences.showSoldOut =
+          existingData.preferences.sold_out_start_hidden;
+        preferences.defaultSeriesSortOrder =
+          existingData.preferences.default_series_order;
         preferences.seriesPriority = existingData.preferences.series_priority;
-        
+        preferences.defaultSeries = existingData.preferences.defaultSeries;
+
         newData.preferences = preferences;
 
         setExistingData(newData);
@@ -184,7 +186,6 @@ function Settings() {
     }
     return false;
   }
-
   if (!isLoggedIn) {
     return (
       <Body center>
@@ -196,6 +197,9 @@ function Settings() {
       </Body>
     );
   }
+
+  const hasExistingData = Object.keys(existingData).length !== 0;
+
   return (
     <Body center direction="column" Tabs={true} activeTab="settings" h-80>
       <div className={styles.container}>
@@ -209,34 +213,47 @@ function Settings() {
           />
         </div>
         <div className={styles.content}>
-          {activeMenuItem === "preferences" ? (
+          {activeMenuItem === "preferences" && (
             <>
-              <>
-                <h1 className={styles.title + " " + styles["no-margin"]}>
-                  Series Display Settings
-                </h1>
-                {Object.keys(existingData).length !== 0 && (
-                  <>
-                    <SeriesPrioritySelector
-                      setDataToSave={setDataToSave}
-                      existingData={existingData}
-                      changeHasBeenMade={changeHasBeenMade}
-                      setChangeHasBeenMade={setChangeHasBeenMade}
-                    />
-                    <span className={styles["content-separator"]}></span>
-                  </>
-                )}
-              </>
-              {Object.keys(existingData).length !== 0 && (
-                <>
-                  <DefaultSeriesOrder
-                    setDataToSave={setDataToSave}
-                    existingData={existingData}
-                    changeHasBeenMade={changeHasBeenMade}
-                    setChangeHasBeenMade={setChangeHasBeenMade}
-                  />
-                  <span className={styles["content-separator"]}></span>
-                </>
+              <h1 className={styles.title + " " + styles["no-margin"]}>
+                Series Display Settings
+              </h1>
+
+              {hasExistingData && (
+                <SeriesPrioritySelector
+                  setDataToSave={setDataToSave}
+                  existingData={existingData}
+                  changeHasBeenMade={changeHasBeenMade}
+                  setChangeHasBeenMade={setChangeHasBeenMade}
+                />
+              )}
+              {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
+              )}
+
+              {hasExistingData && (
+                <DefaultSeries
+                  setDataToSave={setDataToSave}
+                  existingData={existingData}
+                  changeHasBeenMade={changeHasBeenMade}
+                  setChangeHasBeenMade={setChangeHasBeenMade}
+                />
+              )}
+
+              {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
+              )}
+
+              {hasExistingData && (
+                <DefaultSeriesOrder
+                  setDataToSave={setDataToSave}
+                  existingData={existingData}
+                  changeHasBeenMade={changeHasBeenMade}
+                  setChangeHasBeenMade={setChangeHasBeenMade}
+                />
+              )}
+              {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
               )}
 
               <DefaultCollapsedState
@@ -245,13 +262,11 @@ function Settings() {
                 changeHasBeenMade={changeHasBeenMade}
                 setChangeHasBeenMade={setChangeHasBeenMade}
               />
-              {Object.keys(existingData).length !== 0 && (
-                <>
-                  <span className={styles["content-separator"]}></span>
-                </>
+              {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
               )}
 
-              {Object.keys(existingData).length !== 0 && (
+              {hasExistingData && (
                 <DefaultSoldOutSeriesView
                   setDataToSave={setDataToSave}
                   existingData={existingData}
@@ -260,18 +275,22 @@ function Settings() {
                 />
               )}
             </>
-          ) : activeMenuItem === "manage users" ? (
-            <><h1 className={styles.title + " " + styles["no-margin"]}>
-                User Accounts and Permissions
-              </h1><AccessRequests 
-              alertError={alertError}
-              alertSuccess={alertSuccess}
-              /> {/* standard dataToSave variables are not included here. This component is self-contained */}</>
-              
+          )}
 
-          ) : activeMenuItem === "my account" ? (
-            <h1>Account</h1>
-          ) : null}
+          {activeMenuItem === "manage users" && (
+            <>
+              <h1 className={styles.title + " " + styles["no-margin"]}>
+                User Accounts and Permissions
+              </h1>
+              <AccessRequests
+                alertError={alertError}
+                alertSuccess={alertSuccess}
+              />
+            </>
+          )}
+
+          {activeMenuItem === "my account" && <h1>Account</h1>}
+
           <div className={styles["save-button-container"]}>
             <button
               className={styles["save-button"] + " theme-design"}

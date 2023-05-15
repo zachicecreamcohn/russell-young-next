@@ -32,6 +32,11 @@ class MySQL {
           connection.release();
           if (err) {
             console.error(`Error releasing connection: ${err}`);
+            if (err.code === 'ER_PARSE_ERROR') {
+              console.log('sql', sql);
+              console.log('args', args);
+
+            }
             return reject(err);
           }
           resolve(rows);

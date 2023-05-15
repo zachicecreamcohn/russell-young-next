@@ -19,6 +19,15 @@
 
 
 .collapse-all-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
     padding-left: 1.75rem;
     padding-right: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.collapse-all-toggle-container p {
+    padding-right: 1rem;
 }
