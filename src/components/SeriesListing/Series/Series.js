@@ -86,7 +86,7 @@ function Series(props) {
             
         <div
         // className={styles["series-body"] + " d-flex flex-column series-collapsable"}
-        className={collapsed ? styles["series-body"] + " d-flex flex-column series-collapsable" : styles["series-body"] + " d-flex flex-column series-collapsable d-none"}
+        className={!collapsed ? styles["series-body"] + " d-flex flex-column series-collapsable" : styles["series-body"] + " d-flex flex-column series-collapsable d-none"}
 
         id={`series-body-${seriesID}`}>
           {/* for each work in the parentWorks array, render a Parent component */}

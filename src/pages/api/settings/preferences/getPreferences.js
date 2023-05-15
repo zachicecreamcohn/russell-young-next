@@ -80,6 +80,26 @@ async function getPreferences(user_id) {
         throw new Error(e.message);
     }
 
+
+    // check for default series 
+    const defaultSeriesQuery = "SELECT default_series.series_id, series.series FROM default_series JOIN series ON default_series.series_id = series.seriesID WHERE user_id = ?";
+    try {
+        const defaultSeriesResult = await mysql.query(defaultSeriesQuery, [user_id]);
+        let defaultSeries = [];
+        defaultSeriesResult.forEach(row => {
+            defaultSeries.push({
+                "series_id": row.series_id,
+                "series": row.series
+            });
+        });
+
+        // insert the default series into the preferences object
+        preferences.defaultSeries = defaultSeries;
+    }
+    catch (e) {
+        throw new Error(e.message);
+    }
+
     // now, return the preferences object
     return preferences;
 }

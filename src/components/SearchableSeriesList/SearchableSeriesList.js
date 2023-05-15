@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 // import styles
 import styles from "./SearchableSeriesList.module.css";
-
+import CustomToggle from "../CustomToggle/CustomToggle";
 import { CircularProgress } from "@mui/material";
 import Series from "../SeriesListing/Series/Series";
 
@@ -18,14 +18,13 @@ function SearchableSeriesList(props) {
       ) : (
         <>
           {/* Wrap the collapse-all-toggle div and the seriesInfo.map inside a fragment */}
-          <div className={styles["collapse-all-toggle-container"]+" d-flex justify-content-end"}>
-            <div className={styles["collapse-all-toggle"]}>
-              {props.allCollapsed ? (
-                <p onClick={props.toggleCollapseAll}>Expand All</p>
-              ) : (
-                <p onClick={props.toggleCollapseAll}>Collapse All</p>
-              )}
-            </div>
+          <div className={styles["collapse-all-toggle-container"]}>
+              <p>Collapse Series</p>
+              <CustomToggle
+                checked={props.allCollapsed}
+                onChange={props.toggleCollapseAll}
+                label="Collapse All"
+              />
           </div>
 
           {props.seriesInfo == [] ? (
