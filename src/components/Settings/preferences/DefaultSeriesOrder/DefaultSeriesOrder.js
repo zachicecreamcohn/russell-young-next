@@ -63,9 +63,9 @@ function DefaultSeriesOrder(props) {
             }}
         >
                 <MenuItem value={"A → Z"}>A → Z</MenuItem>
-                <MenuItem value={"Z ← A"}>Z ← A</MenuItem>
-                <MenuItem value={"Time →"}>Time →</MenuItem>
-                <MenuItem value={"Time ←"}>Time ←</MenuItem>
+                <MenuItem value={"Z → A"}>Z → A</MenuItem>
+                {/* <MenuItem value={"Time →"}>Time →</MenuItem> */}
+                {/* <MenuItem value={"Time ←"}>Time ←</MenuItem> */}
             </TextField></>
     )
 }
