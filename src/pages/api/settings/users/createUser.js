@@ -1,6 +1,6 @@
 // this endpoint is used to create a new user account from the admin panel.
 
-import MySQL from "../_common/MySQL/MySQL";
+import MySQL from "../../_common/MySQL/MySQL";
 
 
 async function userExists(email) {
