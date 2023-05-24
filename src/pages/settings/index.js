@@ -12,6 +12,7 @@ import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultS
 // import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
 import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
+import CreateUser from "@/components/Settings/users/CreateUser/CreateUser";
 import toast, { Toaster } from "react-hot-toast";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
@@ -284,6 +285,12 @@ function Settings() {
               <h1 className={styles.title + " " + styles["no-margin"]}>
                 User Accounts and Permissions
               </h1>
+            <CreateUser
+            alertError={alertError}
+            alertSuccess={alertSuccess}/>
+            {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
+              )}
               <AccessRequests
                 alertError={alertError}
                 alertSuccess={alertSuccess}

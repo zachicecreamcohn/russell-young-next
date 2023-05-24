@@ -8,6 +8,7 @@ import { Check, TrashX } from "tabler-icons-react";
 function AccessRequests(props) {
   const { alertError, alertSuccess } = props;
   const [accessRequests, setAccessRequests] = useState([]);
+  const [tableVisible, setTableVisible] = useState(false);
 
   async function fetchData() {
     return fetch("/api/settings/users/getAccessRequests", {
@@ -99,50 +100,73 @@ function AccessRequests(props) {
     return capitalizedWords.join(" ");
   }
 
+  function toggleTable(e) {
+    setTableVisible(!tableVisible);
+    if (tableVisible) {
+      e.target.innerHTML = `MANAGE ${accessRequests.length} REQUESTS`;
+    } else {
+      e.target.innerHTML = `COLLAPSE REQUESTS TABLE`;
+    }
+      
+  }
+
   return (
     <>
       <div className={styles.container}>
-        <p className={styles.title}>Manage Access Requests</p>
+        <div className={styles['requests-container']}>
+
         {accessRequests.length == 0 ? (
               <tr>
-                <td colSpan={3}><i>NO PENDING REQUESTS</i></td>
+                <td colSpan={3}><button className="theme-design" disabled>0 REQUESTS</button></td>
               </tr>
             ) : (
+              <>
+              {accessRequests.length == 1 ? (
+                <button className="theme-design"
+                onClick={toggleTable}>MANAGE 1 REQUEST</button>
+              ) : (
+                <button className="theme-design"
+                onClick={toggleTable}>MANAGE {accessRequests.length} REQUESTS</button>
+              )}
 
-        <table className={styles.requests}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            
+              { tableVisible ? (
+              <table className={styles.requests}>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-            {accessRequests.map((request, index) => {
-              return (
-                <tr key={index}>
-                  <td>{formatName(request.name)}</td>
-                  <td>{request.email.toLowerCase()}</td>
-                  <td className={styles.actions}>
-                    <Check
-                      size={22}
-                      className={cx(styles.action, styles.approve)}
-                      onClick={() => approveRequest(request.id)}
-                    />
-                    <TrashX
-                      size={22}
-                      className={cx(styles.action, styles.reject)}
-                      onClick={() => rejectRequest(request.id)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+
+                  {accessRequests.map((request, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{formatName(request.name)}</td>
+                        <td>{request.email.toLowerCase()}</td>
+                        <td className={styles.actions}>
+                          <Check
+                            size={22}
+                            className={cx(styles.action, styles.approve)}
+                            onClick={() => approveRequest(request.id)} />
+                          <TrashX
+                            size={22}
+                            className={cx(styles.action, styles.reject)}
+                            onClick={() => rejectRequest(request.id)} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              ) : (
+                <></>
+              )}
+              </>
         )}
+        </div>
       </div>
     </>
   );

@@ -2,11 +2,14 @@
 
 .container .title {
     margin-bottom: 15px;
-}
 
+}
+.requests-container {
+}
 .requests {
     border-collapse: collapse;
     width: 100%;
+    margin-top: 1rem;
   }
   
   .requests th,
