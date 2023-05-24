@@ -8,6 +8,7 @@ import { Autocomplete } from "@mui/material";
 function CreateUser(props) {
 
     const [validEmail, setValidEmail] = useState(false);
+    const [email, setEmail] = useState("");
     function validateEmail(email) {
         // Regular expression pattern for email validation
         var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -20,11 +21,29 @@ function CreateUser(props) {
         }
       }
 
-        function handleSend() {
+        function handleSend(e) {
             if (!validEmail) {
                 props.alertError("Email incorrectly formed.");
                 return;
             }
+            fetch("/api/settings/users/createUser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    props.alertSuccess("User created.");
+                } else {
+                    props.alertError("Error creating user.");
+                }
+            }
+            )
         }
 
     return (
@@ -34,7 +53,7 @@ function CreateUser(props) {
             <div className={styles.inputContainer}>
 
             <TextField
-                id="outlined-basic"
+                
                 label="Email"
                 variant="outlined"
                 size="small"
@@ -58,6 +77,7 @@ function CreateUser(props) {
                     } else {
                         setValidEmail(false);
                     }
+                    setEmail(event.target.value);
                 }}
             />
             <Send 
