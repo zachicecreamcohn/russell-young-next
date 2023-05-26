@@ -17,7 +17,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 
 // Components for MY ACCOUNT
-import UserDetails from "@/components/Settings/myAccount/UserDetails/UserDetails";
+import UserDetails from "@/components/Settings/MyAccount/UserDetails/UserDetails";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
