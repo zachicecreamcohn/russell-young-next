@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Series.module.css";
 import Parent from "../Parent/Parent";
-import { ChevronDown, ChevronUp } from "tabler-icons-react";
+import { ChevronDown, ChevronRight } from "tabler-icons-react";
 function Series(props) {
 
 
@@ -66,14 +66,14 @@ function Series(props) {
             {/* depending on the state of collapsed, show the appropriate icon */}
             {collapsed ? (
               // set the color to black
-              <ChevronDown
+              <ChevronRight
                 fill="black"
                 size={25}
                 stroke={1.5}
                 onClick={() => toggleCollapsed()}
               />
             ) : (
-              <ChevronUp
+              <ChevronDown
                 fill="black"
                 size={25}
                 stroke={1.5}

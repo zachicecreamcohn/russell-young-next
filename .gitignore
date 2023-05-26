@@ -34,3 +34,6 @@ yarn-error.log*
 
 # ignore the sandbox route
 /src/pages/sandbox
+
+# env variables
+.env
