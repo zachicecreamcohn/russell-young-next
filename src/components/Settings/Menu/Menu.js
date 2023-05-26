@@ -1,6 +1,7 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Logout } from "tabler-icons-react";
-import { logout } from "@/common/util/auth";
+import { logout, User } from "@/common/util/auth";
 
 import styles from "./Menu.module.css";
 
@@ -8,6 +9,29 @@ function Menu(props) {
     const menuItems = props.menuItems;
     const activeMenuItem = props.activeMenuItem;
     const setActiveMenuItem = props.setActiveMenuItem;
+    const [user, setUser] = useState(null);
+
+
+    useEffect(() => {
+        async function fetchUser() {
+            const user = new User();
+            await user.fetchUser();
+            console.log(user.username);
+            const userData = {
+                username: user.username,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                company: user.company,
+            }
+
+            setUser(userData);
+        }
+
+        fetchUser();
+    }, []);
+
+    
 
     return (
         <div className={styles.menu}>
@@ -22,7 +46,8 @@ function Menu(props) {
                 )
             }
             )}
-            <div className={styles['logout-btn'] + " " +styles['menu-item']}
+            <div className={styles["user-section"]}>
+                <div className={styles['logout-btn'] + " " +styles['menu-item']}
                             onClick={() => logout()}
                             >
                 <p>LOGOUT</p>
@@ -30,6 +55,12 @@ function Menu(props) {
                  />
 
             </div>
+            {user &&
+            <p className={styles.user}>USER: {user.username.toUpperCase()}</p>
+            }
+
+            </div>
+            
             </div>
             
         </div>

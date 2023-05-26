@@ -14,6 +14,10 @@ import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultS
 import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
 import CreateUser from "@/components/Settings/users/CreateUser/CreateUser";
 import toast, { Toaster } from "react-hot-toast";
+
+
+// Components for MY ACCOUNT
+import UserDetails from "@/components/Settings/myAccount/UserDetails/UserDetails";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
@@ -298,8 +302,13 @@ function Settings() {
             </>
           )}
 
-          {activeMenuItem === "my account" && <h1>Account</h1>}
-
+          {activeMenuItem === "my account" && <><h1>Account Details</h1><UserDetails
+            alertError={alertError}
+            alertSuccess={alertSuccess}
+            existingData={existingData}
+            setExistingData={setExistingData} /></>
+          }
+          
           <div className={styles["save-button-container"]}>
             <button
               className={styles["save-button"] + " theme-design"}

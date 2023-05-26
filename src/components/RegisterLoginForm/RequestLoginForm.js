@@ -127,7 +127,7 @@ function RequestLoginForm(props) {
 
                
                 <button type="submit" className="theme-design" value={props.formType.toUpperCase()}
-                >SUBMIT</button>
+                >LOGIN</button>
                 </form>
                  
                  <div className={styles.secondaryActionMessage}>
