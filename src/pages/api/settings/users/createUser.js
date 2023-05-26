@@ -1,6 +1,7 @@
 // this endpoint is used to create a new user account from the admin panel.
 
 import MySQL from "../../_common/MySQL/MySQL";
+import EmailSender from "../../_common/Mail/Mail";
 
 
 async function userExists(email) {
@@ -61,12 +62,45 @@ async function createUser(email) {
             confirmation_token,
             confirmation_expiry
         ]);
-        return true;
+        return {
+          success: true,
+          token: confirmation_token
+        };
       } catch (e) {
-        return false;
+        return { success: false, error: e };
+      }
       
-    }
   }
+
+
+  async function sendConfirmationEmail(email, confirmation_token) {
+    const sender = new EmailSender();
+    const link = process.env.NEXT_ROOT_URL + "/create-account?token=" + confirmation_token;
+    const htmlData = {
+        header: "Create your account",
+        body: "An account has been created for yuo. Please click the link below to complete the setup process.",
+        button : {
+            content: "CREATE ACCOUNT",
+            link:link
+        },
+        }
+
+        const text = `An account has been created for you. Please click go to ${link} to complete the setup process.`
+    
+    const html = sender.getHTML("basicLink", htmlData);
+    console.log("HTML: ", html);
+
+
+
+    const success = await sender.sendEmail(email, "Finish Creating Your Account", text, html);
+    if (!success) {
+        res.status(500).json({ success: false, error: success });
+        return;
+    }
+
+    res.status(200).json({ success: true });
+}
+  
   
 
 export default async function handler(req, res) {
@@ -99,6 +133,15 @@ export default async function handler(req, res) {
         res.status(500).json({success: false, message: 'Error creating user.'});
         return;
     }
+
+    // send the confirmation email
+    const emailSent = await sendConfirmationEmail(email, userCreated.token);
+    if (!emailSent) {
+        res.status(500).json({success: false, message: 'Error sending confirmation email.'});
+        return;
+    }
+
+
 
     res.status(200).json({success: true});
 }
