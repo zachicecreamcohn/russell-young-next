@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CreateAccount.module.css";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
-function CreateAccount() {
+function CreateAccount(props) {
     function alertError(message) {
         toast.error(message, {
             style: {
@@ -51,7 +51,8 @@ try {
                 last_name: lastName,
                 email: email,
                 password: password,
-                company: company ? company : null
+                company: company ? company : null,
+                token : props.token ? props.token : null
             })
         })
             .then((response) => response.json())
@@ -81,10 +82,18 @@ try {
         <form
         onSubmit={(event) => handleButton(event)}
         >
+        { props.token ? (
+        <h1>ENTER ACCOUNT DETAILS</h1>
+        ) : (
         <h1>CREATE ACCOUNT</h1>
+        )}
         <input className="theme-design" id="first-name" type="text" placeholder="first name *" required/>
         <input className="theme-design" id="last-name" type="text" placeholder="last name *" required/>
-        <input className="theme-design" id="email" type="email" placeholder="email *" required/>
+        <input className="theme-design" id="email" type="email" placeholder="email *" required
+            {...props.token && {value: props.email}}
+            // if props.token and props.email are defined, then also display the email
+            {...props.token && {readOnly: true}}
+        />
         <input className="theme-design" id="company" type="text" placeholder="company" />
 
         <input
