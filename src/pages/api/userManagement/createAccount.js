@@ -1,6 +1,8 @@
 import MySQL from "../_common/MySQL/MySQL";
 const bcrypt = require("bcrypt");
 
+
+
 async function userExists(email) {
   const db = new MySQL();
 
@@ -60,7 +62,28 @@ async function validateInputs(first, last, email) {
   return true;
 }
 
-async function createUser(first, last, email, password, company) {
+
+async function verifyToken(token) {
+  const db = new MySQL();
+
+  const query = "SELECT Count(*) FROM users WHERE confirmation_token = ? AND confirmation_expiry > NOW();";
+
+  // execute the query
+  const result = await db.query(query, [token])
+  if (result.length > 0) {
+      return true;
+  }
+
+  return false;
+}
+
+async function createUser(first, last, email, password, company, token = null) {
+  let tokenValid = false;
+  if (token !== null) {
+    tokenValid = await verifyToken(token);
+  }
+
+
   // by default, the username will be the email address without the domain
   const username = email.split("@")[0];
 
@@ -72,6 +95,33 @@ async function createUser(first, last, email, password, company) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const db = new MySQL();
+
+  if (tokenValid) {
+    // update all user details (default is temp data)
+    const update_query =
+      "UPDATE users SET first_name = ?, last_name = ?, password = ?, username = ?, company = ?, user_confirmed = 1 WHERE confirmation_token = ?;";
+    try {
+      await db.query(update_query, [
+        first,
+        last,
+        hashedPassword,
+        username,
+        company,
+        token,
+      ]);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  } else {
+
+
+
+
+
+
+
+
   let insert_query;
   if (company !== null) {
     insert_query =
@@ -106,6 +156,7 @@ async function createUser(first, last, email, password, company) {
     }
   }
 }
+}
 
 async function updateAccessRequest(email) {
   const db = new MySQL();
@@ -128,7 +179,7 @@ export default async function handler(req, res) {
   }
 
   // get all data from the request
-  const { first_name, last_name, email, password, company } = req.body;
+  const { first_name, last_name, email, password, company, token } = req.body;
 
   // if any of the fields are empty, return an error
   if (!first_name || !last_name || !email || !password) {
@@ -144,6 +195,24 @@ export default async function handler(req, res) {
     res.status(400).json(validation);
     return;
   }
+
+  let isConfirmation = false;
+
+  if (token !== null) {
+    let tokenValid = false;
+    tokenValid = await verifyToken(token);
+    if (!tokenValid) {
+      res.status(400).json({ success: false, message: "Invalid token." });
+      return;
+    } else {
+      isConfirmation = true;
+    }
+
+
+  }
+  
+
+  if (!isConfirmation) {
 
   // check if the user already exists in the database
   const userAlreadyExists = await userExists(email);
@@ -175,14 +244,20 @@ export default async function handler(req, res) {
       });
     return;
   }
-
+}
+let userCreated;
   // create the user
-  const userCreated = await createUser(first_name, last_name, email, password, company);
+  if (isConfirmation) {
+    userCreated = await createUser(first_name, last_name, email, password, company, token);
+  } else {
+    userCreated = await createUser(first_name, last_name, email, password, company);
+  }
   if (!userCreated) {
     res.status(500).json({ success: false, message: "Error creating user." });
     return;
   }
 
+  if (!isConfirmation) {
   // update the access request
   const accessRequestUpdated = await updateAccessRequest(email);
   if (!accessRequestUpdated) {
@@ -191,6 +266,7 @@ export default async function handler(req, res) {
       .json({ success: false, message: "Error updating access request." });
     return;
   }
+}
 
   res.status(200).json({ success: true, message: "User created!" }); //TODO: implement email validation
 }

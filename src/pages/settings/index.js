@@ -12,7 +12,12 @@ import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultS
 // import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
 import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
+import CreateUser from "@/components/Settings/users/CreateUser/CreateUser";
 import toast, { Toaster } from "react-hot-toast";
+
+
+// Components for MY ACCOUNT
+import UserDetails from "@/components/Settings/MyAccount/UserDetails/UserDetails";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
@@ -284,6 +289,12 @@ function Settings() {
               <h1 className={styles.title + " " + styles["no-margin"]}>
                 User Accounts and Permissions
               </h1>
+            <CreateUser
+            alertError={alertError}
+            alertSuccess={alertSuccess}/>
+            {hasExistingData && (
+                <span className={styles["content-separator"]}></span>
+              )}
               <AccessRequests
                 alertError={alertError}
                 alertSuccess={alertSuccess}
@@ -291,8 +302,13 @@ function Settings() {
             </>
           )}
 
-          {activeMenuItem === "my account" && <h1>Account</h1>}
-
+          {activeMenuItem === "my account" && <><h1>Account Details</h1><UserDetails
+            alertError={alertError}
+            alertSuccess={alertSuccess}
+            existingData={existingData}
+            setExistingData={setExistingData} /></>
+          }
+          
           <div className={styles["save-button-container"]}>
             <button
               className={styles["save-button"] + " theme-design"}

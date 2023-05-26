@@ -62,6 +62,19 @@ input.theme-design {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+input.theme-design:focus {
+  outline: none;
+  /* border: 2px solid #313131; */
+}
+
+input.theme-design[readonly] {
+  background-color: rgb(233, 233, 233);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* add str */
+
 .icon-tabler {
   cursor: pointer;
   border-radius: 50%;
