@@ -2,9 +2,15 @@ import Body from "@/components/_common/Body/Body"
 import { checkLogin } from "@/common/util/auth"
 import { useEffect, useState } from "react"
 import { CircularProgress } from "@mui/material";
+import Menu from "@/components/_common/Menu/Menu";
+import Consignment from "@/components/records/Consignment/Consignment";
+import Inventory from "@/components/records/Inventory/Inventory";
+import styles from "./Records.module.css";
 
 function Records() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [activeMenuItem, setActiveMenuItem] = useState("CONSIGNMENT");
+
 
   useEffect(() => {
     checkLogin()
@@ -37,7 +43,26 @@ function Records() {
     direction="column"
     Tabs={true}
     activeTab="records"
-    ></Body>
+    >
+
+
+      <div className={styles.container}>
+        <div className={styles.left}>
+<Menu
+        title="Records"
+        menuItems={["CONSIGNMENT", "INVENTORY"]}
+        activeMenuItem={activeMenuItem}
+        setActiveMenuItem={setActiveMenuItem}
+        showUserFunctions={false}
+      />
+      </div>
+      <div className={styles.right}>
+        {activeMenuItem === "CONSIGNMENT" && <Consignment />}
+        {activeMenuItem === "INVENTORY" && <Inventory />}
+        </div>
+      </div>
+
+    </Body>
     )
 }
 
