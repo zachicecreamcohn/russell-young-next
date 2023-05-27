@@ -1,23 +1,23 @@
-import Body from "@/components/Body/Body";
-import Menu from "@/components/Settings/Menu/Menu";
+import Body from "@/components/_common/Body/Body";
+import Menu from "@/components/_common/Menu/Menu";
 import { useState, useEffect } from "react";
 import styles from "./settings.module.css";
 import { CircularProgress } from "@mui/material";
 import { checkLogin } from "@/common/util/auth";
 // Components for PREFERENCES
-import SeriesPrioritySelector from "@/components/Settings/preferences/SeriesPrioritySelector/SeriesPrioritySelector";
-import DefaultSeriesOrder from "@/components/Settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
-import DefaultCollapsedState from "@/components/Settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
-import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
+import SeriesPrioritySelector from "@/components/settings/preferences/SeriesPrioritySelector/SeriesPrioritySelector";
+import DefaultSeriesOrder from "@/components/settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
+import DefaultCollapsedState from "@/components/settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
+import DefaultSoldOutSeriesView from "@/components/settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
 // import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
-import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
-import CreateUser from "@/components/Settings/users/CreateUser/CreateUser";
+import AccessRequests from "@/components/settings/users/AccessRequests/AccessRequests";
+import CreateUser from "@/components/settings/users/CreateUser/CreateUser";
 import toast, { Toaster } from "react-hot-toast";
 
 
 // Components for MY ACCOUNT
-import UserDetails from "@/components/Settings/MyAccount/UserDetails/UserDetails";
+import UserDetails from "@/components/settings/MyAccount/UserDetails/UserDetails";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
@@ -209,12 +209,12 @@ function Settings() {
     <Body center direction="column" Tabs={true} activeTab="settings" h-80>
       <div className={styles.container}>
         <div className={styles.left}>
-          <h1 className={styles.title + " " + styles["no-margin"]}>SETTINGS</h1>
-          <span className={styles.divider}></span>
           <Menu
+          title="Settings"
             menuItems={menuItems}
             activeMenuItem={activeMenuItem}
             setActiveMenuItem={setActiveMenuItem}
+            showUserFunctions={true}
           />
         </div>
         <div className={styles.content}>

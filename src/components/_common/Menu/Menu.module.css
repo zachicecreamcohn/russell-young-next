@@ -16,6 +16,13 @@
     
 }
 
+.title {
+    font-family: 'Din Mittelschrift';
+    font-size: 12pt;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
 .menu .item.active p {
     font-weight: bold;
     opacity: 1;
@@ -86,3 +93,13 @@
     transition-delay: 0 !important;
 }
 
+
+
+.divider {
+    width: 40px;
+    height: 1px;
+    background-color: black;
+    margin-top: 1rem;
+    display: block;
+    margin-bottom: 2rem;
+}

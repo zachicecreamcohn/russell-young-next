@@ -6,7 +6,7 @@ import styles from "./SeriesFilters.module.css";
 // import material-ui
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import CustomToggle from "../CustomToggle/CustomToggle";
+import CustomToggle from "../../_common/CustomToggle/CustomToggle";
 import Search from "../Search/Search";
 
 import { Plus } from "tabler-icons-react";

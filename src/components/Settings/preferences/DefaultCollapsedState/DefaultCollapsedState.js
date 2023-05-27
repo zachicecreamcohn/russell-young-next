@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CustomToggle from "@/components/CustomToggle/CustomToggle";
+import CustomToggle from "@/components/_common/CustomToggle/CustomToggle";
 import styles from "./DefaultCollapsedState.module.css";
 
 function DefaultCollapsedState(props) {

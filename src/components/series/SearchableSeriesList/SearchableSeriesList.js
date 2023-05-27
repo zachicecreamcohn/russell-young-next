@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SearchableSeriesList.module.css";
-import CustomToggle from "../CustomToggle/CustomToggle";
+import CustomToggle from "../../_common/CustomToggle/CustomToggle";
 import { CircularProgress } from "@mui/material";
 import Series from "../SeriesListing/Series/Series";
 
