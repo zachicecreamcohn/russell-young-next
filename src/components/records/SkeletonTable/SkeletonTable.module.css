@@ -1,0 +1,26 @@
+.table {
+    width: 100%;
+    min-width: 50vw;
+    border-spacing: 0.5rem; /* Adjust the value to control the gap between table cells */
+
+}
+
+.table td {
+    background: linear-gradient(90deg, #f6f6f6 25%, #eaeaea 37%, #f6f6f6 63%);
+    background-size: 400% 400%;
+    animation: skeleton 3.5s ease-in-out infinite;
+    color: transparent !important;
+    border: none !important;
+    margin-bottom: .5rem;
+    width: 100px;
+    height: 2rem;
+}
+
+@keyframes skeleton {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
