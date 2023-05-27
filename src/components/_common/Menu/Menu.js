@@ -11,6 +11,7 @@ function Menu(props) {
     const setActiveMenuItem = props.setActiveMenuItem;
     const [user, setUser] = useState(null);
 
+    const [showUserFunctions, setShowUserFunctions] = useState(props.showUserFunctions);
 
     useEffect(() => {
         async function fetchUser() {
@@ -28,12 +29,20 @@ function Menu(props) {
             setUser(userData);
         }
 
-        fetchUser();
+        if (showUserFunctions) {
+
+            fetchUser();
+        }
     }, []);
 
     
 
     return (
+        <div className={styles.container}>
+            {props.title &&
+        <><p className={styles.title}>{props.title.toUpperCase()}</p><span className={styles.divider}></span></>
+        }
+
         <div className={styles.menu}>
             <div>
             {menuItems.map((menuItem, index) => {
@@ -46,6 +55,7 @@ function Menu(props) {
                 )
             }
             )}
+            {showUserFunctions &&
             <div className={styles["user-section"]}>
                 <div className={styles['logout-btn'] + " " +styles['menu-item']}
                             onClick={() => logout()}
@@ -54,15 +64,20 @@ function Menu(props) {
                 <Logout size={22}
                  />
 
+
             </div>
+
             {user &&
             <p className={styles.user}>USER: {user.username.toUpperCase()}</p>
             }
+        
 
             </div>
+            }
             
             </div>
             
+        </div>
         </div>
 
     );
