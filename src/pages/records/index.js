@@ -1,9 +1,9 @@
-import Body from "@/components/Body/Body"
+import Body from "@/components/_common/Body/Body"
 import { checkLogin } from "@/common/util/auth"
 import { useEffect, useState } from "react"
 import { CircularProgress } from "@mui/material";
 
-function Consignment() {
+function Records() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -36,9 +36,9 @@ function Consignment() {
     center
     direction="column"
     Tabs={true}
-    activeTab="consignment"
+    activeTab="records"
     ></Body>
     )
 }
 
-export default Consignment
+export default Records

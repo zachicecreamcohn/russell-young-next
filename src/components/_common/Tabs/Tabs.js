@@ -16,10 +16,10 @@ function Tabs(props) {
       
       >Series</div>
         <div 
-        className={props.activeTab === "consignment" ? styles.tab+ " " + styles.active : styles.tab}
-        onClick={() => navigate("consignment")}
+        className={props.activeTab === "records" ? styles.tab+ " " + styles.active : styles.tab}
+        onClick={() => navigate("records")}
 
-        >Consignment</div>
+        >Records</div>
 
         <div
         className={props.activeTab === "settings" ? styles.tab+ " " + styles.active : styles.tab}
