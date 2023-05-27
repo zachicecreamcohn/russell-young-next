@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import shareContent from "@/common/util/Share";
 import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
-import ChildWorkPopup from "../../popups/ChildWorkPopup/ChildWorkPopup";
+import ChildWorkPopup from "../../../popups/ChildWorkPopup/ChildWorkPopup";
 function Child(props) {
   function shareWork() {
     shareContent({

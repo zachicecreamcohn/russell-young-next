@@ -2,8 +2,8 @@
 import React from 'react';
 import {useState } from 'react';
 // import components
-import Body from '@/components/Body/Body';
-import RequestLoginForm from '@/components/RegisterLoginForm/RequestLoginForm';
+import Body from '@/components/_common/Body/Body';
+import RequestLoginForm from '@/components/auth/RegisterLoginForm/RequestLoginForm';
 
 
 function Request() {

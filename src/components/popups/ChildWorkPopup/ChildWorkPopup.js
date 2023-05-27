@@ -2,14 +2,14 @@ import React from "react";
 import FullScreenPopup from "../FullScreenPopup/FullScreenPopup";
 import styles from "./ChildWorkPopup.module.css";
 import { AgGridReact } from "ag-grid-react";
-import Variations from "../../Variations/Variations";
+import Variations from "../Variations/Variations";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useState, useEffect } from "react";
 import Image from "@/common/util/Cloudflare/Image";
-import HoverImageUpload from "../../HoverImageUpload/HoverImageUpload";
+import HoverImageUpload from "../../uploads/HoverImageUpload/HoverImageUpload";
 import { CircularProgress } from "@mui/material";
-import EditableInput from "@/components/EditableInput/EditableInput";
+import EditableInput from "@/components/_common/EditableInput/EditableInput";
 import toast, { Toaster } from "react-hot-toast";
 // import {Image as Img} from "next/image";
 

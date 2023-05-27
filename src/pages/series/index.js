@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Body from "@/components/Body/Body";
-import Series from "@/components/SeriesListing/Series/Series";
-import SeriesFilters from "@/components/SeriesFilters/SeriesFilters";
+import Body from "@/components/_common/Body/Body";
+import Series from "@/components/series/SeriesListing/Series/Series";
+import SeriesFilters from "@/components/series/SeriesFilters/SeriesFilters";
 import { CircularProgress } from "@mui/material";
 import $ from "jquery";
-import SearchableSeriesList from "@/components/SearchableSeriesList/SearchableSeriesList";
-import ToTopOfPageButton from "@/components/ToTopOfPageButton/ToTopOfPageButton";
+import SearchableSeriesList from "@/components/series/SearchableSeriesList/SearchableSeriesList";
+import ToTopOfPageButton from "@/components/_common/ToTopOfPageButton/ToTopOfPageButton";
 import ChildWorkPopup from "@/components/popups/ChildWorkPopup/ChildWorkPopup";
 import styles from "./series.module.css";
 import { checkLogin } from "@/common/util/auth";

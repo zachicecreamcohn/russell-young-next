@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import fetch from "node-fetch";
 import CONFIG_VARS from "@/CONFIG_VARS";
-import Body from "@/components/Body/Body";
+import Body from "@/components/_common/Body/Body";
 import styles from "./preview.module.css";
 import Head from 'next/head';
 import Image from "@/common/util/Cloudflare/Image";

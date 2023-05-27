@@ -1,8 +1,8 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import styles from "./create-account.module.css";
-import Body from "@/components/Body/Body";
-import CreateAccount from "@/components/CreateAccount/CreateAccount";
+import Body from "@/components/_common/Body/Body";
+import CreateAccount from "@/components/auth/CreateAccount/CreateAccount";
 
 function CreateAccountPage() {
     const [validToken, setValidToken] = useState(true);

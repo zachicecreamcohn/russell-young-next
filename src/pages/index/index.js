@@ -1,4 +1,4 @@
-import Body from "@/components/Body/Body";
+import Body from "@/components/_common/Body/Body";
 import "./home.module.css";
 
 function Home() {
