@@ -1,0 +1,15 @@
+.datepicker input {
+    padding: 0 !important;
+    border: none !important;
+    cursor: pointer;
+}
+
+.datepicker fieldset {
+    border: none !important;
+}
+
+.datepicker {
+    width: 100%;
+    align-self: center;
+    cursor: pointer;
+}
