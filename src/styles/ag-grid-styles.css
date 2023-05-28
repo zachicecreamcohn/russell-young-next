@@ -1,0 +1,11 @@
+:root {
+    --ag-font-size: 8pt;
+}
+
+.ag-cell, .ag-header-cell-text, .ag-input-field-input, .ag-input-field-input, .ag-input-wrapper {
+    font-size: var(--ag-font-size);
+}
+
+.ag-cell input {
+    font-size: var(--ag-font-size);
+}
