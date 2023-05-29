@@ -584,10 +584,7 @@ function Consignment(props) {
             onCellValueChanged={(params) => {
               handleChange(params);
             }}
-            onCellEditingStopped={(params) => {
-                handleCellEditingStopped(params);
-              }}
-            
+
           />
             </div>
         </>
