@@ -106,3 +106,8 @@ input.theme-design {
         background-position: 0 50%;
     }
 }
+
+.ag-theme-alpine {
+
+--ag-font-size: 12px;
+}

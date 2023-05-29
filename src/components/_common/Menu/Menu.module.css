@@ -1,9 +1,56 @@
-.menu {
+.container.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+    transition: all 0.2s !important;
+    padding-bottom: 1rem;
+}
+
+.container.has-right-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left {
+    /* border: 1px solid red; */
+}
+
+.right {
+    /* border: 1px solid blue; */
+}
+.container.sticky.stuck {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    box-shadow: 0px 11px 10px 0px rgba(0, 0, 0, 0.048);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.container.wide {
+    width: calc(100% - 3rem);
+}
+
+.container.column .menu {
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    flex-direction: column;
+}
+
+.container.sticky.column .menu {
+    justify-content: start !important;
+}
+
+.container.row .menu {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    height: 100%;
+    flex-direction: row;
+    
 }
 
 .menu .item p {

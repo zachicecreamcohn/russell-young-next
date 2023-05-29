@@ -1,0 +1,17 @@
+.container {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 3rem);
+    height: 100%;
+}
+
+.container div {
+    width: 100%;
+}
+
+
+.left .buttons {
+    display: flex;
+    flex-direction: column;
+}

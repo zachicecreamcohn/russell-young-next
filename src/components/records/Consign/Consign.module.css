@@ -1,0 +1,54 @@
+.container {
+display: flex;
+flex-direction: column;
+height: 50px;
+overflow: hidden;
+transition: all 0.5s ease-in-out;
+
+}
+
+.container.show-all-fields {
+    height: 100px;
+}
+
+.container .top {
+display: flex;
+flex-direction: row;
+justify-content: end;
+align-items: center;
+}
+
+.container .bottom {
+display: flex;
+flex-direction: row;
+justify-content: end;
+align-items: center;
+margin-top: 1rem;
+}
+.consign-btn {
+    width: fit-content !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    margin-left: 1rem;;
+}
+
+
+.datepicker input {
+    padding: .6rem !important;
+    cursor: pointer;
+}
+
+.datepicker fieldset {
+    border: 1px solid black;
+}
+
+.datepicker {
+    /* border: 1px solid black; */
+    min-width: 200px;
+    align-self: center;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+
+
