@@ -5,19 +5,19 @@ import styles from "./settings.module.css";
 import { CircularProgress } from "@mui/material";
 import { checkLogin } from "@/common/util/auth";
 // Components for PREFERENCES
-import SeriesPrioritySelector from "@/components/Settings/preferences/SeriesPrioritySelector/SeriesPrioritySelector";
-import DefaultSeriesOrder from "@/components/Settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
-import DefaultCollapsedState from "@/components/Settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
-import DefaultSoldOutSeriesView from "@/components/Settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
+import SeriesPrioritySelector from "@/components/settings/preferences/SeriesPrioritySelector/SeriesPrioritySelector";
+import DefaultSeriesOrder from "@/components/settings/preferences/DefaultSeriesOrder/DefaultSeriesOrder";
+import DefaultCollapsedState from "@/components/settings/preferences/DefaultCollapsedState/DefaultCollapsedState";
+import DefaultSoldOutSeriesView from "@/components/settings/preferences/DefaultSoldOutSeriesView/DefaultSoldOutSeriesView";
 // import DefaultSeries from "@/components/Settings/preferences/DefaultSeries/DefaultSeries";
 // Components for MANAGE USERS
-import AccessRequests from "@/components/Settings/users/AccessRequests/AccessRequests";
-import CreateUser from "@/components/Settings/users/CreateUser/CreateUser";
+import AccessRequests from "@/components/settings/users/AccessRequests/AccessRequests";
+import CreateUser from "@/components/settings/users/CreateUser/CreateUser";
 import toast, { Toaster } from "react-hot-toast";
 
 
 // Components for MY ACCOUNT
-import UserDetails from "@/components/Settings/MyAccount/UserDetails/UserDetails";
+import UserDetails from "@/components/settings/MyAccount/UserDetails/UserDetails";
 function Settings() {
   const [activeMenuItem, setActiveMenuItem] = useState("preferences");
   const menuItems = ["preferences", "manage users", "my account"];
