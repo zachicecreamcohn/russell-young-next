@@ -14,6 +14,7 @@ function Inventory(props) {
 
     useEffect(() => {
         console.log("Inventory component mounted");
+        props.setRightContent(null);
     }, []);
 
     return (
