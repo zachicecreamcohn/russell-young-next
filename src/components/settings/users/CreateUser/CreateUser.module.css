@@ -1,0 +1,25 @@
+.title {
+    margin-bottom: 15px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sendIcon {
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.disabled  {
+    opacity: 0.25;
+    cursor: not-allowed;
+    color: black !important;
+}
+
+.sendIcon:hover {
+    color: green
+}
