@@ -85,7 +85,7 @@ function Records() {
             <Consignment alertError={alertError} alertSuccess={alertSuccess} setRightContent = {setMenuRightContent} />
           )}
           {activeMenuItem === "INVENTORY" && (
-            <Inventory alertError={alertError} alertSuccess={alertSuccess} />
+            <Inventory alertError={alertError} alertSuccess={alertSuccess} setRightContent= {setMenuRightContent}/>
           )}
         </div>
       <Toaster containerStyle={{ top: "50px" }} />
