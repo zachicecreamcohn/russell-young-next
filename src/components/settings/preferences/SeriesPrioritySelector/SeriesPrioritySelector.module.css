@@ -1,0 +1,112 @@
+.container {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.container .left {
+    background-color: rgb(239, 239, 239);
+    width: 25%;
+
+}
+
+.container .right {
+    background-color: rgb(255, 255, 255);
+    width: 75%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.input-container button.addbtn {
+    width: fit-content;
+    margin-left: 0.5rem;
+    color: white;
+    background-color: black;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    height: fit-content;
+    align-self: end;
+}
+
+.priority-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+}
+
+.priority-list-container .list {
+    background-color: rgb(243, 243, 243);
+    width: 100%;
+    min-height: 10rem;
+    height: fit-content;
+}
+
+.priority-list-container ol li div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .5rem;
+    width: 100%;
+    background-color: white;
+}
+
+.priority-list-container li {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    display: flex;
+    counter-increment: item;
+    flex-direction: row;
+    justify-content: center;
+    background-color: white;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    box-shadow: 0 5px 5px rgb(204, 204, 204, 0.2);
+}
+
+.priority-list-container li:first-child {
+    border-top: 1px solid rgb(204, 204, 204);
+}
+
+.priority-list-container li:before {
+    content: counters(item, ".") ". ";
+    margin-right: 0.5rem;
+    padding-top: .5rem;
+}
+
+/* select all li elements without .dragging AND without any content */
+.priority-list-container li:not(.dragging):empty {
+    opacity: 0;
+}
+  
+
+
+#priority-selector {
+    background-color: white;
+}
+
+
+.trash-icon {
+    opacity: .5;
+    cursor: pointer;
+}
+
+.trash-icon:hover {
+    opacity: 1;
+}
+
+.title {
+    margin-bottom: 20px;
+}
