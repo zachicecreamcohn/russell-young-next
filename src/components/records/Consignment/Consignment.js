@@ -103,7 +103,7 @@ function Consignment(props) {
   // get and load data from backend
   useEffect(() => {
     async function getData() {
-      const response = await fetch("/api/records/consignment/allRecordsNew", {
+      const response = await fetch("/api/records/consignment/allRecords", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
