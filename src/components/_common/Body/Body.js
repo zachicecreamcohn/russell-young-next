@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { checkLogin } from "@/common/util/auth";
 
 function Body(props) {
-  
+    console.log("Body props", props);
 
   const bodyClasses = [styles.body];
 
