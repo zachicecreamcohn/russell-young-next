@@ -114,12 +114,59 @@ function Consign(props) {
       }
       return initials.slice(0, 3); // Take the first 3 characters of the initials
     }
+
+
+    useEffect(() => {
+
+      const fromAutoComplete = document.getElementsByClassName(styles["consignee-from-autocomplete"])[0];
+      const toAutoComplete = document.getElementsByClassName(styles["consignee-to-autocomplete"])[0];
+
+
+      // for each list item in the autocomplete, add a focus state for arrow navigation
+      const fromListItems = fromAutoComplete.querySelectorAll("li");
+      fromListItems.forEach((item) => {
+        item.addEventListener('keydown', function(event) {
+          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            console.log("arrow up or down");
+            // Remove the selected class from all items
+            dropdownItems.forEach(function(item) {
+              item.classList.remove('focus');
+            });
+      
+            // Add the selected class to the focused item
+            item.classList.add('focus');
+          }
+        });
+      });
+
+      const toListItems = toAutoComplete.querySelectorAll("li");
+      toListItems.forEach((item) => {
+        item.addEventListener('keydown', function(event) {
+          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            // Remove the selected class from all items
+            dropdownItems.forEach(function(item) {
+              item.classList.remove('focus');
+            });
+      
+            // Add the selected class to the focused item
+            item.classList.add('focus');
+          }
+        });
+      });
+
+
+      setTimeout(() => {
+        console.log("Frozen");
+      }, 2000);
+
+    }, []);
     
 
   return (
     <div className={styles.container}>
       <div className={styles.top}>
       <Autocomplete
+      className={styles["consignee-from-autocomplete"]}
   sx={{
     width: 300,
     "& .MuiOutlinedInput-root": {
@@ -134,8 +181,7 @@ function Consign(props) {
       },
     },
   }}
-  id="tags-outlined"
-  renderOption={(props, option) => (
+    renderOption={(props, option) => (
     <li {...props} className={styles['autocomplete-option']}>
         <span>{option.name}</span>
         <span className={styles.initials}>{option.initials}</span>
@@ -146,7 +192,7 @@ function Consign(props) {
 
   onChange={handleToChange}
   filterSelectedOptions
-  renderInput={(params) => <TextField {...params} placeholder="To" />}
+  renderInput={(params) => <TextField {...params} placeholder="From" />}
   size="small"
   placeholder="From"
 />
@@ -171,7 +217,7 @@ function Consign(props) {
       },
     },
   }}
-  id="tags-outlined"
+  className={styles["consignee-to-autocomplete"]}
   renderOption={(props, option) => (
     <li {...props} className={styles['autocomplete-option']}>
         <span>{option.name}</span>
@@ -183,7 +229,7 @@ function Consign(props) {
 
   onChange={handleFromChange}
   filterSelectedOptions
-  renderInput={(params) => <TextField {...params} placeholder="From" />}
+  renderInput={(params) => <TextField {...params} placeholder="To" />}
   size="small"
   placeholder="To"
 />
