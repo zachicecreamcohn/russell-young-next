@@ -5,245 +5,204 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Datepicker from "@/components/_common/grid/Datepicker/Datepicker";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import Consign from "../Consign/Consign";
 import SkeletonTable from "../SkeletonTable/SkeletonTable";
 
 function Consignment(props) {
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const [rowData, setRowData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [pageSize, setPageSize] = useState(50);
-  const [loadingMore, setLoadingMore] = useState(false);
-
-  async function getData() {
-    setLoadingMore(true);
-    const response = await fetch("/api/records/consignment/allRecords", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ pageNumber, pageSize }),
-    });
-    const data = await response.json();
-
-    if (data.success) {
-      const parsedData = parseData(data.data);
-      setRowData((prevData) => [...prevData, ...parsedData]);
-      setDataLoaded(true);
-      setLoadingMore(false);
-    }
-
-    //
-  }
-
-  function parseData(data) {
-    const templateObj = {
-      date: 123456789,
-      from: "John Doe",
-      to: "Jane Doe",
-      series: "Series 1",
-      artwork: "Artwork 1",
-      colorway: "Colorway 1",
-      cat: "Cat 1",
-      note: "Note 1",
-      price: 100,
-      varid: 123,
-    };
-
-    return data.map((row) => {
-      return {
-        ...templateObj,
-        date: row.date,
-        from: row.dealer, //TODO: add dealer to the query (the response is just the TO)
-        fromInitials: row.initials, // TODO: add initials to the query (the response is just the TO)
-        to: row.dealer,
-        toInitials: row.initials,
-        series: row.series,
-        artwork: row.title,
-        colorway: row.subTitle2,
-        cat: row.code,
-        note: row.note,
-        price: row.price,
-        varid: row.varid,
-      };
-    });
-  }
 
   useEffect(() => {
-    // get data for page when page number changes
-    getData();
-  }, [pageNumber]);
-
-  function triggerPopulateOfNewRows() {
-    console.log("triggerPopulateOfNewRows");
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-  }
-
-  useEffect(() => {
-    setPageNumber(1);
-
-    props.setRightContent(
-      <Consign
-        alertSuccess={props.alertSuccess}
-        alertError={props.alertError}
-      />
-    );
+    props.setRightContent(<Consign />);
   }, []);
 
-  function handleChange(params) {
-    console.log(params);
-    props.alertSuccess("Saved!");
-  }
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const gridRef = useRef(null); // necessary for use of Grid API
+  const [rowData, setRowData] = useState([]);
 
-  function handleCellEditingStopped(params) {
-    const updatedRowData = rowData.map((row) => {
-      if (row.id === params.data.id) {
-        return { ...row, [params.colDef.field]: params.value };
-      }
-      return row;
-    });
-    handleChange(params);
-  }
 
-  const columnDefs = [
+  // define columns
+  const [columnDefs, setColumnDefs] = useState([
     {
-      headerName: "Date",
       field: "date",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
+      headerName: "Date",
+      editable: false,
       cellRendererFramework: (params) => (
         <Datepicker
           value={params.value}
           onChange={(newValue) => params.setValue(newValue)}
         />
       ),
-      cellStyle: { display: "flex", cursor: "pointer" },
-    },
-    {
-      headerName: "From",
-      field: "from",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
       cellStyle: {
-        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
       },
     },
     {
+      field: "toInitials",
       headerName: "To",
-      field: "to",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
-      },
     },
     {
-      headerName: "Series",
       field: "series",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
-      },
-    },
+      headerName: "Series",
+      cellEditor: "agLargeTextCellEditor",
+      cellEditorPopup: true,
+      cellEditorParams: {
+        maxLength: "300", // override the editor defaults
+        cols: "50",
+        rows: "6",
+      },    },
     {
-      headerName: "Artwork",
       field: "artwork",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
+      headerName: "Artwork",
+      cellEditor: "agLargeTextCellEditor",
+      cellEditorPopup: true,
+      cellEditorParams: {
+        maxLength: "300", // override the editor defaults
+        cols: "50",
+        rows: "6",
       },
     },
     {
-      headerName: "Colorway",
       field: "colorway",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
-      },
+      headerName: "Colorway",
     },
     {
-      headerName: "Cat #",
       field: "cat",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
-      },
+      headerName: "Cat #",
     },
     {
-      headerName: "Note",
       field: "note",
-      sortable: true,
-      filter: true,
-      //   resizable: true,
-      editable: true,
-      cellStyle: {
-        cursor: "pointer",
+      headerName: "Note",
+      cellEditor: "agLargeTextCellEditor",
+      cellEditorPopup: true,
+      cellEditorParams: {
+        maxLength: "300", // override the editor defaults
+        cols: "50",
+        rows: "6",
       },
     },
     {
-      headerName: "Price",
       field: "price",
+      headerName: "Price",
+    },
+  ]);
+
+  // set common grid options
+  const defaultColDef = useMemo(
+    () => ({
       sortable: true,
       filter: true,
-      //   resizable: true,
       editable: true,
       cellStyle: {
         cursor: "pointer",
       },
-    },
-  ];
+    }),
+    []
+  );
 
+  // get and load data from backend
   useEffect(() => {
-    console.log("Consignment component mounted");
-  }, []);
+    async function getData() {
+      const response = await fetch("/api/records/consignment/allRecordsNew", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        const parsedData = parseData(data.data);
+        setRowData(parsedData);
+        setDataLoaded(true);
+      }
+    }
+
+    function parseData(data) {
+      const templateObj = {
+        date: 123456789,
+        from: "John Doe",
+        to: "Jane Doe",
+        series: "Series 1",
+        artwork: "Artwork 1",
+        colorway: "Colorway 1",
+        cat: "Cat 1",
+        note: "Note 1",
+        price: 100,
+        varid: 123,
+      };
+
+      return data.map((row) => {
+        return {
+          ...templateObj,
+          date: row.date,
+          from: row.dealer, //TODO: add dealer to the query (the response is just the TO)
+          fromInitials: row.initials, // TODO: add initials to the query (the response is just the TO)
+          to: row.dealer,
+          toInitials: row.initials,
+          series: row.series,
+          artwork: row.title,
+          colorway: row.subTitle2,
+          cat: row.code,
+          note: row.note,
+          price: row.price,
+          varid: row.varid,
+        };
+      });
+    }
+
+    getData();
+  }, [setDataLoaded, setRowData]);
+
+  function onGridReady(params) {
+    gridRef.current = params.api;
+    console.log("gridRef.current", gridRef.current);
+    console.log("gridRef.current.api", gridRef.current.api);
+    console.log(params);
+    gridRef.current.sizeColumnsToFit();
+    // resize grid on window resize
+    window.addEventListener("resize", () => {
+      setTimeout(() => {
+        gridRef.current.sizeColumnsToFit();
+      });
+    });
+  }
+
+  function handleChange(params) {
+    console.log(params);
+    props.alertSuccess(
+      `Saved changes to "${params.colDef.headerName}"`,
+    );
+  }
 
   return (
     <div className={styles.container}>
       {dataLoaded ? (
-        <>
-          <div
-            className={`ag-theme-alpine custom-ag-grid ${styles["ag-theme-alpine"]}`}
-          >
-            <AgGridReact
-              rowData={rowData}
-              columnDefs={columnDefs}
-              domLayout="autoHeight"
-              onGridSizeChanged={(params) => {
-                params.api.sizeColumnsToFit();
-              }}
-              onCellValueChanged={(params) => {
-                handleChange(params);
-              }}
+        <div
+          className={`ag-theme-alpine custom-ag-grid ${styles["ag-theme-alpine"]}`}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <AgGridReact
+            ref={gridRef} // necessary for use of Grid API
+            rowData={rowData}
+            columnDefs={columnDefs}
+            defaultColDef={defaultColDef}
+            onGridReady={onGridReady}
+            onCellValueChanged={(params) => handleChange(params)}
+            suppressDragLeaveHidesColumns={true}
+            suppressMakeColumnVisibleAfterUnGroup={true}
+            suppressRowGroupHidesColumns={true}
+            rowGroupPanelShow='always'
             />
-          </div>
-          <div className={styles["load-more-button-container"]}>
-            <button
-              className={styles["load-more-button"] + " theme-design"}
-              onClick={triggerPopulateOfNewRows}
-              disabled={loadingMore}
-            >
-              Load More
-            </button>
-          </div>
-        </>
+
+        <div className={styles.footer}>
+          <div className={styles.left}>
+            </div>
+          <div className={styles.right}>
+            <p>Displaying {rowData.length.toLocaleString('en-US')} records</p>
+        </div>
+        </div>
+        </div>
       ) : (
         <SkeletonTable />
       )}
