@@ -44,13 +44,9 @@ function Records() {
     });
   }
 
-
-
-
-
   if (!isLoggedIn) {
     return (
-      <Body center>
+      <Body center h-80>
         <CircularProgress
           sx={{
             color: "#000000",
@@ -60,34 +56,35 @@ function Records() {
     );
   }
 
-
   return (
-    <Body center direction="column" Tabs={true} activeTab="records">
+    <Body center direction="column" h-80 Tabs={true} activeTab="records">
       <Menu
-            menuItems={["CONSIGNMENT", "INVENTORY"]}
-            activeMenuItem={activeMenuItem}
-            setActiveMenuItem={setActiveMenuItem}
-            showUserFunctions={false}
-            sticky={true}
-            wide={true}
-            rightContent={
-              <div className={styles.rightContent}>
-                {menuRightContent}
-              </div>
-            }
-
-          />
+        menuItems={["CONSIGNMENT", "INVENTORY"]}
+        activeMenuItem={activeMenuItem}
+        setActiveMenuItem={setActiveMenuItem}
+        showUserFunctions={false}
+        sticky={true}
+        wide={true}
+        rightContent={
+          <div className={styles.rightContent}>{menuRightContent}</div>
+        }
+      />
       <div className={styles.container}>
-        
-          
-
-          {activeMenuItem === "CONSIGNMENT" && (
-            <Consignment alertError={alertError} alertSuccess={alertSuccess} setRightContent = {setMenuRightContent} />
-          )}
-          {activeMenuItem === "INVENTORY" && (
-            <Inventory alertError={alertError} alertSuccess={alertSuccess} setRightContent= {setMenuRightContent}/>
-          )}
-        </div>
+        {activeMenuItem === "CONSIGNMENT" && (
+          <Consignment
+            alertError={alertError}
+            alertSuccess={alertSuccess}
+            setRightContent={setMenuRightContent}
+          />
+        )}
+        {activeMenuItem === "INVENTORY" && (
+          <Inventory
+            alertError={alertError}
+            alertSuccess={alertSuccess}
+            setRightContent={setMenuRightContent}
+          />
+        )}
+      </div>
       <Toaster containerStyle={{ top: "50px" }} />
     </Body>
   );
