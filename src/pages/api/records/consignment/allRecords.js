@@ -4,7 +4,7 @@ import url from "url";
 
 async function getData() {
   const query = `
-  select series.series, parent.title, parent.year, parent.size, child.subTitle2, v1.varid, v1.code, v1.note, v1.flag, prices.date as date, prices.price, dealers.dealer, child.childID, series.seriesID, v1.date, v1.sold, parent.parentID, parent.medium, v1.hide
+  select dealers.initials, series.series, parent.title, parent.year, parent.size, child.subTitle2, v1.varid, v1.code, v1.note, v1.flag, prices.date as date, prices.price, dealers.dealer, child.childID, series.seriesID, v1.date, v1.sold, parent.parentID, parent.medium, v1.hide
   from (
      select childid, codeid, max(date) as maxdate
      from variations where hide=0 group by codeid, childid
