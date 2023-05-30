@@ -72,6 +72,24 @@ transition: all 0.25s ease-in-out;
     cursor: pointer;
 }
 
+.autocomplete-option:focus {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.autocomplete-option.focus {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
 .autocomplete-option .initials {
     opacity: .5;
+}
+
+.consignee-from-autocomplete {
+    /* this needs to be defined so this autocomplete can be selected with js */
+}
+
+.consignee-to-autocomplete {
+    /* this needs to be defined so this autocomplete can be selected with js */
 }

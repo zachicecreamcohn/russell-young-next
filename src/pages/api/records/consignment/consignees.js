@@ -1,5 +1,7 @@
 import MySQL from "../../_common/MySQL/MySQL";
 
+//TODO: only return data if the user is logged in
+
 async function getConsignees() {
     const query = `select dealerid, dealer, initials from dealers`;
 
