@@ -27,13 +27,13 @@ function Consignment(props) {
     {
       field: "date",
       headerName: "Date",
-      editable: false,
-      cellRendererFramework: (params) => (
-        <Datepicker
-          value={params.value}
-          onChange={(newValue) => params.setValue(newValue)}
-        />
-      ),
+      // editable: false,
+      // cellRendererFramework: (params) => (
+      //   <Datepicker
+      //     value={params.value}
+      //     onChange={(newValue) => params.setValue(newValue)}
+      //   />
+      // ),
       cellStyle: {
         display: "flex",
         alignItems: "center",

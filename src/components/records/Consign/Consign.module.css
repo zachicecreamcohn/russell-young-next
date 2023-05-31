@@ -54,13 +54,13 @@ transition: all 0.25s ease-in-out;
     min-width: 200px;
     align-self: center;
     cursor: pointer;
-    margin-right: 1rem;
 }
 
 
 
 .consignee-from-autocomplete {
     /* this needs to be defined so this autocomplete can be selected with js */
+    margin-right: 1rem;
 }
 
 .consignee-to-autocomplete {
