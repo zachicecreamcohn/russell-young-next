@@ -15,23 +15,25 @@ function Consignment(props) {
     props.setRightContent(<Consign />);
   }, []);
 
+
   const [dataLoaded, setDataLoaded] = useState(false);
   const gridRef = useRef(null); // necessary for use of Grid API
   const [rowData, setRowData] = useState([]);
+  const [consignees, setConsignees] = useState([]);
 
-
+  
   // define columns
   const [columnDefs, setColumnDefs] = useState([
     {
       field: "date",
       headerName: "Date",
-      editable: false,
-      cellRendererFramework: (params) => (
-        <Datepicker
-          value={params.value}
-          onChange={(newValue) => params.setValue(newValue)}
-        />
-      ),
+      // editable: false,
+      // cellRendererFramework: (params) => (
+      //   <Datepicker
+      //     value={params.value}
+      //     onChange={(newValue) => params.setValue(newValue)}
+      //   />
+      // ),
       cellStyle: {
         display: "flex",
         alignItems: "center",
@@ -40,6 +42,10 @@ function Consignment(props) {
     {
       field: "toInitials",
       headerName: "To",
+      cellEditor: "agSelectCellEditor",
+      cellEditorParams: {
+        values: [],
+           },
     },
     {
       field: "series",
@@ -65,6 +71,13 @@ function Consignment(props) {
     {
       field: "colorway",
       headerName: "Colorway",
+      cellEditor: "agLargeTextCellEditor",
+      cellEditorPopup: true,
+      cellEditorParams: {
+        maxLength: "300", // override the editor defaults
+        cols: "50",
+        rows: "6",
+      },
     },
     {
       field: "cat",
@@ -100,6 +113,72 @@ function Consignment(props) {
     []
   );
 
+
+
+  useEffect(() => {
+    getConsignees()
+      .then((consignees) => {
+        const newColumnDefs = [...columnDefs];
+        newColumnDefs[1].cellEditorParams.values = consignees.map(
+          (consignee) => consignee.initials
+        );
+       
+        
+        setColumnDefs(newColumnDefs);
+      })
+      .catch((error) => {
+        console.error("Error fetching consignees:", error);
+      });
+  }, []);
+  
+  // ...
+  
+  async function getConsignees() {
+    const response = await fetch("/api/records/consignment/consignees");
+    const data = await response.json();
+    if (data.success) {
+      const consignees = data.consignees.map((consignee) => ({
+        id: consignee.dealerid,
+        name: consignee.dealer,
+        initials: consignee.initials,
+      }));
+      console.log(consignees);
+      setConsignees(consignees);
+      return consignees;
+    }
+    throw new Error("Failed to fetch consignees");
+  }
+  
+  
+  
+  
+  
+  
+
+
+
+
+  function formatPrice(priceString, cents=false) {
+    const price = parseFloat(priceString);
+
+    if (!isNaN(price)) {
+      // format price to USD
+      const formattedPrice = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(price);
+
+      if (!cents) {
+        return formattedPrice.slice(0, -3);
+      }
+
+
+      return formattedPrice;
+    } else {
+      return "";
+    }
+  }
+
   // get and load data from backend
   useEffect(() => {
     async function getData() {
@@ -133,6 +212,8 @@ function Consignment(props) {
       };
 
       return data.map((row) => {
+        const price = formatPrice(row.price);
+        row.initials ? row.initials = row.initials.toUpperCase() : row.initials = "";
         return {
           ...templateObj,
           date: row.date,
@@ -145,7 +226,7 @@ function Consignment(props) {
           colorway: row.subTitle2,
           cat: row.code,
           note: row.note,
-          price: row.price,
+          price: price,
           varid: row.varid,
         };
       });
@@ -199,7 +280,7 @@ function Consignment(props) {
           <div className={styles.left}>
             </div>
           <div className={styles.right}>
-            <p>Displaying {rowData.length.toLocaleString('en-US')} records</p>
+            <p>{rowData.length.toLocaleString('en-US')} records</p>
         </div>
         </div>
         </div>

@@ -54,40 +54,13 @@ transition: all 0.25s ease-in-out;
     min-width: 200px;
     align-self: center;
     cursor: pointer;
-    margin-right: 1rem;
 }
 
 
-
-
-.autocomplete-option {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    padding:0.5rem 1.5rem;
-}
-
-.autocomplete-option:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
-}
-
-.autocomplete-option:focus {
-    background-color: #f5f5f5;
-    cursor: pointer;
-}
-
-.autocomplete-option.focus {
-    background-color: #f5f5f5;
-    cursor: pointer;
-}
-
-.autocomplete-option .initials {
-    opacity: .5;
-}
 
 .consignee-from-autocomplete {
     /* this needs to be defined so this autocomplete can be selected with js */
+    margin-right: 1rem;
 }
 
 .consignee-to-autocomplete {
