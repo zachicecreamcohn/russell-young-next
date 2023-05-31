@@ -8,6 +8,10 @@
 .footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 3rem;
+}
+
+.footer p {
+    font-size: 9pt;
 }
