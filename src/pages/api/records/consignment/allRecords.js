@@ -8,7 +8,7 @@ async function getData() {
   from (
      select childid, codeid, max(date) as maxdate
      from variations where hide=0 group by codeid, childid
-  ) as v2 inner join variations as v1 on v1.childid = v2.childid and v1.codeid=v2.codeid and v1.date = v2.maxdate left join child on child.childID=v1.childid left join parent on parent.parentID=child.parentID left join series on series.seriesID=parent.seriesID LEFT JOIN dealers ON dealers.dealerid=v1.reconsigned left join prices on prices.childID=child.childID where parent.type=1 and v1.hide=0 and child.soldOut!=2 and (prices.date=(select max(p1.date) from prices as p1 where p1.childID=child.childID) or prices.date is NULL) order by series.series, parent.title, child.subTitle2, v1.code
+  ) as v2 inner join variations as v1 on v1.childid = v2.childid and v1.codeid=v2.codeid and v1.date = v2.maxdate left join child on child.childID=v1.childid left join parent on parent.parentID=child.parentID left join series on series.seriesID=parent.seriesID LEFT JOIN dealers ON dealers.dealerid=v1.reconsigned left join prices on prices.childID=child.childID where parent.type=1 and v1.hide=0 and child.soldOut!=2  and v1.consigned=1 and (prices.date=(select max(p1.date) from prices as p1 where p1.childID=child.childID) or prices.date is NULL) order by series.series, parent.title, child.subTitle2, v1.code
   `;
 
   const mysql = new MySQL();
