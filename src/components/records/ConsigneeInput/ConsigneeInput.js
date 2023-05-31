@@ -46,7 +46,7 @@ function ConsigneeInput(props) {
                 }
                 return 0;
             });
-            
+
     
     
     
@@ -85,9 +85,9 @@ function ConsigneeInput(props) {
       getOptionLabel={(option) => option.name}
       onChange={handleChange}
       filterSelectedOptions
-      renderInput={(params) => <TextField {...params} placeholder="From" />}
+      renderInput={(params) => <TextField {...params} placeholder={props.placeholder || ""} />}
       size="small"
-      placeholder="From"
+      placeholder={props.placeholder || ""}
     />
   );
 }
