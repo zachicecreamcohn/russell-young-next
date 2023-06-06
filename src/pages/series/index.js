@@ -64,7 +64,7 @@ function SeriesPage() {
           data.series_names = JSON.parse(localStorage.getItem("seriesInfo"));
         }
 
-        if (data.series_names === undefined || data.series_names.length === 0) {
+        if (data.series_names === undefined || data.series_names?.length === 0) {
           setSeriesList([]);
           setSeriesOptions([]);
           setSeriesInfo([]);

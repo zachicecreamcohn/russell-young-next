@@ -70,6 +70,10 @@ function Child(props) {
     }
   }
 
+
+  
+
+
   // use Image class to get the image url
   const imageObj = new Image(work.imageID);
   const iconURL = imageObj.getIcon();
