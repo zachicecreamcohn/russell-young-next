@@ -47,6 +47,21 @@ button.theme-design:disabled {
     cursor: not-allowed;
 }
 
+button.theme-design-error {
+    padding: 10px 10px;
+    background-color: red;
+    border: 2px solid red;
+    width: 274px;
+    color: white;
+
+    font-family: 'Din Mittelschrift';
+    cursor: pointer;
+    font-size: 12pt;
+    font-weight: 400;
+    -webkit-transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border 0.2s ease-in-out, color 0s;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border 0.2s ease-in-out, color 0s;
+}
+
 input.theme-design {
     width: 250px;
     padding: 10px 10px;
@@ -54,6 +69,8 @@ input.theme-design {
     border: 2px solid black;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+
 
 
 .icon-tabler {

@@ -4,10 +4,10 @@ export default async function handler(req, res) {
 
   try {
     const data = await db.query(`
-      SELECT childID, child.parentID, series.series, parent.title, subTitle2, parent.year, parent.medium, parent.size, cloudflare_image_id
-      FROM child 
-      JOIN parent ON child.parentID = parent.parentID 
-      JOIN series ON parent.seriesID = series.seriesID
+    SELECT childID, child.parentID, series.series, parent.title, subTitle2, parent.year, parent.medium, parent.size, cloudflare_image_id
+    FROM child
+    JOIN parent ON child.parentID = parent.parentID 
+    JOIN series ON parent.seriesID = series.seriesID WHERE child.archived = false
     `);
 
     const children = data.map(row => {

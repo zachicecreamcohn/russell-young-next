@@ -8,7 +8,33 @@ import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
 import ChildWorkPopup from "../../../popups/ChildWorkPopup/ChildWorkPopup";
 import DeleteIcon from "@/components/_common/DeleteIcon/DeleteIcon";
+import ConfirmationPopup from "@/components/_common/ConfirmationPopup/ConfirmationPopup";
+
+
 function Child(props) {
+  function alertError(message) {
+    toast.error(message, {
+        style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+        },
+        position: "top-center",
+    });
+}
+
+function alertSuccess(message) {
+    toast.success(message, {
+        style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+        },
+        position: "top-center",
+    });
+}
+
+
+
+  const [deleteConfirmationPopupOpen, setDeleteConfirmationPopupOpen] = useState(false);
+
+
   function shareWork() {
     shareContent({
       title: props.childWork.title,
@@ -32,22 +58,12 @@ function Child(props) {
 
   const madeVisible = () => {
     setVisible(true);
-    toast.success(props.childWork.title + " is now visible", {
-      style: {
-        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-      },
-      position: "top-center",
-    });
+    alertSuccess(props.childWork.title + " is now visible");
   };
 
   const madeInvisible = () => {
     setVisible(false);
-    toast.success(props.childWork.title + " is now invisible", {
-      style: {
-        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-      },
-      position: "top-center",
-    });
+    alertSuccess(props.childWork.title + " is now invisible");
   };
 
   let work = props.childWork;
@@ -70,6 +86,45 @@ function Child(props) {
       return <></>;
     }
   }
+
+
+  
+
+  function deleteChildWork() {
+   // delete the child work via a fetch request
+   console.log("deleting child work");
+
+
+   fetch("/api/children/deleteChild", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        childID: work.childID,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alertSuccess("Deleted " + work.title);
+        }
+
+
+        // delete the child from localstorage
+        //TODO: write code to delete the child from localstorage instead of reloading the page
+        localStorage.clear();
+        window.location.reload();
+      })
+      .catch((error) => {
+        alertError("Error deleting " + work.title);
+        console.error("Error deleting child work:", error);
+      }
+      );
+          
+
+  }
+
 
 
   
@@ -183,21 +238,12 @@ function Child(props) {
               fetch(URL)
                 .then((response) => {
                   if (response.status == 404) {
-                    toast.error("No tif file uploaded", {
-                      style: {
-                        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-                      },
-                      position: "top-center",
-                    });
+                    alertError("No tif file uploaded");
+                    
                   } else {
                     // copy to clipboard
                     navigator.clipboard.writeText(URL);
-                    toast.success("Copied to clipboard", {
-                      style: {
-                        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.01)",
-                      },
-                      position: "top-center",
-                    });
+                    alertSuccess("Copied to clipboard");
                   }
                 })
                 .catch((error) => {
@@ -229,7 +275,26 @@ function Child(props) {
 
 
         </div>
-        <DeleteIcon/>
+        <DeleteIcon
+          onClick={() => {
+            setDeleteConfirmationPopupOpen(true);
+          }}
+
+        />
+
+          {deleteConfirmationPopupOpen && (
+            <ConfirmationPopup
+              open={deleteConfirmationPopupOpen}
+              setOpen={setDeleteConfirmationPopupOpen}
+
+              onConfirm={() => {
+                deleteChildWork();
+              }}
+
+              title="Are you sure you want to delete this work?"
+            />
+          )}
+
         </div>
       </div>
 

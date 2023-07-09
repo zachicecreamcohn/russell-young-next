@@ -24,6 +24,7 @@ function SmallPopup(props) {
         style={{width: props.width}}
         >
                 <div className={styles.header}>
+                    <div className={styles.top}>
                     <div className={styles.title}>
                         {props.title}
                     </div>
@@ -31,6 +32,15 @@ function SmallPopup(props) {
                         <X size={20} strokeWidth={1} />
                     </div>
                 </div>
+                </div>
+                <div className={styles.bottom}>
+                    {props.subtitle && (
+                    <div className={styles.subtitle}>
+                        <i>{props.subtitle}</i>
+                    </div>
+                    )}
+                </div>
+
                 <span className={styles.spacer}></span>
 
                 <div className={styles.content}>

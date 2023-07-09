@@ -54,6 +54,23 @@ button.theme-design:disabled {
   cursor: not-allowed;
 }
 
+button.theme-design.error {
+  padding: 10px 10px;
+  background-color: red;
+  border: 2px solid red;
+  width: 274px;
+  color: white;
+
+  font-family: "Din Mittelschrift";
+  cursor: pointer;
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+button.theme-design.error:hover {
+  color: #c6c6c6;
+}
+
 input.theme-design {
   width: 250px;
   padding: 10px 10px;

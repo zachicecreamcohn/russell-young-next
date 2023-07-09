@@ -1,0 +1,18 @@
+.container {
+    z-index: 99999;
+}
+
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.buttons button:first-child {
+    margin-right: 1rem;
+}
+
+.buttons button {
+    width: 175px !important;
+}

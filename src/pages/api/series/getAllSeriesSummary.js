@@ -33,7 +33,7 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
       const db = new MySQL();
   
       // get series names, seriesID, and number of parents
-      const seriesStmt = "SELECT seriesid, series FROM series";
+      const seriesStmt = "SELECT seriesid, series FROM series WHERE archived = false";
       const seriesRows = await db.query(seriesStmt);
   
       const seriesNames = seriesRows.map((row) => {
@@ -46,7 +46,7 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
   
       // now, get all parents from db and, depending on the seriesID, add them to the appropriate array
       const parentStmt =
-        "SELECT seriesID, parentID, title, year, medium, size FROM parent ORDER BY title";
+        "SELECT seriesID, parentID, title, year, medium, size FROM parent WHERE archived = false ORDER BY title";
       const parentRows = await db.query(parentStmt);
   
       const parents = parentRows.map((row) => {
@@ -69,7 +69,7 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
         FROM prices
         GROUP BY childID
       ) p ON c.childID = p.childID
-      INNER JOIN prices pr ON p.childID = pr.childID AND p.latest_date = pr.date`;
+      INNER JOIN prices pr ON p.childID = pr.childID AND p.latest_date = pr.date WHERE archived = false`;
       const childrenRows = await db.query(childrenStmt);
   
       const children = childrenRows.map((row) => {
@@ -183,12 +183,28 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
 
         });
         
+        // const result = {
+        //   success: true,
+        //   series_names: seriesNames,
+        //   lastUpdatedDatetime: dbLastUpdatedDatetime,
+        //   newInfo: true,
+        // };
+
         const result = {
           success: true,
-          series_names: seriesNames,
+          series_names: seriesNames.map(series => {
+            if (series.parentWorks.length === 0) {
+              return {
+                ...series,
+                message: 'This series has no parents or children.',
+              };
+            }
+            return series;
+          }),
           lastUpdatedDatetime: dbLastUpdatedDatetime,
           newInfo: true,
         };
+        
         
         return result;
 
@@ -204,10 +220,7 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
 
   export default async function handler(req, res) {
     try {
-        // if (req.method !== "POST") {
-        //     res.status(405).json({ error: "Method Not Allowed" });
-        //     return;
-        //   }
+ 
      // make sure lastUpdatedDatetime is passed in the request
         var lastUpdatedDatetime = null;
         if (req.body.lastUpdatedDatetime && req.body.lastUpdatedDatetime != "") {

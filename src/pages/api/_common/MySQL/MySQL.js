@@ -27,23 +27,33 @@ class MySQL {
     return new Promise((resolve, reject) => {
       MySQL.pool.getConnection((err, connection) => {
         if (err) return reject(err);
-
+  
         connection.query(sql, args, (err, rows) => {
-          connection.release();
           if (err) {
-            console.error(`Error releasing connection: ${err}`);
-            if (err.code === 'ER_PARSE_ERROR') {
-              console.log('sql', sql);
-              console.log('args', args);
-
-            }
+            connection.release();
+            console.error(`Error executing query: ${err}`);
             return reject(err);
           }
+  
+          // Check if the query is a write, update, or delete statement
+          const isWriteQuery = /^(INSERT|UPDATE|DELETE)/i.test(sql.trim());
+          if (isWriteQuery) {
+            const insertQuery = "INSERT INTO db_updates (datetime) VALUES (NOW())";
+            connection.query(insertQuery, (err) => {
+              if (err) {
+                console.error(`Error inserting into db_updates: ${err}`);
+                return reject(err);
+              }
+            });
+          }
+  
+          connection.release();
           resolve(rows);
         });
       });
     });
   }
+  
 
   close() {
     return new Promise((resolve, reject) => {

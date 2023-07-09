@@ -28,8 +28,7 @@
 
 .header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
 .close {
@@ -52,3 +51,16 @@
 .title {
     font-weight: bold;
 }
+
+
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtitle {
+    margin-top: .25rem   ;
+}
+

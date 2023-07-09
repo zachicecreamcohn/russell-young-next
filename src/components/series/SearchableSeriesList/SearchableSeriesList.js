@@ -103,7 +103,6 @@ function SearchableSeriesList(props) {
                   }
                 }
 
-                if (nonEmptyParent) {
                   component = (
                     <Series
                       key={series.seriesID}
@@ -112,10 +111,12 @@ function SearchableSeriesList(props) {
                       parentWorks={series.parentWorks}
                       allCollapsed={props.allCollapsed}
                       hideSoldOut={props.hideSoldOut}
+                      empty = {nonEmptyParent}
                     />
                   );
                 }
-              }
+              // }
+
 
               return component;
             })
