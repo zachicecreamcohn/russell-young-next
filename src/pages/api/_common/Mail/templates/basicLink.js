@@ -9,7 +9,6 @@ function getBasicLinkTemplate(data) {
         throw new Error('Missing required fields');
     }
 
-    console.log("data: ", data);
 
     return `
     <!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">

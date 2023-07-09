@@ -60,7 +60,6 @@ function Settings() {
   }, []);
 
   function saveChanges() {
-    console.log(dataToSave);
     // send the data to save to the server
     fetch("/api/settings/update", {
       method: "POST",
@@ -127,11 +126,6 @@ function Settings() {
 
   useEffect(() => {
     let changed = dataHasChanged();
-    if (changed) {
-      console.log("data has changed");
-      console.log("dataToSave", dataToSave);
-      console.log("existingData", existingData);
-    }
 
     setSaveable(changed);
   }, [dataToSave]);

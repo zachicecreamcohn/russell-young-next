@@ -88,7 +88,6 @@ async function createUser(email) {
         const text = `An account has been created for you. Please click go to ${link} to complete the setup process.`
     
     const html = sender.getHTML("basicLink", htmlData);
-    console.log("HTML: ", html);
 
 
 

@@ -14,8 +14,6 @@ class Upload {
     if (fileExtension === 'tif' || fileExtension === 'tiff') {
       // upload the file to Cloudflare (R2 via worker)
       try {
-        console.log('uploading tiff file');
-        console.log(this.file);
         await fetch('https://production.muddy-glade-38c1.zach-russellyoung836.workers.dev', {
           method: 'POST',
           headers: {
@@ -26,9 +24,7 @@ class Upload {
         })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           this.success = true;
-          console.log('upload success');
         });
 
         return true;
@@ -62,11 +58,9 @@ class Upload {
         throw new Error(data.error);
       }
 
-      console.log(data.result);
       this.uploadURL = data.url;
       this.imageID = data.id;
 
-      console.log(this.uploadURL);
 
       const formData = new FormData();
       formData.append('file', this.file);
@@ -87,9 +81,7 @@ class Upload {
         throw new Error(uploadData.error);
       }
 
-      console.log(uploadData);
       this.success = true;
-      console.log('upload success');
 
       // add the image to the database
       const dbResponse = await fetch('/api/cloudflare/addImageToDB', {

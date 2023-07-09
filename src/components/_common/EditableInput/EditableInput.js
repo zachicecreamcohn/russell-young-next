@@ -29,7 +29,6 @@ function EditableInput(props) {
     const saveFunction = props.save;
    // if not, define a default save function
     const defaultSaveFunction = () => {
-        console.log("No save function passed in as a prop");
     }
 
     // if a save function was passed in as a prop, use it. Otherwise, use the default save function

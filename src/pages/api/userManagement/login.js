@@ -15,7 +15,6 @@ async function authenticateUser(email, username, password) {
     }
 
     // log the response
-    console.log(authResponse);
     const user_id = authResponse[0].id;
     const hashedPassword = authResponse[0].password;
 

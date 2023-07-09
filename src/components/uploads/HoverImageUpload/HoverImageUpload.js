@@ -29,7 +29,6 @@ function HoverImageUpload(props) {
     // upload the file to cloudflare
     const uploadSuccess = await uploadObj.upload();
     if (uploadSuccess) {
-      console.log("upload success");
       // set the image URL in the parent component
       // let imageObj = new Image(uploadObj.imageID);
       // let imageURL = imageObj.getStandardSized();
@@ -72,7 +71,6 @@ function HoverImageUpload(props) {
               // if it is, don't close the popup
               return;
             }
-            console.log("closing popup");
             // otherwise, close the popup
             setUploadPopupOpen(false);
           }}

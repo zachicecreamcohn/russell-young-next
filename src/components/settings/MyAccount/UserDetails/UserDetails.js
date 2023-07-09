@@ -21,7 +21,6 @@ function UserDetails(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userDetailsData);
     // Here you would typically pass the userDetails to a function that handles your form submission
   };
 

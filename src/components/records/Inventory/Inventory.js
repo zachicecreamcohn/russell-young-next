@@ -13,7 +13,6 @@ function Inventory(props) {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        console.log("Inventory component mounted");
         props.setRightContent(null);
     }, []);
 

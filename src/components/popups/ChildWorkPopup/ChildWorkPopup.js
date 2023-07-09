@@ -42,10 +42,6 @@ function ChildWorkPopup(props) {
   const [imageURL, setImageURL] = useState("");
   const [imageID, setImageID] = useState("");
 
-  useEffect(() => {
-    console.log("image ID has changed");
-    console.log(imageID);
-  }, [imageID]);
 
   // get the data for the child work from the server
   useEffect(() => {
@@ -69,7 +65,6 @@ function ChildWorkPopup(props) {
         data = data.data;
         setChildWorkData(data);
         setLoaded(true);
-        console.log(data);
         const imageObj = new Image(data.summary.imageID);
         const imageURL = imageObj.getStandardSized();
         // set the image url
@@ -88,8 +83,7 @@ function ChildWorkPopup(props) {
 
   function saveChanges(field, value) {
     //TODO: fill this out
-    console.log("saving changes");
-    console.log(field, value);
+
 
     fetch ('/api/childDetails/editDetail', {
       method: 'POST',

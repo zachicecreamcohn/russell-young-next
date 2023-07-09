@@ -13,10 +13,8 @@ const generateDownloadLink = async (childID) => {
         },
       }
     );
-    console.log(response);
     const data = await response.json();
     const downloadLink = data.result.url;
-    console.log(downloadLink);
     return downloadLink;
   } catch (error) {
     console.error(error);

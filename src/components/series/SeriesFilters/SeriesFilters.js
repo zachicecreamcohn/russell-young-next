@@ -151,7 +151,6 @@ function alertSuccess(message) {
               checked={hideSoldOut}
               onChange={() => {
                 setHideSoldOut(!hideSoldOut);
-                console.log("hideSoldOut: ", hideSoldOut);
               }}
               label="Hide Sold Out"
             />

@@ -17,7 +17,6 @@ function Variation(props) {
 
     useEffect(() => {
         setVariationData(props.Variation);
-        console.log(props.Variation);
     }, [props.Variation]);
 
     const toggleCollapsed = () => {

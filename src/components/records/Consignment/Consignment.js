@@ -142,7 +142,6 @@ function Consignment(props) {
         name: consignee.dealer,
         initials: consignee.initials,
       }));
-      console.log(consignees);
       setConsignees(consignees);
       return consignees;
     }
@@ -237,9 +236,7 @@ function Consignment(props) {
 
   function onGridReady(params) {
     gridRef.current = params.api;
-    console.log("gridRef.current", gridRef.current);
-    console.log("gridRef.current.api", gridRef.current.api);
-    console.log(params);
+
     gridRef.current.sizeColumnsToFit();
     // resize grid on window resize
     window.addEventListener("resize", () => {
@@ -250,7 +247,6 @@ function Consignment(props) {
   }
 
   function handleChange(params) {
-    console.log(params);
     props.alertSuccess(
       `Saved changes to "${params.colDef.headerName}"`,
     );

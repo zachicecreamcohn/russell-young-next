@@ -39,7 +39,6 @@ function Variations(props) {
     })
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
         setVariations(data.data);
         setOriginalData(data.data);
     }

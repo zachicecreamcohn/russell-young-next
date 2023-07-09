@@ -12,7 +12,6 @@ function ConsigneeInput(props) {
   // when used in another component, the parent component can pass in "onChange" as a prop
   // this function will be called when the consignee is changed
   function handleChange(event, value) {
-    console.log(value);
     setSelected(value);
     if (props.onChange) {
       props.onChange(value);

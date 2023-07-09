@@ -10,7 +10,6 @@ function DefaultSoldOutSeriesView(props) {
   const setChangeHasBeenMade = props.setChangeHasBeenMade;
 
   useEffect(() => {
-    console.log("existingData", existingData);
     if (existingData && existingData.showSoldOut !== undefined) {
       setShowSoldOut(existingData.showSoldOut == 1 ? true : false);
     }

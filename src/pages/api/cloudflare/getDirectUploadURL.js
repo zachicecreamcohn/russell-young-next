@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   }
 
   const { id, url } = await getDirectUploadUrl();
-  console.log(id, url);
   res.status(200).json({ id, url, success: true });
 }
 
@@ -32,7 +31,6 @@ async function getDirectUploadUrl() {
   }
   
     const data = await response.json();
-    console.log(data);
     return {
         url: data.result.uploadURL,
         id : data.result.id,

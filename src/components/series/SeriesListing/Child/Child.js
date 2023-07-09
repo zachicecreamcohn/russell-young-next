@@ -92,7 +92,6 @@ function alertSuccess(message) {
 
   function deleteChildWork() {
    // delete the child work via a fetch request
-   console.log("deleting child work");
 
 
    fetch("/api/children/deleteChild", {

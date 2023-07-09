@@ -21,7 +21,6 @@ function Menu(props) {
     async function fetchUser() {
       const user = new User();
       await user.fetchUser();
-      console.log(user.username);
       const userData = {
         username: user.username,
         email: user.email,

@@ -12,7 +12,6 @@ class MySQL {
   static connectionCount = 0;
 
   constructor() {
-    console.log('MySQL constructor');
     console.log('process.env.DB_ENDPOINT', process.env.DB_ENDPOINT);
     this.connectionCount++;
 

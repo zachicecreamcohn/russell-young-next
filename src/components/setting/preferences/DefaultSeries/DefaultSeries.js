@@ -29,7 +29,6 @@ function DefaultSeries(props) {
   }, [defaultSeries]);
 
   function populateWithExistingData() {
-    console.log("existingData", existingData);
     if (existingData.defaultSeries) {
         // format the data to match the format of the autocomplete
         let existingDataFormatted = [];

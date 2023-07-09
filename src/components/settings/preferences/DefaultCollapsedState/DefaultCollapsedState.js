@@ -14,7 +14,6 @@ function DefaultCollapsedState(props) {
 
 
   useEffect(() => {
-    console.log("existingData", existingData);
     if (existingData && existingData.defaultCollapsedState !== undefined) {
       setCollapsedIsDefault(existingData.defaultCollapsedState == 1 ? true : false);
     }

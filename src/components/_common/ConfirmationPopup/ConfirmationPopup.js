@@ -25,10 +25,10 @@ export default function ConfirmationPopup({ title="Are you sure?", message="This
         <SmallPopup title={title} subtitle={message} closePopup={() => setOpen(false)}>
           <div className={styles.container}>
             <div className={styles.buttons}>
-                <button className={"theme-design error"} onClick={handleCancel}>
+                <button className={"theme-design"} onClick={handleCancel}>
                     Cancel
                 </button>
-                <button className={"theme-design"} onClick={handleConfirm}>Confirm</button>
+                <button className={"theme-design error"} onClick={handleConfirm}>Confirm</button>
             </div>
           </div>
         </SmallPopup>

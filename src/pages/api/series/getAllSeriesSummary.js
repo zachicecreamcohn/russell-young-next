@@ -10,7 +10,6 @@ async function existsNewInfoInDB(db, localLastUpdatedDatetime = null) {
     let dbLastUpdatedDatetime = rows[0]['MAX(datetime)'];
     dbLastUpdatedDatetime = dbLastUpdatedDatetime.toISOString().slice(0, 19).replace('T', ' ');
 
-    console.log("dbLastUpdatedDatetime: " + dbLastUpdatedDatetime);
   
     if (localLastUpdatedDatetime == null || localLastUpdatedDatetime == "") {
       return dbLastUpdatedDatetime;

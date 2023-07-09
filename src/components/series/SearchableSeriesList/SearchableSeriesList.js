@@ -21,9 +21,7 @@ function SearchableSeriesList(props) {
 
 
   const sortSeriesInfo = () => {
-    console.log("Sorting series info");
-    console.log(sortOrder);
-    console.log(sortOrder == "Z → A");
+
     switch (sortOrder) {
       case "A → Z":
         sortAZ();
@@ -32,7 +30,6 @@ function SearchableSeriesList(props) {
         sortZA();
         break;
       default:
-        console.log("Defaulting to A → Z");
         sortAZ();
         break;
     }
@@ -93,14 +90,10 @@ function SearchableSeriesList(props) {
                 props.seriesList.includes(series.series) ||
                 props.seriesList.length === 0
               ) {
-                let nonEmptyParent = false;
+                let hasParent = false;
                 if (series.parentWorks.length > 0) {
-                  for (let i = 0; i < series.parentWorks.length; i++) {
-                    if (series.parentWorks[i].children.length > 0) {
-                      nonEmptyParent = true;
-                      break;
-                    }
-                  }
+                  hasParent = true;
+                  
                 }
 
                   component = (
@@ -111,7 +104,7 @@ function SearchableSeriesList(props) {
                       parentWorks={series.parentWorks}
                       allCollapsed={props.allCollapsed}
                       hideSoldOut={props.hideSoldOut}
-                      empty = {nonEmptyParent}
+                      empty = {hasParent}
                     />
                   );
                 }

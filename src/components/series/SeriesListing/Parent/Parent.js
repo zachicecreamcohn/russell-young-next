@@ -7,10 +7,14 @@ import DeleteIcon from "@/components/_common/DeleteIcon/DeleteIcon";
 import AddIcon from "@/components/_common/AddIcon/AddIcon";
 import ConfirmationPopup from "@/components/_common/ConfirmationPopup/ConfirmationPopup";
 import toast, { Toaster } from "react-hot-toast";
+import AddChildPopup from "@/components/popups/AddChildPopup/AddChildPopup";
 
 function Parent(props) {
   const [deleteConfirmationPopupOpen, setDeleteConfirmationPopupOpen] =
     useState(false);
+
+    const [addChildPopupOpen, setAddChildPopupOpen] = useState(false);
+
 
   function alertError(message) {
     toast.error(message, {
@@ -31,7 +35,6 @@ function Parent(props) {
   }
 
   function deleteParent() {
-    console.log("Deleting parent");
     setDeleteConfirmationPopupOpen(true);
 
     fetch("/api/parents/deleteParent", {
@@ -79,6 +82,18 @@ function Parent(props) {
 
       <Toaster containerStyle={{ top: "50px" }} />
 
+      {addChildPopupOpen && (
+        <AddChildPopup
+      closePopup={() => {
+        setAddChildPopupOpen(false);
+      }
+      }
+      parentID={parentWork.parentID}
+      seriesID={seriesID}
+      />
+      )}
+     
+
       {deleteConfirmationPopupOpen && (
         <ConfirmationPopup
           open={deleteConfirmationPopupOpen}
@@ -110,6 +125,9 @@ function Parent(props) {
               />
 
               <AddIcon marginLeft=".5rem" 
+              onClick={() => {
+                setAddChildPopupOpen(true);
+              }}
               
               
               />

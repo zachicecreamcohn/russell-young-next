@@ -96,8 +96,6 @@ function SeriesPage() {
   const [childIDPopupOpen, setChildIDPopupOpen] = useState(false);
   useEffect(() => {
     if (window.location.href.includes("?childID=")) {
-      console.log("childID in URL");
-      console.log(window.location.href.split("?childID=")[1]);
       let childID = window.location.href.split("?childID=")[1];
       setChildIDInURL(childID);
       setChildIDPopupOpen(true);
@@ -150,12 +148,10 @@ function SeriesPage() {
 
   async function applyPreferences() {
     const preferences = await getPreferences();
-    console.log(preferences);
     let defaultSeriesList = [];
     for (let i = 0; i < preferences.defaultSeriesList.length; i++) {
       defaultSeriesList.push(preferences.defaultSeriesList[i].series);
     }
-    console.log(defaultSeriesList);
     setDefaultSeries(defaultSeriesList);
     setHideSoldOut(preferences.hideSoldOut);
     setAllCollapsed(preferences.startCollapsed);
