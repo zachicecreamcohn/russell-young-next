@@ -40,7 +40,6 @@ function Preview({ metaTags, seriesData }) {
               <div className={styles["info-container"]}>
                 <div className={styles.details}>
                   <h1 className={styles.title}>{localSeriesData.title}</h1>
-                  {/* <p className={styles["series-name"]}>{localSeriesData.series}</p> */}
                   <p className={styles.year}>{localSeriesData.year}</p>
                   <p className={styles.description}>
                     {localSeriesData.medium}
@@ -50,7 +49,6 @@ function Preview({ metaTags, seriesData }) {
                 <div>
                   <div className={styles.availability + styles["semi-available"]}>
                     <p className={styles.status}>
-                      {/* On Loan to <a>Zach's Gallery</a> */}
                     </p>
                   </div>
                   <div className={styles.buttons}>

@@ -26,7 +26,6 @@ function SeriesPage() {
   const [searchQuery, setSearchQuery] = useState({});
   const [sortOrder, setSortOrder] = useState("A → Z");
 
-
   useEffect(() => {
     checkLogin()
       .then((loggedIn) => {
@@ -64,7 +63,10 @@ function SeriesPage() {
           data.series_names = JSON.parse(localStorage.getItem("seriesInfo"));
         }
 
-        if (data.series_names === undefined || data.series_names?.length === 0) {
+        if (
+          data.series_names === undefined ||
+          data.series_names?.length === 0
+        ) {
           setSeriesList([]);
           setSeriesOptions([]);
           setSeriesInfo([]);
@@ -102,8 +104,6 @@ function SeriesPage() {
     }
   }, []);
 
-
-
   function toggleCollapseAll() {
     setAllCollapsed((prevValue) => !prevValue);
     if (!allCollapsed) {
@@ -129,7 +129,6 @@ function SeriesPage() {
     }
   }
 
-
   async function getPreferences() {
     const response = await fetch("/api/settings/preferences/getPreferences", {
       method: "GET",
@@ -144,14 +143,10 @@ function SeriesPage() {
       startCollapsed: data.preferences.series_start_collapsed,
       hideSoldOut: data.preferences.sold_out_start_hidden,
       defaultSeriesSortOrder: data.preferences.default_series_order, // TODO: implement this
-    }
+    };
 
     return preferences;
-
   }
-
-
-
 
   async function applyPreferences() {
     const preferences = await getPreferences();

@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./Child.module.css";
 import { useState, useEffect } from "react";
-import { Share, Link, ArrowForwardUp } from "tabler-icons-react";
+import { Link, ArrowForwardUp } from "tabler-icons-react";
 import toast, { Toaster } from "react-hot-toast";
 import shareContent from "@/common/util/Share";
 import CONFIG_VARS from "@/CONFIG_VARS";
 import Image from "@/common/util/Cloudflare/Image";
 import ChildWorkPopup from "../../../popups/ChildWorkPopup/ChildWorkPopup";
+import DeleteIcon from "@/components/_common/DeleteIcon/DeleteIcon";
 function Child(props) {
   function shareWork() {
     shareContent({
@@ -225,7 +226,10 @@ function Child(props) {
               {" "}
             </span>
           )}
+
+
         </div>
+        <DeleteIcon/>
         </div>
       </div>
 

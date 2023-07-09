@@ -28,10 +28,13 @@
 }
 .parent .parent-detail {
     /* font-style: italic; */
+    display: flex;
+    flex-direction: row;
     font-weight: normal;
     font-size: 1rem;
 
 }
+
 
 .parent .parent-title a {
     color: #000;

@@ -27,6 +27,13 @@
     font-size: 16pt !important;
 }
 
+.series .series-header .series-name {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
 .collapsed {
     display: none !important;
 }

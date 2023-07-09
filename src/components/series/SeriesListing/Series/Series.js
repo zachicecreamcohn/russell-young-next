@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./Series.module.css";
 import Parent from "../Parent/Parent";
 import { ChevronDown, ChevronRight } from "tabler-icons-react";
+import DeleteIcon from "@/components/_common/DeleteIcon/DeleteIcon";
+import AddIcon from "@/components/_common/AddIcon/AddIcon";
+
 function Series(props) {
 
 
@@ -61,6 +64,9 @@ function Series(props) {
         <div className={styles["series-header"] +" d-flex justify-content-between"}>
           <div className={styles["series-name"]}>
             <h3>{series}</h3>
+            <DeleteIcon/>
+
+<AddIcon marginLeft=".5rem"/>            
           </div>
           <div className={styles["collapse-icon"]}>
             {/* depending on the state of collapsed, show the appropriate icon */}

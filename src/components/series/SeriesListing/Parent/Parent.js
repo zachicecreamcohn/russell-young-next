@@ -3,6 +3,8 @@ import styles from "./Parent.module.css";
 import Child from "../Child/Child";
 import { useState, useEffect } from "react";
 import LazyLoad from "react-lazyload";
+import DeleteIcon from "@/components/_common/DeleteIcon/DeleteIcon";
+import AddIcon from "@/components/_common/AddIcon/AddIcon";
 
 function Parent(props) {
   const parentWork = props.parentWork;
@@ -27,6 +29,10 @@ function Parent(props) {
           <div className={styles["parent-header"] + " d-flex flex-column justify-content-start " + parentSpecificClass}>
             <p className={styles["parent-detail"]}>
               {parentWork.title.toUpperCase()}
+              <DeleteIcon/>
+
+              <AddIcon marginLeft=".5rem"/>
+
             </p>
             <p className={styles["parent-detail"]}>{parentWork.year}</p>
             <div className={styles["parent-medium"]}>

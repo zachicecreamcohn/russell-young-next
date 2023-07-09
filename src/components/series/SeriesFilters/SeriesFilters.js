@@ -6,16 +6,44 @@ import styles from "./SeriesFilters.module.css";
 // import material-ui
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
 import CustomToggle from "../../_common/CustomToggle/CustomToggle";
 import Search from "../Search/Search";
 
+// import base popup for testing
+import AddSeriesPopup from "../../popups/AddSeriesPopup/AddSeriesPopup";
+
 import { Plus } from "tabler-icons-react";
+import toast, { Toaster } from "react-hot-toast";
 
 function SeriesFilters(props) {
+
+
+  function alertError(message) {
+    toast.error(message, {
+        style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+        },
+        position: "top-center",
+    });
+}
+
+function alertSuccess(message) {
+    toast.success(message, {
+        style: {
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+        },
+        position: "top-center",
+    });
+}
+
+
+  // is new series dialog open?
+  const [newSeriesDialogOpen, setNewSeriesDialogOpen] = useState(false);
+
   // define a state variable to hold series to display as options
 
   const [seriesOptions, setSeriesOptions] = useState([]);
-  // const [defaultSeries, setDefaultSeries] = useState([props.defaultSeries]);
 
   // state var to hold start and end years as passed in from props
   const [startYear, setStartYear] = useState(props.startYear);
@@ -94,8 +122,28 @@ function SeriesFilters(props) {
             />
 
             <div className={`${styles["add-series-btn"]} d-flex justify-content-center align-center`}>
-              <Plus size={25} strokeWidth={1} />
+              <Plus size={25} strokeWidth={1} 
+              onClick={() => {
+                setNewSeriesDialogOpen(true);
+              }}
+              />
             </div>
+
+                {newSeriesDialogOpen && (
+                  <AddSeriesPopup
+                    closePopup={() => {
+                      setNewSeriesDialogOpen(false);
+                    }}
+                    alertError={alertError}
+                    alertSuccess={alertSuccess}
+                  />
+                )}
+
+
+
+
+            
+
           </div>
           <div className={`${styles["hide-sold-out"]} d-flex flex-row justify-content-start align-center`}>
             <span className={styles["hide-sold-out-text"]}>Hide Sold Out</span>
